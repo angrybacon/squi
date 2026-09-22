@@ -1,0 +1,14 @@
+## Author: Mathieu Marques
+## Interface: 120100
+## Notes: Personal interface addon, named after Squee because it rhymes
+## Title: Squi
+## Version: 0.1.0
+
+# Bootstrap
+Squi.lua
+
+# Commons
+Fonts.lua
+
+# Rest
+Defaults.lua

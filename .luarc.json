@@ -1,0 +1,17 @@
+{
+  "runtime": { "version": "Lua 5.1" },
+  "workspace": {
+    "checkThirdParty": false,
+    "library": [
+      "~/Workspace/vscode-wow-api/Annotations/Core/Blizzard_APIDocumentationGenerated",
+      "~/Workspace/vscode-wow-api/Annotations/Core/Data",
+      "~/Workspace/vscode-wow-api/Annotations/Core/FrameXML",
+      "~/Workspace/vscode-wow-api/Annotations/Core/Lua",
+      "~/Workspace/vscode-wow-api/Annotations/Core/ScriptObject",
+      "~/Workspace/vscode-wow-api/Annotations/Core/Type",
+      "~/Workspace/vscode-wow-api/Annotations/Core/Widget",
+      "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_ChatFrameBase",
+      "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_DeprecatedChatInfo"
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+#+TITLE: Squi
+#+AUTHOR: Mathieu Marques
+
+Personal World of Warcraft addon named after Squee, the goblin. It is not
+distributed: the repository is linked straight into my game files.
+
+* Installation
+
+The game loads addons from =<root>/<flavor>/Interface/AddOns=. Link the
+repository there instead of copying it. The link name must match the addon's
+=.toc= file name.
+
+#+BEGIN_SRC sh
+ROOT="$HOME/Games/battlenet/drive_c/Program Files (x86)/World of Warcraft"
+FLAVOR="_retail_"
+ln -s "$PWD" "$ROOT/$FLAVOR/Interface/AddOns/Squi"
+#+END_SRC
+
+Wine resolves symbolic links that point outside the prefix, so the repository
+can live anywhere on the host filesystem.
+
+* Retrieve the Current Interface Number
+
+#+BEGIN_SRC sh
+ROOT="$HOME/Games/battlenet/drive_c/Program Files (x86)/World of Warcraft"
+COLUMN='NR == 1 {
+  for (i = 1; i <= NF; i++) if ($i ~ /^Version!/) column = i
+  next
+}'
+NUMBER='{
+  split($column, version, ".")
+  print version[1] * 10000 + version[2] * 100 + version[3]
+}'
+awk -F '|' "$COLUMN $NUMBER" "$ROOT/.build.info"
+#+END_SRC
+
+* Fonts
+
+The Google Sans fonts in =fonts/= are not covered by this repository's license.
+See [[https://fonts.google.com/specimen/Google+Sans/license]].
