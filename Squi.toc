@@ -13,3 +13,4 @@ Fonts.lua
 # Rest
 Commands.lua
 Defaults.lua
+Interface.lua
