@@ -9,6 +9,12 @@ local FONT_RULES = {
   { pattern = "^Quest", font = FONT_QUEST },
 }
 
+local function ConfigureChat()
+  for index = 1, NUM_CHAT_WINDOWS do
+    FCF_SetWindowAlpha(_G["ChatFrame" .. index], 0.0, true)
+  end
+end
+
 local function ConfigureFonts()
   -- NOTE Chat font objects are unnamed so they can only be matched by identity
   for index = 1, NUM_CHAT_WINDOWS do
@@ -39,5 +45,6 @@ local function ConfigureFonts()
 end
 
 table.insert(S.Modules, function()
+  ConfigureChat()
   ConfigureFonts()
 end)
