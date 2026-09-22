@@ -11,4 +11,5 @@ Squi.lua
 Fonts.lua
 
 # Rest
+Commands.lua
 Defaults.lua
