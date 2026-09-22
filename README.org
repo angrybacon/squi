@@ -2,7 +2,8 @@
 #+AUTHOR: Mathieu Marques
 
 Personal World of Warcraft addon named after Squee, the goblin. It is not
-distributed: the repository is linked straight into my game files.
+distributed: the repository is linked straight into my game files. Tested on my
+machine and my machine only, adjust your expectations.
 
 * Installation
 
