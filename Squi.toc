@@ -5,12 +5,13 @@
 ## Version: 0.1.0
 
 # Bootstrap
-Squi.lua
+modules/Main.lua
 
 # Commons
-Fonts.lua
+modules/Fonts.lua
 
 # Rest
-Commands.lua
-Defaults.lua
-Interface.lua
+modules/Commands.lua
+modules/Defaults.lua
+modules/Interface.lua
+modules/Menus.lua

@@ -11,7 +11,8 @@
       "~/Workspace/vscode-wow-api/Annotations/Core/Type",
       "~/Workspace/vscode-wow-api/Annotations/Core/Widget",
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_ChatFrameBase",
-      "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_DeprecatedChatInfo"
+      "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_DeprecatedChatInfo",
+      "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_GameMenu"
     ]
   }
 }
