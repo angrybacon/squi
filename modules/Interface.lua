@@ -1,50 +1,64 @@
 ---@type string, Squi
 local _, S = ...
 
-local FONT_CHAT = S.Fonts.SansRegular
-local FONT_QUEST = S.Fonts.HandwritingRegular
+---@class FontRule
+---@field font? string
+---@field object? table
+---@field outline? boolean
+---@field pattern? string
+---@field size? number
 
----@type { font: string, object?: table, pattern?: string }[]
+---@type FontRule[]
 local FONT_RULES = {
-  { pattern = "^Quest", font = FONT_QUEST },
+  { font = S.Fonts.HandwritingRegular, pattern = "^Quest", size = 16 },
 }
 
+-- NOTE Chat font objects are unnamed so they can only be matched by identity
 local function ConfigureChat()
   for index = 1, NUM_CHAT_WINDOWS do
-    FCF_SetWindowAlpha(_G["ChatFrame" .. index], 0.0, true)
+    local frame = _G["ChatFrame" .. index]
+    local size = 14
+    -- NOTE Synchronize the in-game setting
+    FCF_SetChatWindowFontSize(nil, frame, size)
+    FCF_SetWindowAlpha(frame, 0.0, true)
+    table.insert(FONT_RULES, 1, {
+      font = S.Fonts.SansRegular,
+      object = frame:GetFontObject(),
+      outline = true,
+      size = size,
+    })
   end
 end
 
-local function ConfigureFonts()
-  -- NOTE Chat font objects are unnamed so they can only be matched by identity
-  for index = 1, NUM_CHAT_WINDOWS do
-    local object = _G["ChatFrame" .. index]:GetFontObject()
-    table.insert(FONT_RULES, 1, { object = object, font = FONT_CHAT })
-  end
+local function Apply()
   for name, object in pairs(_G) do
     if
       type(object) == "table"
-        and object.GetObjectType
         and not (object.IsForbidden and object:IsForbidden())
+        and object.GetObjectType
         and object:GetObjectType() == "Font"
         and object:GetFont()
     then
-      local font = S.Fonts.SansRegular
+      local match
       for _, rule in ipairs(FONT_RULES) do
         if
           (rule.pattern and name:find(rule.pattern))
             or object == rule.object
         then
-          font = rule.font
+          match = rule
           break
         end
       end
-      S.Fonts.Set(object, font)
+      S.Fonts.Set(object, {
+        font = not match and S.Fonts.SansRegular or match.font,
+        outline = match and match.outline,
+        size = match and match.size,
+      })
     end
   end
 end
 
 table.insert(S.Modules, function()
   ConfigureChat()
-  ConfigureFonts()
+  Apply()
 end)

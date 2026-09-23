@@ -11,14 +11,19 @@ local Fonts = {
 
   SansRegular = DIRECTORY .. "GoogleSans-Regular.ttf",
 
-  ---Swap the face but keep the default size, and the flags unless outlined
+  ---Customize the provided region with options
   ---@param region table
-  ---@param font string
-  ---@param options? { outline?: boolean }
-  Set = function(region, font, options)
-    local _, size, flags = region:GetFont()
+  ---@param options? { font?: string, outline?: boolean, size?: number }
+  Set = function(region, options)
+    local font, size, flags = region:GetFont()
+    if options and options.font ~= nil then
+      font = options.font
+    end
     if options and options.outline ~= nil then
       flags = options.outline and "OUTLINE" or ""
+    end
+    if options and options.size ~= nil then
+      size = options.size
     end
     region:SetFont(font, size, flags)
   end,
