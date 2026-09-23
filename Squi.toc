@@ -5,13 +5,12 @@
 ## Version: 0.1.0
 
 # Bootstrap
-modules/Main.lua
-
-# Commons
 modules/Fonts.lua
+modules/Main.lua
 
 # Rest
 modules/Commands.lua
 modules/Defaults.lua
+modules/Hud.lua
 modules/Interface.lua
 modules/Menus.lua
