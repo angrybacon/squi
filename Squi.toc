@@ -14,3 +14,4 @@ modules/Defaults.lua
 modules/Hud.lua
 modules/Interface.lua
 modules/Menus.lua
+modules/Nameplates.lua
