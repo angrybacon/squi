@@ -16,6 +16,5 @@ events:SetScript("OnEvent", function()
   local start = debugprofilestop()
   for _, module in ipairs(S.Modules) do module() end
   local elapsed = debugprofilestop() - start
-  local name = GOLD_FONT_COLOR:WrapTextInColorCode(NAME)
-  print(name .. format(" loaded in %.1f ms", elapsed))
+  print(NAME .. format(" loaded in %.1f ms", elapsed))
 end)

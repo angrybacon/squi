@@ -80,6 +80,7 @@ table.insert(S.Modules, function()
   SetCVar("UnitNameInteractiveNPC", "1")
   SetCVar("UnitNameNPC", "0")
   SetCVar("UnitNameOwn", "0")
+  SetCVar("nameplateShowSelf", "0")
 
   -- NOTE Customize the plates with a bar that we do want to see.
   --      We also need to enable those that are handled in `ConfigureNames`
