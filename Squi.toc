@@ -5,6 +5,7 @@
 ## Version: 0.1.0
 
 # Bootstrap
+modules/Commons.lua
 modules/Fonts.lua
 modules/Main.lua
 

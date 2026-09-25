@@ -1,12 +1,6 @@
 ---@type string, Squi
 local _, S = ...
 
----@param region table
-local function Hide(region)
-  region:Hide()
-  if region.HookScript then region:HookScript("OnShow", region.Hide) end
-end
-
 local function ConfigureBars()
   -- NOTE The annotated `alwaysShow` 8th parameter is unused by Blizzard
   SetActionBarToggles(true, false, false, false, false, false, false)
@@ -19,25 +13,25 @@ local function ConfigureBars()
     MainActionBar.VerticalDividersPool:ReleaseAll()
   end
 
-  Hide(MainActionBar.ActionBarPageNumber)
-  Hide(MainActionBar.BorderArt)
-  Hide(MainActionBar.EndCaps)
+  S.Commons.Hide(MainActionBar.ActionBarPageNumber)
+  S.Commons.Hide(MainActionBar.BorderArt)
+  S.Commons.Hide(MainActionBar.EndCaps)
 
   for _, bar in ipairs({ MainActionBar, MultiBarBottomLeft }) do
     for _, button in ipairs(bar.actionButtons) do
-      Hide(button:GetNormalTexture())
-      Hide(button.SlotArt)
-      Hide(button.SlotBackground)
+      S.Commons.Hide(button:GetNormalTexture())
+      S.Commons.Hide(button.SlotArt)
+      S.Commons.Hide(button.SlotBackground)
     end
   end
 end
 
 table.insert(S.Modules, function()
   ConfigureBars()
-  Hide(BagsBar)
-  Hide(ChatFrameChannelButton)
-  Hide(ChatFrameMenuButton)
-  Hide(MainStatusTrackingBarContainer)
-  Hide(MicroMenuContainer)
-  Hide(QuickJoinToastButton)
+  S.Commons.Hide(BagsBar)
+  S.Commons.Hide(ChatFrameChannelButton)
+  S.Commons.Hide(ChatFrameMenuButton)
+  S.Commons.Hide(MainStatusTrackingBarContainer)
+  S.Commons.Hide(MicroMenuContainer)
+  S.Commons.Hide(QuickJoinToastButton)
 end)

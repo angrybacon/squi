@@ -1,6 +1,9 @@
 ---@type string, Squi
 local _, S = ...
 
+local FONT_SIZE_NPC = 12
+local FONT_SIZE_PLAYER = 16
+
 local function ConfigureNames()
   hooksecurefunc(NamePlateUnitFrameMixin, "ApplyFrameOptions", function(self)
     if self._SquiHooked then return end
@@ -26,18 +29,18 @@ local function ConfigureNames()
       self:ClearAllPoints()
       self:SetParent(nil)
 
-      -- NOTE We parent our replacement text to the root frame that remains
-      --      after the above detach.
+      -- NOTE We parent our replacement text to the root frame that stays around
+      --      regardless of whether `self` gets detached above.
       local base = self.namePlateFrame
       if not base._SquiName then
         base._SquiName = base:CreateFontString(nil, "OVERLAY")
         base._SquiName:SetPoint("CENTER", base, "CENTER", 0, 0)
+        S.Fonts.Set(base._SquiName, {
+          font = S.Fonts.HandwritingRegular,
+          outline = true,
+          size = FONT_SIZE_NPC,
+        })
       end
-      S.Fonts.Set(base._SquiName, {
-        font = S.Fonts.HandwritingRegular,
-        size = 16,
-        outline = true,
-      })
 
       -- NOTE The original `self.name` text still reflects the original CVars
       --      even though it's detached and hidden, and is empty for
@@ -59,9 +62,11 @@ local function ConfigureNames()
           base._SquiName:SetText("")
         elseif UnitIsPlayer(unit) then
           local _, class = UnitClass(unit)
+          S.Fonts.Set(base._SquiName, { size = FONT_SIZE_PLAYER })
           base._SquiName:SetTextColor(C_ClassColor.GetClassColor(class):GetRGB())
           base._SquiName:SetText(name)
         else
+          S.Fonts.Set(base._SquiName, { size = FONT_SIZE_NPC })
           base._SquiName:SetTextColor(GOLD_FONT_COLOR:GetRGB())
           base._SquiName:SetText(name)
         end

@@ -1,6 +1,7 @@
 ---@class Squi
----@field Modules fun()[]
+---@field Commons Commons
 ---@field Fonts Fonts
+---@field Modules fun()[]
 
 ---@type string, Squi
 local NAME, S = ...
