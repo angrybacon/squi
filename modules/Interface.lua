@@ -14,7 +14,7 @@ local FONT_RULES = {
 }
 
 -- NOTE Chat font objects are unnamed so they can only be matched by identity
-local function ConfigureChat()
+local function RegisterChatTabs()
   for index = 1, NUM_CHAT_WINDOWS do
     local frame = _G["ChatFrame" .. index]
     local size = 14
@@ -59,6 +59,6 @@ local function Apply()
 end
 
 table.insert(S.Modules, function()
-  ConfigureChat()
+  RegisterChatTabs()
   Apply()
 end)

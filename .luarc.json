@@ -11,12 +11,14 @@
       "~/Workspace/vscode-wow-api/Annotations/Core/Type",
       "~/Workspace/vscode-wow-api/Annotations/Core/Widget",
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_ActionBar",
+      "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_ChatFrame",
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_ChatFrameBase",
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_DeprecatedChatInfo",
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_GameMenu",
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_MainMenuBarBagButtons",
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_MicroMenu",
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_NamePlates",
+      "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_QuickJoin",
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_UnitFrame"
     ]
   }
