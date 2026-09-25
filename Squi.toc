@@ -12,6 +12,6 @@ modules/Main.lua
 modules/Commands.lua
 modules/Defaults.lua
 modules/Hud.lua
-modules/Interface.lua
 modules/Menus.lua
 modules/Nameplates.lua
+modules/Typography.lua
