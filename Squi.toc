@@ -10,6 +10,7 @@ modules/Fonts.lua
 modules/Main.lua
 
 # Rest
+modules/Auras.lua
 modules/Commands.lua
 modules/Defaults.lua
 modules/Hud.lua
