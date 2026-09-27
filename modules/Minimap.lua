@@ -11,25 +11,14 @@ local function ResetTracking(...)
   end
 end
 
-local function SetMinimap()
-  S.Commons.Hide(GameTimeFrame)
-  S.Commons.Hide(Minimap.ZoomIn)
-  S.Commons.Hide(Minimap.ZoomOut)
-  S.Commons.Hide(MinimapCluster.BorderTop)
-  S.Commons.Hide(MinimapCluster.Tracking)
-  S.Commons.Hide(MinimapCluster.ZoneTextButton)
-  S.Commons.Hide(MinimapZoneText)
-  S.Commons.Hide(TimeManagerClockButton)
-end
-
-local function SetMinimapPosition()
-  local margin = 10
+local function ConfigurePosition()
+  local margin = 20
   MinimapCluster:ClearAllPoints()
   MinimapCluster:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin, margin)
   MinimapCluster.MinimapContainer:SetPoint("TOP", MinimapCluster, "TOP", 0, 0)
 end
 
-local function SetMinimapSize()
+local function ConfigureSize()
   local width, height = MinimapCluster.MinimapContainer.Minimap:GetSize()
   MinimapCluster:SetHeight(height)
   MinimapCluster:SetWidth(width)
@@ -41,8 +30,15 @@ end
 
 table.insert(S.Modules, function()
   SetCVar("rotateMinimap", "1")
-  SetMinimap()
-  SetMinimapPosition()
-  SetMinimapSize()
+  S.Commons.Hide(GameTimeFrame)
+  S.Commons.Hide(Minimap.ZoomIn)
+  S.Commons.Hide(Minimap.ZoomOut)
+  S.Commons.Hide(MinimapCluster.BorderTop)
+  S.Commons.Hide(MinimapCluster.Tracking)
+  S.Commons.Hide(MinimapCluster.ZoneTextButton)
+  S.Commons.Hide(MinimapZoneText)
+  S.Commons.Hide(TimeManagerClockButton)
+  ConfigurePosition()
+  ConfigureSize()
   ResetTracking("Low-Level Quests", "Track Pets", "Transmogrifier")
 end)

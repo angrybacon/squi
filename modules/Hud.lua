@@ -27,11 +27,9 @@ local function ConfigureBars()
 end
 
 table.insert(S.Modules, function()
-  ConfigureBars()
   S.Commons.Hide(BagsBar)
-  S.Commons.Hide(ChatFrameChannelButton)
-  S.Commons.Hide(ChatFrameMenuButton)
   S.Commons.Hide(MainStatusTrackingBarContainer)
   S.Commons.Hide(MicroMenuContainer)
   S.Commons.Hide(QuickJoinToastButton)
+  ConfigureBars()
 end)

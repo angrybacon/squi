@@ -11,10 +11,10 @@ modules/Main.lua
 
 # Rest
 modules/Auras.lua
+modules/Chat.lua
 modules/Commands.lua
 modules/Defaults.lua
 modules/Hud.lua
 modules/Menus.lua
 modules/Minimap.lua
 modules/Nameplates.lua
-modules/Typography.lua

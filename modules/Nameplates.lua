@@ -23,8 +23,6 @@ local function ConfigureFriendlyNames()
 end
 
 table.insert(S.Modules, function()
-  ConfigureFriendlyNames()
-
   SetCVar("UnitNameFriendlyPlayerName", "1")
   SetCVar("UnitNameFriendlySpecialNPCName", "1")
   SetCVar("UnitNameInteractiveNPC", "1")
@@ -48,4 +46,6 @@ table.insert(S.Modules, function()
   }) do
     C_CVar.SetCVarBitfield("nameplateSimplifiedTypes", index, false)
   end
+
+  ConfigureFriendlyNames()
 end)
