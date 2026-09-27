@@ -1,27 +1,11 @@
 ---@type string, Squi
 local _, S = ...
 
-local function Darken(color, amount)
-  return CreateColor(
-    color.r * (1 - amount),
-    color.g * (1 - amount),
-    color.b * (1 - amount)
-  )
-end
-
-local function Lighten(color, amount)
-  return CreateColor(
-    color.r + (1 - color.r) * amount,
-    color.g + (1 - color.g) * amount,
-    color.b + (1 - color.b) * amount
-  )
-end
-
-local BACKGROUND = CreateColor(0.13, 0.13, 0.15)
-local BACKGROUND_DISABLED = Darken(BACKGROUND, 0.3)
-local BACKGROUND_HOVER = Lighten(BACKGROUND, 0.1)
-local BACKGROUND_PUSHED = Darken(BACKGROUND, 0.3)
-local TEXT_DISABLED = CreateColor(0.2, 0.2, 0.2)
+local BACKGROUND = S.Colors.Background
+local BACKGROUND_DISABLED = S.Colors.BackgroundDisabled
+local BACKGROUND_HOVER = S.Colors.BackgroundHover
+local BACKGROUND_PUSHED = S.Colors.BackgroundPushed
+local TEXT_DISABLED = S.Colors.TextDisabled
 local SPACING = 2
 local TEXTURE = [[Interface\Buttons\WHITE8x8]]
 
@@ -40,7 +24,7 @@ local function SkinButton(b)
     local text = b:GetFontString()
     if text then
       local original = CreateColor(text:GetTextColor())
-      local pushed = Darken(original, 0.4)
+      local pushed = S.Colors.Darken(original, 0.4)
       b:HookScript(
         "OnDisable",
         function() text:SetTextColor(TEXT_DISABLED:GetRGB()) end

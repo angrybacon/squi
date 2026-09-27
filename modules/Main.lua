@@ -1,4 +1,5 @@
 ---@class Squi
+---@field Colors Colors
 ---@field Commons Commons
 ---@field Fonts Fonts
 ---@field Modules fun()[]

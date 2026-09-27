@@ -1,3 +1,12 @@
+# Design Intent
+
+Reproducibility: two users running Squi, regardless of any hand-made
+customization they've already done in-game, should end up with identical
+results. Never read back or preserve existing account, CVar, API state to decide
+what value to set. Always pass an explicit, hardcoded value, even when that
+value is `nil` or a no-op, so the outcome never depends on what a user already
+had.
+
 # Game Directory
 
 World of Warcraft is installed at `~/Games/battlenet/drive_c/Program Files

@@ -5,12 +5,14 @@
 ## Version: 0.1.0
 
 # Bootstrap
+modules/Colors.lua
 modules/Commons.lua
 modules/Fonts.lua
 modules/Main.lua
 
 # Rest
 modules/Auras.lua
+modules/Bars.lua
 modules/Chat.lua
 modules/Commands.lua
 modules/Defaults.lua
