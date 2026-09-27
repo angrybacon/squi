@@ -18,3 +18,4 @@ modules/Hud.lua
 modules/Menus.lua
 modules/Minimap.lua
 modules/Nameplates.lua
+modules/Tooltips.lua
