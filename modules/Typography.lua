@@ -10,7 +10,7 @@ local _, S = ...
 
 ---@type FontRule[]
 local FONT_RULES = {
-  { font = S.Fonts.HandwritingRegular, pattern = "^Quest", size = 16 },
+  { font = S.Fonts.BlackletterRegular, pattern = "^Quest", size = 16 },
 }
 
 -- NOTE Chat font objects are unnamed so they can only be matched by identity

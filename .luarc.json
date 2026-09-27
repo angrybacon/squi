@@ -11,6 +11,7 @@
       "~/Workspace/vscode-wow-api/Annotations/Core/Type",
       "~/Workspace/vscode-wow-api/Annotations/Core/Widget",
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_ActionBar",
+      "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_BuffFrame",
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_ChatFrame",
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_ChatFrameBase",
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_DeprecatedChatInfo",

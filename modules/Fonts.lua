@@ -5,6 +5,8 @@ local DIRECTORY = [[Interface\AddOns\Squi\fonts\]]
 
 ---@class Fonts
 local Fonts = {
+  BlackletterRegular = DIRECTORY .. "GermaniaOne-Regular.ttf",
+
   HandwritingRegular = DIRECTORY .. "PermanentMarker-Regular.ttf",
 
   SansBold = DIRECTORY .. "GoogleSans-Bold.ttf",

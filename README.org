@@ -39,3 +39,11 @@ awk -F '|' "$COLUMN $NUMBER" "$ROOT/.build.info"
 
 The Google Sans fonts in =fonts/= are not covered by this repository's license.
 See [[https://fonts.google.com/specimen/Google+Sans/license]].
+
+* Typings
+
+The project currently assumes [[https://github.com/Ketho/vscode-wow-api]] is
+installed nearby. See =.luarc.json=.
+
+We probably should look into [[https://github.com/TradeSkillMaster/wowlua-ls]]
+instead.
