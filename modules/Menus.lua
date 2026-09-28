@@ -24,7 +24,7 @@ local function SkinButton(b)
     local text = b:GetFontString()
     if text then
       local original = CreateColor(text:GetTextColor())
-      local pushed = S.Colors.Darken(original, 0.4)
+      local pushed = S.Colors.Darken(original, .4)
       b:HookScript(
         "OnDisable",
         function() text:SetTextColor(TEXT_DISABLED:GetRGB()) end

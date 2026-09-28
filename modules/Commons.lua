@@ -15,8 +15,9 @@ local Commons = {
 
   ---Draw a solid outline inward, overlaid on top of the region's own edges
   ---@param region table
-  ---@param thickness "thin" | "thick"
+  ---@param thickness "thick" | "thin"
   ---@param color colorRGBA
+  ---@return table edges
   Outline = function(region, thickness, color)
     local function CreateEdge()
       local texture = region:CreateTexture(nil, "OVERLAY")
@@ -40,6 +41,7 @@ local Commons = {
     top:SetPoint("TOPLEFT", region, "TOPLEFT", 0, 0)
     top:SetPoint("TOPRIGHT", region, "TOPRIGHT", 0, 0)
     top:SetHeight(size)
+    return { top, right, bottom, left }
   end,
 }
 

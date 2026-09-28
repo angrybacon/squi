@@ -1,10 +1,10 @@
 ---@type string, Squi
 local _, S = ...
 
-local SCALE = 0.8
+local SCALE = .8
 local VOLUME_HIGH = 1.0
-local VOLUME_LOW = 0.1
-local VOLUME_MEDIUM = 0.5
+local VOLUME_LOW = .1
+local VOLUME_MEDIUM = .5
 
 table.insert(S.Modules, function()
   SetCVar("RenderScale", 1.0)

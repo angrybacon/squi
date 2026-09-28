@@ -25,7 +25,7 @@ local function ConfigureGeometry()
       S.Commons.Hide(button:GetHighlightTexture())
       S.Commons.Hide(button:GetNormalTexture())
       if button.icon then
-        local offset = 0.08
+        local offset = .08
         button.icon:SetTexCoord(offset, 1 - offset, offset, 1 - offset)
       end
       S.Commons.Outline(button, "thin", S.Colors.Outline)
