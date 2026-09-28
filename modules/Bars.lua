@@ -3,33 +3,6 @@ local _, S = ...
 
 local ICON_PADDING = 2
 
----Drawn inward, overlaid on top of the button's own edges
----@param button table
-local function CreateOutline(button)
-  local function CreateEdge()
-    local texture = button:CreateTexture(nil, "OVERLAY")
-    texture:SetColorTexture(S.Colors.Outline:GetRGBA())
-    return texture
-  end
-  local size = 1
-  local bottom = CreateEdge()
-  bottom:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", 0, 0)
-  bottom:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 0, 0)
-  bottom:SetHeight(size)
-  local left = CreateEdge()
-  left:SetPoint("TOPLEFT", button, "TOPLEFT", 0, 0)
-  left:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", 0, 0)
-  left:SetWidth(size)
-  local right = CreateEdge()
-  right:SetPoint("TOPRIGHT", button, "TOPRIGHT", 0, 0)
-  right:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 0, 0)
-  right:SetWidth(size)
-  local top = CreateEdge()
-  top:SetPoint("TOPLEFT", button, "TOPLEFT", 0, 0)
-  top:SetPoint("TOPRIGHT", button, "TOPRIGHT", 0, 0)
-  top:SetHeight(size)
-end
-
 local function ConfigureGeometry()
   -- NOTE Dividers are pooled and rebuilt on every bar refresh, releasing them
   --      once is not enough, the flag stops future ones from being created too.
@@ -55,7 +28,7 @@ local function ConfigureGeometry()
         local offset = 0.08
         button.icon:SetTexCoord(offset, 1 - offset, offset, 1 - offset)
       end
-      CreateOutline(button)
+      S.Commons.Outline(button, "thin", S.Colors.Outline)
     end
   end
 end
