@@ -23,8 +23,18 @@ local function ConfigurePosition()
   end)
 end
 
+local function ConfigureUnitColor()
+  TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, function(tooltip)
+    local _, unit = tooltip:GetUnit()
+    if not unit or not UnitIsPlayer(unit) then return end
+    local _, class = UnitClass(unit)
+    GameTooltipTextLeft1:SetTextColor(C_ClassColor.GetClassColor(class):GetRGB())
+  end)
+end
+
 table.insert(S.Modules, function()
   S.Commons.Hide(GameTooltip.StatusBar)
   ConfigureFont()
   ConfigurePosition()
+  ConfigureUnitColor()
 end)
