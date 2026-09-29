@@ -4,18 +4,6 @@ local _, S = ...
 local ICON_PADDING = 2
 
 local function ConfigureGeometry()
-  -- NOTE Dividers are pooled and rebuilt on every bar refresh, releasing them
-  --      once is not enough, the flag stops future ones from being created too.
-  MainActionBar.enableDividers = false
-  if MainActionBar.HorizontalDividersPool then
-    MainActionBar.HorizontalDividersPool:ReleaseAll()
-    MainActionBar.VerticalDividersPool:ReleaseAll()
-  end
-
-  S.Commons.Hide(MainActionBar.ActionBarPageNumber)
-  S.Commons.Hide(MainActionBar.BorderArt)
-  S.Commons.Hide(MainActionBar.EndCaps)
-
   for _, bar in ipairs({ MainActionBar, MultiBarBottomLeft }) do
     for _, button in ipairs(bar.actionButtons) do
       S.Commons.Hide(button.Border)
@@ -45,6 +33,11 @@ end
 
 local function ConfigureVisibility()
   SetActionBarToggles(true, false, false, false, false, false, false, "")
+  S.Commons.Hide(MainActionBar.EndCaps)
+  S.Commons.Hide(MainActionBar.ActionBarPageNumber)
+  S.Commons.Hide(MainActionBar.BorderArt)
+  MainActionBar.enableDividers = false
+  MainActionBar.HorizontalDividersPool:ReleaseAll()
 end
 
 local function ConfigureSize()

@@ -1,16 +1,6 @@
 ---@type string, Squi
 local _, S = ...
 
----Enable every tracking kind except the ones listed
----@param ... string
-local function ResetTracking(...)
-  local exceptions = tInvert({ ... })
-  for index = 1, C_Minimap.GetNumTrackingTypes() do
-    local name = C_Minimap.GetTrackingInfo(index).name
-    C_Minimap.SetTracking(index, not exceptions[name])
-  end
-end
-
 local function ConfigurePosition()
   local margin = 20
   MinimapCluster:ClearAllPoints()
@@ -28,6 +18,20 @@ local function ConfigureSize()
   MinimapBackdrop:SetWidth(width)
 end
 
+---Enable every tracking kind except the ones listed
+---@param ... string
+local function ConfigureTracking(...)
+  local exceptions = tInvert({ ... })
+  for index = 1, C_Minimap.GetNumTrackingTypes() do
+    local name = C_Minimap.GetTrackingInfo(index).name
+    C_Minimap.SetTracking(index, not exceptions[name])
+  end
+end
+
+local function ConfigureZoom()
+  Minimap:SetZoom(Minimap:GetZoomLevels() - 1)
+end
+
 table.insert(S.Modules, function()
   SetCVar("rotateMinimap", "1")
   S.Commons.Hide(GameTimeFrame)
@@ -40,5 +44,6 @@ table.insert(S.Modules, function()
   S.Commons.Hide(TimeManagerClockButton)
   ConfigurePosition()
   ConfigureSize()
-  ResetTracking("Low-Level Quests", "Track Pets", "Transmogrifier")
+  ConfigureTracking("Low-Level Quests", "Track Pets", "Transmogrifier")
+  ConfigureZoom()
 end)

@@ -4,7 +4,7 @@ local _, S = ...
 local BACKGROUND = S.Colors.Background
 local BACKGROUND_ALPHA = .9
 local FONT_FACE = S.Fonts.SansRegular
-local FONT_SIZE = 14
+local FONT_SIZE = 12
 local OFFSET = 20
 
 local function ConfigureBackground()
