@@ -17,6 +17,7 @@ modules/Chat.lua
 modules/Commands.lua
 modules/Defaults.lua
 modules/Hud.lua
+modules/Keybindings.lua
 modules/Minimap.lua
 modules/Nameplates.lua
 modules/Tooltips.lua
