@@ -23,6 +23,7 @@ local function ConfigureFriendlyNames()
 end
 
 table.insert(S.Modules, function()
+  SetCVar("UnitNameFriendlyGuardianName", "0")
   SetCVar("UnitNameFriendlyPetName", "0")
   SetCVar("UnitNameFriendlyPlayerName", "1")
   SetCVar("UnitNameFriendlySpecialNPCName", "1")
