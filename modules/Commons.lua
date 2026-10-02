@@ -43,6 +43,33 @@ local Commons = {
     top:SetHeight(size)
     return { top, right, bottom, left }
   end,
+
+  -- NOTE Calling `SetPoint` or `ClearAllPoints` on a frame managed by edit mode
+  --      taints `EditModeManagerFrame`, and that taint can later surface as
+  --      unrelated secret-value errors on any other system. We wrap them and
+  --      call those instead to bypass the taint entirely.
+  ---@param frame table
+  ---@param point string
+  ---@param anchor table
+  ---@param origin string
+  ---@param x number
+  ---@param y number
+  SetPoint = function(frame, point, anchor, origin, x, y)
+    local clear = frame.ClearAllPointsBase or frame.ClearAllPoints
+    local set = frame.SetPointBase or frame.SetPoint
+    local function Apply()
+      clear(frame)
+      set(frame, point, anchor, origin, x, y)
+    end
+    Apply()
+    if frame.ApplySystemAnchor then
+      hooksecurefunc(frame, "ApplySystemAnchor", Apply)
+    end
+    if EditModeManagerFrame then
+      hooksecurefunc(EditModeManagerFrame, "UpdateBottomActionBarPositions", Apply)
+      hooksecurefunc(EditModeManagerFrame, "UpdateRightActionBarPositions", Apply)
+    end
+  end,
 }
 
 S.Commons = Commons

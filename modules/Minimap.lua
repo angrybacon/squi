@@ -3,8 +3,7 @@ local _, S = ...
 
 local function ConfigurePosition()
   local margin = 20
-  MinimapCluster:ClearAllPoints()
-  MinimapCluster:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin, margin)
+  S.Commons.SetPoint(MinimapCluster, "BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin, margin)
   MinimapCluster.MinimapContainer:SetPoint("TOP", MinimapCluster, "TOP", 0, 0)
 end
 
