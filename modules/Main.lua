@@ -16,6 +16,7 @@ events:RegisterEvent("PLAYER_LOGIN")
 
 events:SetScript("OnEvent", function()
   local start = debugprofilestop()
+  S.Commons.EnsureLayout()
   for _, module in ipairs(S.Modules) do module() end
   local elapsed = debugprofilestop() - start
   print(NAME .. format(" loaded in %.0f ms", elapsed))

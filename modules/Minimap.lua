@@ -1,9 +1,20 @@
 ---@type string, Squi
 local _, S = ...
 
+local MARGIN = 20
+
 local function ConfigurePosition()
-  local margin = 20
-  S.Commons.SetPoint(MinimapCluster, "BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin, margin)
+  S.Commons.ConfigureLayout({
+    [Enum.EditModeSystem.Minimap] = {
+      anchor = {
+        anchor = "BOTTOMRIGHT",
+        anchored = "BOTTOMRIGHT",
+        on = "UIParent",
+        x = -MARGIN,
+        y = MARGIN,
+      },
+    },
+  })
   MinimapCluster.MinimapContainer:SetPoint("TOP", MinimapCluster, "TOP", 0, 0)
 end
 

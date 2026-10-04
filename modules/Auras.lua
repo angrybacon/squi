@@ -5,8 +5,28 @@ local MARGIN = 20
 
 local function ConfigurePosition()
   local offset = BuffFrame.CollapseAndExpandButton:GetWidth()
-  S.Commons.SetPoint(BuffFrame, "TOPRIGHT", UIParent, "TOPRIGHT", offset - MARGIN, -MARGIN)
-  S.Commons.SetPoint(DebuffFrame, "TOPRIGHT", BuffFrame, "BOTTOMRIGHT", -MARGIN, -MARGIN)
+  S.Commons.ConfigureLayout({
+    [Enum.EditModeSystem.AuraFrame] = {
+      [Enum.EditModeAuraFrameSystemIndices.BuffFrame] = {
+        anchor = {
+          anchor = "TOPRIGHT",
+          anchored = "TOPRIGHT",
+          on = "UIParent",
+          x = offset - MARGIN,
+          y = -MARGIN,
+        },
+      },
+      [Enum.EditModeAuraFrameSystemIndices.DebuffFrame] = {
+        anchor = {
+          anchor = "BOTTOMRIGHT",
+          anchored = "TOPRIGHT",
+          on = "BuffFrame",
+          x = -MARGIN,
+          y = -MARGIN,
+        },
+      },
+    },
+  })
 end
 
 table.insert(S.Modules, function()

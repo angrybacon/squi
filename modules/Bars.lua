@@ -1,11 +1,41 @@
 ---@type string, Squi
 local _, S = ...
 
+local MARGIN = 20
+local GAP = 2
+
 local function ConfigurePosition()
-  local margin = 20
-  local gap = 2
-  S.Commons.SetPoint(MainActionBar, "BOTTOM", UIParent, "BOTTOM", 0, margin)
-  S.Commons.SetPoint(MultiBarBottomLeft, "BOTTOM", MainActionBar, "TOP", 0, gap)
+  S.Commons.ConfigureLayout({
+    [Enum.EditModeSystem.ActionBar] = {
+      [Enum.EditModeActionBarSystemIndices.MainBar] = {
+        anchor = {
+          anchor = "BOTTOM",
+          anchored = "BOTTOM",
+          on = "UIParent",
+          x = 0,
+          y = MARGIN,
+        },
+      },
+      [Enum.EditModeActionBarSystemIndices.Bar2] = {
+        anchor = {
+          anchor = "TOP",
+          anchored = "BOTTOM",
+          on = "MainActionBar",
+          x = 0,
+          y = GAP,
+        },
+      },
+      [Enum.EditModeActionBarSystemIndices.PetActionBar] = {
+        anchor = {
+          anchor = "TOPLEFT",
+          anchored = "BOTTOMLEFT",
+          on = "MultiBarBottomLeft",
+          x = 0,
+          y = GAP,
+        },
+      },
+    },
+  })
 end
 
 local function ConfigureVisibility()
