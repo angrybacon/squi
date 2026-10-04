@@ -7,28 +7,36 @@ local FONT_FACE = S.Fonts.SansRegular
 local FONT_SIZE = 12
 local OFFSET = 20
 
-local function ConfigureBackground()
-  local background = GameTooltip:CreateTexture(nil, "BACKGROUND")
-  background:SetAllPoints(GameTooltip)
-  background:SetColorTexture(BACKGROUND:GetRGB())
-  background:SetAlpha(BACKGROUND_ALPHA)
-  -- NOTE Prevent leakage into other reused tooltips
-  GameTooltip:HookScript("OnTooltipCleared", function()
+---@param tooltips GameTooltip[]
+local function ConfigureBackground(tooltips)
+  for _, tooltip in ipairs(tooltips) do
+    local background = tooltip:CreateTexture(nil, "BACKGROUND")
+    background:SetAllPoints(tooltip)
     background:SetColorTexture(BACKGROUND:GetRGB())
-  end)
-  TooltipDataProcessor.AddTooltipPostCall(
-    Enum.TooltipDataType.Unit,
-    function(tooltip)
-      local color = S.Colors.GetClassColor(tooltip)
-      if not color then return end
-      background:SetColorTexture(S.Colors.Darken(color, .8):GetRGB())
-    end
-  )
+    background:SetAlpha(BACKGROUND_ALPHA)
+    -- NOTE Prevent leakage into other reused tooltips
+    tooltip:HookScript("OnTooltipCleared", function()
+      background:SetColorTexture(BACKGROUND:GetRGB())
+    end)
+    TooltipDataProcessor.AddTooltipPostCall(
+      Enum.TooltipDataType.Unit,
+      function(unitTooltip)
+        if unitTooltip ~= tooltip then return end
+        local color = S.Colors.GetClassColor(unitTooltip)
+        if not color then return end
+        background:SetColorTexture(S.Colors.Darken(color, .8):GetRGB())
+      end
+    )
+  end
 end
 
 local function ConfigureFont()
+  S.Fonts.Set(GameTooltipHeaderText, {
+    font = S.Fonts.BlackletterRegular,
+    outline = true,
+    size = FONT_SIZE + 2,
+  })
   for _, name in ipairs({
-    "GameTooltipHeaderText",
     "GameTooltipText",
     "GameTooltipTextSmall",
   }) do
@@ -40,11 +48,6 @@ local function ConfigureName()
   TooltipDataProcessor.AddTooltipPostCall(
     Enum.TooltipDataType.Unit,
     function(tooltip)
-      S.Fonts.Set(GameTooltipTextLeft1, {
-        font = S.Fonts.BlackletterRegular,
-        outline = true,
-        size = FONT_SIZE + 2,
-      })
       local color = S.Colors.GetClassColor(tooltip)
       if not color then return end
       GameTooltipTextLeft1:SetTextColor(color:GetRGB())
@@ -52,25 +55,29 @@ local function ConfigureName()
   )
 end
 
-local function ConfigureOutline()
-  S.Commons.Hide(GameTooltip.NineSlice)
-  local edges = S.Commons.Outline(GameTooltip, "thin", S.Colors.Outline)
-  -- NOTE Prevent leakage into other reused tooltips
-  GameTooltip:HookScript("OnTooltipCleared", function()
-    for _, edge in ipairs(edges) do
-      edge:SetColorTexture(S.Colors.Outline:GetRGBA())
-    end
-  end)
-  TooltipDataProcessor.AddTooltipPostCall(
-    Enum.TooltipDataType.Unit,
-    function(tooltip)
-      local color = S.Colors.GetClassColor(tooltip)
-      if not color then return end
+---@param tooltips GameTooltip[]
+local function ConfigureOutline(tooltips)
+  for _, tooltip in ipairs(tooltips) do
+    S.Commons.Hide(tooltip.NineSlice)
+    local edges = S.Commons.Outline(tooltip, "thin", S.Colors.Outline)
+    -- NOTE Prevent leakage into other reused tooltips
+    tooltip:HookScript("OnTooltipCleared", function()
       for _, edge in ipairs(edges) do
-        edge:SetColorTexture(color:GetRGBA())
+        edge:SetColorTexture(S.Colors.Outline:GetRGBA())
       end
-    end
-  )
+    end)
+    TooltipDataProcessor.AddTooltipPostCall(
+      Enum.TooltipDataType.Unit,
+      function(unitTooltip)
+        if unitTooltip ~= tooltip then return end
+        local color = S.Colors.GetClassColor(unitTooltip)
+        if not color then return end
+        for _, edge in ipairs(edges) do
+          edge:SetColorTexture(color:GetRGBA())
+        end
+      end
+    )
+  end
 end
 
 local function ConfigurePosition()
@@ -83,9 +90,11 @@ end
 
 table.insert(S.Modules, function()
   S.Commons.Hide(GameTooltip.StatusBar)
-  ConfigureBackground()
+  S.Commons.Hide(ShoppingTooltip1.CompareHeader)
+  S.Commons.Hide(ShoppingTooltip2.CompareHeader)
+  ConfigureBackground({ GameTooltip, ShoppingTooltip1, ShoppingTooltip2 })
   ConfigureFont()
   ConfigureName()
-  ConfigureOutline()
+  ConfigureOutline({ GameTooltip, ShoppingTooltip1, ShoppingTooltip2 })
   ConfigurePosition()
 end)
