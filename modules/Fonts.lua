@@ -9,6 +9,8 @@ local Fonts = {
 
   HandwritingRegular = DIRECTORY .. "PermanentMarker-Regular.ttf",
 
+  Monospace = DIRECTORY .. "CascadiaCode-Regular.ttf",
+
   SansBold = DIRECTORY .. "GoogleSans-Bold.ttf",
 
   SansRegular = DIRECTORY .. "GoogleSans-Regular.ttf",
