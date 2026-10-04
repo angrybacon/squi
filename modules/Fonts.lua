@@ -6,14 +6,11 @@ local DIRECTORY = [[Interface\AddOns\Squi\fonts\]]
 ---@class Fonts
 local Fonts = {
   BlackletterRegular = DIRECTORY .. "GermaniaOne-Regular.ttf",
-
   HandwritingRegular = DIRECTORY .. "PermanentMarker-Regular.ttf",
-
   Monospace = DIRECTORY .. "CascadiaCode-Regular.ttf",
-
   SansBold = DIRECTORY .. "GoogleSans-Bold.ttf",
-
   SansRegular = DIRECTORY .. "GoogleSans-Regular.ttf",
+  VintageRegular = DIRECTORY .. "SquadaOne-Regular.ttf",
 
   ---Customize the provided region with options
   ---@param region table
