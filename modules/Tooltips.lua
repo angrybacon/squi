@@ -2,10 +2,10 @@
 local _, S = ...
 
 local BACKGROUND = S.Colors.Background
-local BACKGROUND_ALPHA = .9
+local BACKGROUND_ALPHA = .5
 local FONT_FACE = S.Fonts.SansRegular
 local FONT_SIZE = 12
-local OFFSET = 20
+local OFFSET = 16
 
 ---@param tooltips GameTooltip[]
 local function ConfigureBackground(tooltips)
