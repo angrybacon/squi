@@ -18,9 +18,15 @@ local function ConfigureBars()
     SetBindingExclusive("ACTIONBUTTON" .. index, key)
     SetBindingExclusive("MULTIACTIONBAR1BUTTON" .. index, "CTRL-" .. key)
   end
-  SaveBindings(GetCurrentBindingSet())
+end
+
+local function ConfigureCamera()
+  SetBindingExclusive("CAMERAZOOMIN", "PAGEUP")
+  SetBindingExclusive("CAMERAZOOMOUT", "PAGEDOWN")
 end
 
 table.insert(S.Modules, function()
   ConfigureBars()
+  ConfigureCamera()
+  SaveBindings(GetCurrentBindingSet())
 end)
