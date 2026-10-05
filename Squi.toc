@@ -21,5 +21,6 @@ modules/Keybindings.lua
 modules/Macros.lua
 modules/Minimap.lua
 modules/Nameplates.lua
+modules/Objectives.lua
 modules/Text.lua
 modules/Tooltips.lua
