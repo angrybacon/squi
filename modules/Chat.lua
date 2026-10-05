@@ -29,9 +29,31 @@ local function ConfigureInput(frame)
   end
 end
 
+---Reset the chat built-in inset
+local function ConfigureInset()
+  local function Inset() ChatFrame1:SetClampRectInsets(0, 0, 0, 0) end
+  Inset()
+  hooksecurefunc(ChatFrame1, "UpdateClampOffsets", Inset)
+end
+
+local function ConfigurePosition()
+  S.Commons.ConfigureLayout({
+    [Enum.EditModeSystem.ChatFrame] = {
+      anchor = {
+        anchor = "BOTTOMLEFT",
+        anchored = "BOTTOMLEFT",
+        on = "UIParent",
+        x = 0,
+        y = 0,
+        -- NOTE The built-in hardcoded inset will do for now
+      },
+    },
+  })
+end
+
 ---@param frame FloatingChatFrameTemplate
 local function ConfigureTab(frame)
-  FCF_SetWindowAlpha(frame, 0)
+  S.Commons.Hide(_G[frame:GetName() .. "ButtonFrame"])
   S.Fonts.Set(frame:GetFontObject(), {
     font = FONT_FACE,
     outline = true,
@@ -39,6 +61,7 @@ local function ConfigureTab(frame)
   })
   -- NOTE Synchronize the in-game setting
   FCF_SetChatWindowFontSize(nil, frame, FONT_SIZE)
+  FCF_SetWindowAlpha(frame, 0)
 end
 
 local function ConfigureTabs()
@@ -51,6 +74,7 @@ local function ConfigureTabs()
 end
 
 table.insert(S.Modules, function()
-  S.Commons.Hide(_G["ChatFrame1ButtonFrame"])
+  -- ConfigureInset()
+  ConfigurePosition()
   ConfigureTabs()
 end)

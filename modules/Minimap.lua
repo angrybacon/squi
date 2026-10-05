@@ -1,7 +1,7 @@
 ---@type string, Squi
 local _, S = ...
 
-local MARGIN = 20
+local MARGIN = 24
 
 local function ConfigurePosition()
   S.Commons.ConfigureLayout({
