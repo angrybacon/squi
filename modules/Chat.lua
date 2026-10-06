@@ -3,6 +3,10 @@ local _, S = ...
 
 local FONT_FACE = S.Fonts.SansRegular
 local FONT_SIZE = 14
+---Blizzard reserves a hardcoded 15px on the left for the border texture's lip,
+---baked into both the header and the prompt anchors. Since the border is
+---hidden, drop that reserve so typed text lines up with the chat frame.
+local INPUT_OFFSET = 15
 
 ---@param frame FloatingChatFrameTemplate
 local function ConfigureInput(frame)
@@ -27,13 +31,24 @@ local function ConfigureInput(frame)
       size = FONT_SIZE,
     })
   end
+  ChatFrame1EditBox:ClearAllPoints()
+  ChatFrame1EditBox:SetPoint("TOPLEFT", ChatFrame1, "BOTTOMLEFT", 0, 0)
+  ChatFrame1EditBox:SetPoint("RIGHT", ChatFrame1.ScrollBar, "RIGHT", 0, 0)
+  for _, region in ipairs({ frame.editBox.header, frame.editBox.prompt }) do
+    local point, anchor, anchored, x, y = region:GetPoint()
+    region:SetPoint(point, anchor, anchored, x - INPUT_OFFSET, y)
+  end
+  S.Commons.Hook(frame.editBox, "UpdateHeader", function(region)
+    local left, right, top, bottom = region:GetTextInsets()
+    region:SetTextInsets(left - INPUT_OFFSET, right, top, bottom)
+  end)
 end
 
 ---Reset the chat built-in inset
 local function ConfigureInset()
-  local function Inset() ChatFrame1:SetClampRectInsets(0, 0, 0, 0) end
-  Inset()
-  hooksecurefunc(ChatFrame1, "UpdateClampOffsets", Inset)
+  S.Commons.Hook(ChatFrame1, "UpdateClampOffsets", function(frame)
+    frame:SetClampRectInsets(0, 0, 0, 0)
+  end)
 end
 
 local function ConfigurePosition()

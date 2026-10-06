@@ -131,6 +131,15 @@ local Commons = {
     end
   end,
 
+  ---Run a hook once now, then again every time the provided method fires
+  ---@param object table
+  ---@param method string
+  ---@param hook fun(object: table)
+  Hook = function(object, method, hook)
+    hook(object)
+    hooksecurefunc(object, method, hook)
+  end,
+
   ---Draw a solid outline inward, overlaid on top of the region's own edges
   ---@param region table
   ---@param thickness "thick" | "thin"
