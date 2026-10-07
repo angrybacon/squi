@@ -1,6 +1,7 @@
 ---@type string, Squi
 local _, S = ...
 
+local GAP = 8
 local MARGIN = 24
 
 local function ConfigurePosition()
@@ -21,8 +22,8 @@ local function ConfigurePosition()
           anchor = "BOTTOMRIGHT",
           anchored = "TOPRIGHT",
           on = "BuffFrame",
-          x = -MARGIN,
-          y = -MARGIN,
+          x = -offset,
+          y = -GAP,
         },
       },
     },
