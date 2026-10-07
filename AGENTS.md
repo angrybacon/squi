@@ -12,6 +12,12 @@ had.
 World of Warcraft is installed at `~/Games/battlenet/drive_c/Program Files
 (x86)/World of Warcraft`.
 
+# Coding Conventions
+
+- Constants are UPPER_CASE at the top of the file, alpha-sorted
+- Functions are PascalCase, alpha-sorted
+- Each module registers configure functions, alpha-sorted
+
 # Coding Guidelines and References
 
 This assumes the user clones and maintains the following repositories up to date

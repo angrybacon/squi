@@ -17,6 +17,7 @@ table.insert(S.Modules, function()
   SetCVar("autoLootDefault", "1")
   SetCVar("cameraSmoothStyle", 1) -- NOTE Horizontal only
   SetCVar("combinedBags", "1")
+  SetCVar("countdownForCooldowns", "1")
   SetCVar("cursorSizePreferred", 1)
   SetCVar("deselectOnClick", "1")
   SetCVar("uiScale", SCALE)

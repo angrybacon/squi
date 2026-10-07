@@ -4,6 +4,23 @@ local _, S = ...
 local MARGIN = 24
 local GAP = 2
 
+local function ConfigureLabels()
+  for _, prefix in ipairs({
+    "ActionButton",
+    "MultiBarBottomLeftButton",
+    "MultiBarBottomRightButton",
+  }) do
+    for index = 1, NUM_ACTIONBAR_BUTTONS do
+      local button = _G[prefix .. index]
+      S.Commons.Hide(button.HotKey)
+      S.Commons.Hide(button.Name)
+    end
+  end
+  for index = 1, NUM_PET_ACTION_SLOTS do
+    S.Commons.Hide(_G["PetActionButton" .. index].HotKey)
+  end
+end
+
 local function ConfigureModifiers()
   RegisterStateDriver(MultiBarBottomLeft, "visibility", "[mod:alt] hide; show")
   RegisterStateDriver(MultiBarBottomRight, "visibility", "[mod:alt] show; hide")
@@ -68,6 +85,7 @@ local function ConfigureVisibility()
 end
 
 table.insert(S.Modules, function()
+  ConfigureLabels()
   ConfigureModifiers()
   ConfigurePosition()
   ConfigureVisibility()
