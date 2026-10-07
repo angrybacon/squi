@@ -170,6 +170,15 @@ local Commons = {
     top:SetHeight(size)
     return { top, right, bottom, left }
   end,
+
+  ---Hide the region until hovered
+  ---@param region table
+  Peek = function(region)
+    region:EnableMouse(true)
+    region:SetAlpha(0)
+    region:HookScript("OnEnter", function(self) self:SetAlpha(1) end)
+    region:HookScript("OnLeave", function(self) self:SetAlpha(0) end)
+  end,
 }
 
 S.Commons = Commons
