@@ -17,6 +17,7 @@ local function ConfigureBars()
   }) do
     SetBindingExclusive("ACTIONBUTTON" .. index, key)
     SetBindingExclusive("MULTIACTIONBAR1BUTTON" .. index, "CTRL-" .. key)
+    SetBindingExclusive("MULTIACTIONBAR2BUTTON" .. index, "ALT-" .. key)
   end
 end
 
