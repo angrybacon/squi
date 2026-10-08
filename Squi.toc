@@ -17,6 +17,7 @@ modules/Castbar.lua
 modules/Chat.lua
 modules/Commands.lua
 modules/Defaults.lua
+modules/Graphics.lua
 modules/Hud.lua
 modules/Keybindings.lua
 modules/Macros.lua
