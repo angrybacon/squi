@@ -13,7 +13,7 @@ table.insert(S.Modules, function()
   SetCVar("Sound_MusicVolume", VOLUME_LOW)
   SetCVar("Sound_SFXVolume", VOLUME_HIGH)
   SetCVar("autoLootDefault", "1")
-  SetCVar("cameraSmoothStyle", 1) -- NOTE Horizontal only
+  SetCVar("cameraSmoothStyle", 0)
   SetCVar("combinedBags", "1")
   SetCVar("countdownForCooldowns", "1")
   SetCVar("cursorSizePreferred", 1)
