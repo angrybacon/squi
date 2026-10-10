@@ -12,7 +12,7 @@ end
 
 local function ConfigureBars()
   for index, key in ipairs({
-    "1", "2", "3", "4", "Q", "E", "R",
+    "1", "2", "3", "4", "5", "Q", "E",
     "MOUSEWHEELUP", "MOUSEWHEELDOWN", "BUTTON3", "BUTTON4", "BUTTON5",
   }) do
     SetBindingExclusive("ACTIONBUTTON" .. index, key)
@@ -26,8 +26,13 @@ local function ConfigureCamera()
   SetBindingExclusive("CAMERAZOOMOUT", "PAGEDOWN")
 end
 
+local function ConfigureMovement()
+  SetBindingExclusive("TOGGLEAUTORUN", "DELETE")
+end
+
 table.insert(S.Modules, function()
   ConfigureBars()
   ConfigureCamera()
+  ConfigureMovement()
   SaveBindings(GetCurrentBindingSet())
 end)
