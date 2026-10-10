@@ -2,21 +2,26 @@
 local _, S = ...
 
 local BACKGROUND = S.Colors.Background
-local BACKGROUND_ALPHA = .5
+local BACKGROUND_ALPHA = .8
 local FONT_FACE = S.Fonts.SansRegular
-local FONT_SIZE = 12
+local FONT_SIZE = 14
 local OFFSET = 16
 
 ---@param tooltips GameTooltip[]
 local function ConfigureBackground(tooltips)
   for _, tooltip in ipairs(tooltips) do
+    S.Commons.Hide(tooltip.NineSlice)
     local background = tooltip:CreateTexture(nil, "BACKGROUND")
     background:SetAllPoints(tooltip)
     background:SetColorTexture(BACKGROUND:GetRGB())
     background:SetAlpha(BACKGROUND_ALPHA)
     -- NOTE Prevent leakage into other reused tooltips
+    local edges = S.Commons.Outline(tooltip, "thin", S.Colors.Outline)
     tooltip:HookScript("OnTooltipCleared", function()
       background:SetColorTexture(BACKGROUND:GetRGB())
+      for _, edge in ipairs(edges) do
+        edge:SetColorTexture(S.Colors.Outline:GetRGBA())
+      end
     end)
     TooltipDataProcessor.AddTooltipPostCall(
       Enum.TooltipDataType.Unit,
@@ -25,6 +30,9 @@ local function ConfigureBackground(tooltips)
         local color = S.Colors.GetClassColor(unitTooltip)
         if not color then return end
         background:SetColorTexture(S.Colors.Darken(color, .8):GetRGB())
+        for _, edge in ipairs(edges) do
+          edge:SetColorTexture(color:GetRGBA())
+        end
       end
     )
   end
@@ -40,7 +48,7 @@ local function ConfigureFont()
     "GameTooltipText",
     "GameTooltipTextSmall",
   }) do
-    S.Fonts.Set(_G[name], { font = FONT_FACE, size = FONT_SIZE })
+    S.Fonts.Set(_G[name], { font = FONT_FACE, outline = true, size = FONT_SIZE })
   end
 end
 
@@ -53,31 +61,6 @@ local function ConfigureName()
       GameTooltipTextLeft1:SetTextColor(color:GetRGB())
     end
   )
-end
-
----@param tooltips GameTooltip[]
-local function ConfigureOutline(tooltips)
-  for _, tooltip in ipairs(tooltips) do
-    S.Commons.Hide(tooltip.NineSlice)
-    local edges = S.Commons.Outline(tooltip, "thin", S.Colors.Outline)
-    -- NOTE Prevent leakage into other reused tooltips
-    tooltip:HookScript("OnTooltipCleared", function()
-      for _, edge in ipairs(edges) do
-        edge:SetColorTexture(S.Colors.Outline:GetRGBA())
-      end
-    end)
-    TooltipDataProcessor.AddTooltipPostCall(
-      Enum.TooltipDataType.Unit,
-      function(unitTooltip)
-        if unitTooltip ~= tooltip then return end
-        local color = S.Colors.GetClassColor(unitTooltip)
-        if not color then return end
-        for _, edge in ipairs(edges) do
-          edge:SetColorTexture(color:GetRGBA())
-        end
-      end
-    )
-  end
 end
 
 local function ConfigurePosition()
@@ -95,6 +78,5 @@ table.insert(S.Modules, function()
   ConfigureBackground({ GameTooltip, ShoppingTooltip1, ShoppingTooltip2 })
   ConfigureFont()
   ConfigureName()
-  ConfigureOutline({ GameTooltip, ShoppingTooltip1, ShoppingTooltip2 })
   ConfigurePosition()
 end)

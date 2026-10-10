@@ -149,6 +149,7 @@ local Commons = {
     local function CreateEdge()
       local texture = region:CreateTexture(nil, "OVERLAY")
       texture:SetColorTexture(color:GetRGBA())
+      texture:SetSnapToPixelGrid(true)
       return texture
     end
     local size = thickness == "thick" and 4 or 2
