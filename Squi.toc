@@ -14,6 +14,7 @@ modules/Main.lua
 modules/Auras.lua
 modules/Bags.lua
 modules/Bars.lua
+modules/Camera.lua
 modules/Castbar.lua
 modules/Chat.lua
 modules/Commands.lua
