@@ -30,9 +30,14 @@ local function ConfigureMovement()
   SetBindingExclusive("TOGGLEAUTORUN", "DELETE")
 end
 
+local function ConfigurePanels()
+  SetBindingExclusive("TOGGLECHARACTER0", "U")
+end
+
 table.insert(S.Modules, function()
   ConfigureBars()
   ConfigureCamera()
   ConfigureMovement()
+  ConfigurePanels()
   SaveBindings(GetCurrentBindingSet())
 end)
