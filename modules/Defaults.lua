@@ -2,7 +2,7 @@
 local _, S = ...
 
 local VOLUME_HIGH = 1.0
-local VOLUME_LOW = .1
+local VOLUME_LOW = .05
 local VOLUME_MEDIUM = .5
 
 table.insert(S.Modules, function()
@@ -14,7 +14,6 @@ table.insert(S.Modules, function()
   SetCVar("Sound_SFXVolume", VOLUME_HIGH)
   SetCVar("autoLootDefault", "1")
   SetCVar("cameraSmoothStyle", 0)
-  SetCVar("combinedBags", "1")
   SetCVar("countdownForCooldowns", "1")
   SetCVar("cursorSizePreferred", 1)
   SetCVar("deselectOnClick", "1")
