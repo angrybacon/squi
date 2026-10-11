@@ -12,8 +12,18 @@ end
 
 local function ConfigureBars()
   for index, key in ipairs({
-    "1", "2", "3", "4", "5", "Q", "E",
-    "MOUSEWHEELUP", "MOUSEWHEELDOWN", "BUTTON3", "BUTTON4", "BUTTON5",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "Q",
+    "E",
+    "R",
+    "F",
+    "BUTTON4",
+    "BUTTON5",
   }) do
     SetBindingExclusive("ACTIONBUTTON" .. index, key)
     SetBindingExclusive("MULTIACTIONBAR1BUTTON" .. index, "CTRL-" .. key)

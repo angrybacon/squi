@@ -17,6 +17,7 @@ World of Warcraft is installed at `~/Games/battlenet/drive_c/Program Files
 - Constants are UPPER_CASE at the top of the file, alpha-sorted
 - Functions are PascalCase, alpha-sorted
 - Each module registers configure functions, alpha-sorted
+- Use `stylua` to format code
 
 # Coding Guidelines and References
 
