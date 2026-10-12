@@ -95,6 +95,33 @@ local Commons = {
     end
   end,
 
+  ---Create a hidden popup with a selectable multiline text box
+  ---@param name string
+  ---@param width number
+  ---@param height number
+  ---@return table dialog
+  Dialog = function(name, width, height)
+    local dialog = CreateFrame("Frame", name, UIParent)
+    dialog:SetSize(width, height)
+    dialog:SetPoint("CENTER")
+    dialog:SetFrameStrata("DIALOG")
+    dialog:EnableMouse(true)
+    dialog:Hide()
+    local background = dialog:CreateTexture(nil, "BACKGROUND")
+    background:SetAllPoints()
+    background:SetColorTexture(S.Colors.Background:GetRGBA())
+    S.Commons.Outline(dialog, "thick", S.Colors.Outline)
+    dialog.ScrollFrame = CreateFrame("ScrollFrame", nil, dialog, "InputScrollFrameTemplate")
+    dialog.ScrollFrame:SetPoint("TOPLEFT", 16, -16)
+    dialog.ScrollFrame:SetPoint("BOTTOMRIGHT", -32, 16)
+    dialog.ScrollFrame.EditBox:SetScript("OnEscapePressed", function(box)
+      box:ClearFocus()
+      dialog:Hide()
+    end)
+    tinsert(UISpecialFrames, name)
+    return dialog
+  end,
+
   -- NOTE Presets are read-only so we get-or-create a profile "Squi"
   EnsureLayout = function()
     local layout = GetLayout()

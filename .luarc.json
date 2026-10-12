@@ -28,6 +28,7 @@
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_SharedXML",
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_SharedXMLGame",
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_TimeManager",
+      "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_UIParent",
       "~/Workspace/vscode-wow-api/Annotations/FrameXML/Annotations/AddOns/Blizzard_UnitFrame"
     ]
   }
