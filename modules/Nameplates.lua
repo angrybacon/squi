@@ -37,7 +37,7 @@ table.insert(S.Modules, function()
   SetCVar("nameplateShowFriendlyRealmName", "0")
   SetCVar("nameplateShowOnlyNameForFriendlyPlayerUnits", "1")
   SetCVar("nameplateShowSelf", "0")
-  SetCVar("nameplateSize", Enum.NamePlateSize.Small)
+  SetCVar("nameplateSize", Enum.NamePlateSize.Medium)
   SetCVar("nameplateUseClassColorForFriendlyPlayerUnitNames", "1")
 
   for _, index in ipairs({
