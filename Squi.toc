@@ -1,5 +1,5 @@
 ## Author: Mathieu Marques
-## Interface: 120100
+## Interface: 120105
 ## Notes: Personal interface addon, named after Squee because it rhymes
 ## Title: Squi
 ## Version: 0.1.0

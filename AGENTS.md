@@ -25,11 +25,11 @@ This assumes the user clones and maintains the following repositories up to date
 on their own. Prompt the user to pull or clone the missing repositories when
 relevant.
 
-- `~/Workspace/wow-ui-source`: a mirror of the official UI code
+- `~/Workspace/curse/EllesmereUI`: UI replacement designed for optimization
 - `~/Workspace/realui`: UI replacement found next to the official UI source
-- `~/Workspace/ellesmereui`: UI replacement designed for optimization
-- `~/Workspace/wowlua-ls`: a mature WoW-oriented Lua language server
 - `~/Workspace/vscode-wow-api`: a less maintained repository of type annotations
+- `~/Workspace/wow-ui-source`: a mirror of the official UI code
+- `~/Workspace/wowlua-ls`: a mature WoW-oriented Lua language server
 
 The 2 UI replacement addons mentioned are well established in the community and
 should serve as documentation on how to do X or Y.
