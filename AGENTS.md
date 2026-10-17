@@ -21,27 +21,28 @@ World of Warcraft is installed at `~/Games/battlenet/drive_c/Program Files
 
 # Coding Guidelines and References
 
-This assumes the user clones and maintains the following repositories up to date
-on their own. Prompt the user to pull or clone the missing repositories when
-relevant.
+The maintainer of the project may provide well established community addons in
+their user directory to serve as reference for specific features. In case of
+confusing or unexpected behaviors, ask the user to check for outdated
+repositories.
 
-- `~/Workspace/curse/EllesmereUI`: UI replacement designed for optimization
-- `~/Workspace/realui`: UI replacement found next to the official UI source
-- `~/Workspace/vscode-wow-api`: a less maintained repository of type annotations
-- `~/Workspace/wow-ui-source`: a mirror of the official UI code
-- `~/Workspace/wowlua-ls`: a mature WoW-oriented Lua language server
-
-The 2 UI replacement addons mentioned are well established in the community and
-should serve as documentation on how to do X or Y.
+Look in `~/Workspace/curse/` when the user is trying to refer to such
+references. The official UI source `wow-ui-source` is also maintained in this
+directory by the user.
 
 # Typings
 
-The project currently subscribes to `vscode-wow-api` typing annotations.
+Use [`wowlua-ls`][github:wowlua-ls]. The maintainer of the project manually
+manages this dependency in `~/Workspace/wowlua-ls` and plugs it through Emacs's
+`dir-locals` API.
 
-Given how slow the Lua language server is, the list of annotation sources is
-kept short in `.luarc.json`. Adding or removing features should come with an
-update to the list.
+```lisp
+((lua-ts-mode
+  . ((eglot-server-programs
+      . ((lua-ts-mode
+          . ("/home/<user>/Workspace/wowlua-ls/target/release/wowlua_ls")))))))
+```
 
-When `vscode-wow-api` is stale on something specific (e.g. a CVar or setting
-that's missing), fall back to a targeted lookup against the actual upstream
-Blizzard UI source. See `wow-ui-source` in the previous section.
+Use `wowlua_ls check .` to validate typings.
+
+[github:wowlua-ls]: https://github.com/TradeSkillMaster/wowlua-ls
