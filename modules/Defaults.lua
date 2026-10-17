@@ -2,8 +2,8 @@
 local _, S = ...
 
 local VOLUME_HIGH = 1.0
-local VOLUME_LOW = .05
-local VOLUME_MEDIUM = .5
+local VOLUME_LOW = 0.05
+local VOLUME_MEDIUM = 0.5
 
 table.insert(S.Modules, function()
   SetCVar("Sound_AmbienceVolume", VOLUME_MEDIUM)

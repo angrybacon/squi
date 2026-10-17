@@ -13,13 +13,14 @@ local Colors = {
     )
   end,
 
-
   ---Get the region's unit's class color, or nil if it isn't a player
   ---@param region { GetUnit: fun(self: table): string?, string? }
   ---@return colorRGB?
   GetClassColor = function(region)
     local _, unit = region:GetUnit()
-    if not unit or not UnitIsPlayer(unit) then return nil end
+    if not unit or not UnitIsPlayer(unit) then
+      return nil
+    end
     local _, class = UnitClass(unit)
     return C_ClassColor.GetClassColor(class)
   end,
@@ -36,19 +37,15 @@ local Colors = {
 
   ---@param color ColorRGBData
   Pastelize = function(color)
-    return CreateColor(
-      (color.r + 1) / 2,
-      (color.g + 1) / 2,
-      (color.b + 1) / 2
-    )
+    return CreateColor((color.r + 1) / 2, (color.g + 1) / 2, (color.b + 1) / 2)
   end,
 }
 
-Colors.Background = CreateColor(.13, .13, .15)
-Colors.BackgroundDisabled = Colors.Darken(Colors.Background, .3)
-Colors.BackgroundHover = Colors.Lighten(Colors.Background, .1)
-Colors.BackgroundPushed = Colors.Darken(Colors.Background, .3)
-Colors.Outline = Colors.Lighten(Colors.Background, .6)
-Colors.TextDisabled = CreateColor(.2, .2, .2)
+Colors.Background = CreateColor(0.13, 0.13, 0.15)
+Colors.BackgroundDisabled = Colors.Darken(Colors.Background, 0.3)
+Colors.BackgroundHover = Colors.Lighten(Colors.Background, 0.1)
+Colors.BackgroundPushed = Colors.Darken(Colors.Background, 0.3)
+Colors.Outline = Colors.Lighten(Colors.Background, 0.6)
+Colors.TextDisabled = CreateColor(0.2, 0.2, 0.2)
 
 S.Colors = Colors

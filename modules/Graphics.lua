@@ -1,7 +1,7 @@
 ---@type string, Squi
 local _, S = ...
 
-local SCALE = .8
+local SCALE = 0.8
 
 table.insert(S.Modules, function()
   SetCVar("Brightness", 45)

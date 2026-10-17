@@ -2,7 +2,7 @@
 local _, S = ...
 
 local BACKGROUND = S.Colors.Background
-local BACKGROUND_ALPHA = .8
+local BACKGROUND_ALPHA = 0.8
 local FONT_FACE = S.Fonts.SansRegular
 local FONT_SIZE = 14
 local OFFSET = 16
@@ -29,7 +29,7 @@ local function ConfigureBackground(tooltips)
         if unitTooltip ~= tooltip then return end
         local color = S.Colors.GetClassColor(unitTooltip)
         if not color then return end
-        background:SetColorTexture(S.Colors.Darken(color, .8):GetRGB())
+        background:SetColorTexture(S.Colors.Darken(color, 0.8):GetRGB())
         for _, edge in ipairs(edges) do
           edge:SetColorTexture(color:GetRGBA())
         end
