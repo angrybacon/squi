@@ -1,7 +1,7 @@
 ---@type string, Squi
 local _, S = ...
 
-local FRAME_OFFSET_X = 150
+local FRAME_OFFSET_X = 0
 local FRAME_OFFSET_Y = 250
 
 local function ConfigureFrames()
