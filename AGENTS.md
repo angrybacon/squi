@@ -1,11 +1,14 @@
 # Design Intent
 
-Reproducibility: two users running Squi, regardless of any hand-made
-customization they've already done in-game, should end up with identical
-results. Never read back or preserve existing account, CVar, API state to decide
-what value to set. Always pass an explicit, hardcoded value, even when that
-value is `nil` or a no-op, so the outcome never depends on what a user already
-had.
+- **Reproducibility**: two users running Squi, regardless of any hand-made
+  customization they've already done in-game, should end up with identical
+  results
+- **Predictability**: never read back or preserve existing account, CVar, or API
+  state to decide what value to set. Always pass an explicit, hardcoded value,
+  even when that value is `nil` or a no-op. The outcome should never depend on
+  what a user already had
+- **Simplicity**: prefer small changes line-wise and hook on existing APIs.
+  Bespoke code comes with bigger maintenance
 
 # Game Directory
 

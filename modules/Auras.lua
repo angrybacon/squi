@@ -3,8 +3,11 @@ local _, S = ...
 
 local GAP = 8
 local MARGIN = 24
+local SIZE = 150
 
 local function ConfigurePosition()
+  -- NOTE Blizzard uses a 50-200 slider and expects an index
+  local size = (SIZE - 50) / 10
   local offset = BuffFrame.CollapseAndExpandButton:GetWidth()
   S.Commons.ConfigureLayout({
     [Enum.EditModeSystem.AuraFrame] = {
@@ -16,6 +19,7 @@ local function ConfigurePosition()
           x = offset - MARGIN,
           y = -MARGIN,
         },
+        settings = { [Enum.EditModeAuraFrameSetting.IconSize] = size },
       },
       [Enum.EditModeAuraFrameSystemIndices.DebuffFrame] = {
         anchor = {
@@ -25,6 +29,7 @@ local function ConfigurePosition()
           x = -offset,
           y = -GAP,
         },
+        settings = { [Enum.EditModeAuraFrameSetting.IconSize] = size },
       },
     },
   })
