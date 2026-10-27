@@ -1,7 +1,7 @@
 ---@type string, Squi
 local _, S = ...
 
-local FONT_FACE = S.Fonts.SansRegular
+local FONT_FACE = S.Fonts.Sans
 local FONT_SIZE = 16
 ---Blizzard reserves a hardcoded 15px on the left for the border texture's lip,
 ---baked into both the header and the prompt anchors. Since the border is

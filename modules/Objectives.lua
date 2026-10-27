@@ -7,12 +7,12 @@ local MARGIN = 24
 
 local function ConfigureFont()
   S.Fonts.Set(ObjectiveTrackerHeaderFont, {
-    font = S.Fonts.BlackletterRegular,
+    font = S.Fonts.Blackletter,
     outline = true,
     size = FONT_SIZE_HEADER,
   })
   S.Fonts.Set(ObjectiveTrackerLineFont, {
-    font = S.Fonts.SansRegular,
+    font = S.Fonts.Sans,
     outline = true,
     size = FONT_SIZE_BODY,
   })

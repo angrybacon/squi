@@ -3,7 +3,7 @@ local _, S = ...
 
 local BACKGROUND = S.Colors.Background
 local BACKGROUND_ALPHA = 0.8
-local FONT_FACE = S.Fonts.SansRegular
+local FONT_FACE = S.Fonts.Sans
 local FONT_SIZE = 16
 local OFFSET = 16
 
@@ -40,7 +40,7 @@ end
 
 local function ConfigureFont()
   S.Fonts.Set(GameTooltipHeaderText, {
-    font = S.Fonts.BlackletterRegular,
+    font = S.Fonts.Blackletter,
     outline = true,
     size = FONT_SIZE + 2,
   })

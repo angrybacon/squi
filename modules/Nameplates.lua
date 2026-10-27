@@ -16,7 +16,7 @@ local function ConfigureFriendlyNames()
     if not plate then return end
     local name = plate.UnitFrame["name"]
     S.Fonts.Set(name, {
-      font = S.Fonts.BlackletterRegular,
+      font = S.Fonts.Blackletter,
       size = FONT_HEIGHT_FRIENDLY_PLAYER,
     })
   end)
