@@ -4,7 +4,7 @@ local _, S = ...
 local BACKGROUND = S.Colors.Background
 local BACKGROUND_ALPHA = 0.8
 local FONT_FACE = S.Fonts.SansRegular
-local FONT_SIZE = 14
+local FONT_SIZE = 16
 local OFFSET = 16
 
 ---@param tooltips GameTooltip[]
@@ -66,7 +66,7 @@ end
 local function ConfigurePosition()
   hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
     if not parent.IsForbidden or not parent:IsForbidden() then
-      tooltip:SetOwner(parent, "ANCHOR_CURSOR_RIGHT", OFFSET, OFFSET)
+      tooltip:SetOwner(parent, "ANCHOR_CURSOR_RIGHT", OFFSET, 0)
     end
   end)
 end

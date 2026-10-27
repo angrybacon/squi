@@ -36,6 +36,15 @@ local function GetLayout()
   return layout
 end
 
+---Convert a physical screen pixels into UI coordinate units
+---@param pixels number
+---@return number
+local function PixelSize(pixels)
+  local _, height = GetPhysicalScreenSize()
+  local factor = (768 / height) / UIParent:GetScale()
+  return pixels * factor
+end
+
 ---@class Commons
 local Commons = {
   ---@alias Anchor { anchor: string, anchored: string, on: string, x: number, y: number }
@@ -179,7 +188,7 @@ local Commons = {
       texture:SetSnapToPixelGrid(true)
       return texture
     end
-    local size = thickness == "thick" and 4 or 2
+    local size = PixelSize(thickness == "thick" and 4 or 1)
     local bottom = CreateEdge()
     bottom:SetPoint("BOTTOMLEFT", region, "BOTTOMLEFT", 0, 0)
     bottom:SetPoint("BOTTOMRIGHT", region, "BOTTOMRIGHT", 0, 0)
