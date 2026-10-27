@@ -1,8 +1,6 @@
 ---@type string, Squi
 local _, S = ...
 
-local FONT_HEIGHT_FRIENDLY_PLAYER = 12
-
 -- NOTE The `nameplateSize` is the only built-in way to scale nameplate text,
 --      but it applies to every unit. `ApplyFrameOptions` isn't reliably re-run
 --      when a plate slot gets reused for a different unit, so drive this off
@@ -15,10 +13,7 @@ local function ConfigureFriendlyNames()
     local plate = C_NamePlate.GetNamePlateForUnit(unit)
     if not plate then return end
     local name = plate.UnitFrame["name"]
-    S.Fonts.Set(name, {
-      font = S.Fonts.Blackletter,
-      size = FONT_HEIGHT_FRIENDLY_PLAYER,
-    })
+    S.Fonts.Set(name, { font = S.Fonts.Blackletter, size = 16 })
   end)
 end
 
@@ -37,7 +32,7 @@ table.insert(S.Modules, function()
   SetCVar("nameplateShowFriendlyRealmName", "0")
   SetCVar("nameplateShowOnlyNameForFriendlyPlayerUnits", "1")
   SetCVar("nameplateShowSelf", "0")
-  SetCVar("nameplateSize", Enum.NamePlateSize.Medium)
+  SetCVar("nameplateSize", Enum.NamePlateSize.Small)
   SetCVar("nameplateUseClassColorForFriendlyPlayerUnitNames", "1")
 
   for _, index in ipairs({
