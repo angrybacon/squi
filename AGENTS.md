@@ -17,6 +17,14 @@ World of Warcraft is installed at `~/Games/battlenet/drive_c/Program Files
 
 # Coding Conventions
 
+## Practices
+
+- Ad-hoc cookie fields stashed on Blizzard frames or objects should be
+  namespaced as `__Squi_<Feature>_<name>`, where `Feature` is the owning Lua
+  module and `name` is what the field holds
+
+## Style
+
 - Constants are UPPER_CASE at the top of the file, alpha-sorted
 - Functions are PascalCase, alpha-sorted
 - Each module registers configure functions, alpha-sorted

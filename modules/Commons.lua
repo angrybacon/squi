@@ -123,9 +123,16 @@ local Commons = {
     dialog.ScrollFrame = CreateFrame("ScrollFrame", nil, dialog, "InputScrollFrameTemplate")
     dialog.ScrollFrame:SetPoint("TOPLEFT", 16, -16)
     dialog.ScrollFrame:SetPoint("BOTTOMRIGHT", -32, 16)
+    dialog.ScrollFrame.CharCount:Hide()
     dialog.ScrollFrame.EditBox:SetScript("OnEscapePressed", function(box)
       box:ClearFocus()
       dialog:Hide()
+    end)
+    dialog.ScrollFrame.EditBox:HookScript("OnKeyDown", function(box, key)
+      if key == "C" and IsControlKeyDown() then
+        box:ClearFocus()
+        dialog:Hide()
+      end
     end)
     tinsert(UISpecialFrames, name)
     return dialog

@@ -50,6 +50,6 @@ The assets in =fonts/= are not covered by this repository's license. See
 Use [[https://github.com/TradeSkillMaster/wowlua-ls]].
 
 #+BEGIN_SRC sh
-cargo run -- regenerate-stubs
+cargo run -- regenerate-stubs           # Unless Git LFS is installed
 cargo build --release
 #+END_SRC
