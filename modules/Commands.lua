@@ -13,9 +13,9 @@ SlashCmdList["COLORS"] = function(input)
   for name, value in pairs(_G) do
     if
       type(name) == "string"
-        and name:find("_COLOR$")
-        and type(value) == "table"
-        and type(value.r) == "number"
+      and name:find("_COLOR$")
+      and type(value) == "table"
+      and type(value.r) == "number"
     then
       local matches = true
       for _, token in ipairs(tokens) do

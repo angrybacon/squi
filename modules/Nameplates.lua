@@ -9,9 +9,13 @@ local function ConfigureFriendlyNames()
   local watcher = CreateFrame("Frame")
   watcher:RegisterEvent("NAME_PLATE_UNIT_ADDED")
   watcher:SetScript("OnEvent", function(_, _, unit)
-    if not (UnitIsPlayer(unit) and UnitIsFriend("player", unit)) then return end
+    if not (UnitIsPlayer(unit) and UnitIsFriend("player", unit)) then
+      return
+    end
     local plate = C_NamePlate.GetNamePlateForUnit(unit)
-    if not plate then return end
+    if not plate then
+      return
+    end
     local name = plate.UnitFrame["name"]
     S.Fonts.Set(name, { font = S.Fonts.Blackletter, size = 16 })
   end)

@@ -41,7 +41,7 @@ local Colors = {
   end,
 }
 
-Colors.Background = CreateColor(0.13, 0.13, 0.15)
+Colors.Background = CreateColor(0.13, 0.13, 0.15, 0.8)
 Colors.BackgroundDisabled = Colors.Darken(Colors.Background, 0.3)
 Colors.BackgroundHover = Colors.Lighten(Colors.Background, 0.1)
 Colors.BackgroundPushed = Colors.Darken(Colors.Background, 0.3)

@@ -115,25 +115,29 @@ local function ConfigureIdentifiers()
       tooltip.__Squi_Tooltips_link = url:format(it.parameter, id)
     end)
   end
+
   GameTooltip:HookScript("OnTooltipCleared", function(tooltip)
     tooltip.__Squi_Tooltips_link = nil
   end)
 end
 
 local function ConfigureLink()
-  local dialog = S.Commons.Dialog("SquiDialogTooltipsLink", 400, 80)
+  local dialog = S.Commons.Dialog("TooltipsLink")
   local listener = CreateFrame("Frame")
   listener:EnableKeyboard(true)
   listener:SetPropagateKeyboardInput(true)
   listener:SetScript("OnKeyDown", function(_, key)
-    if key == "C" and IsControlKeyDown() and IsShiftKeyDown() then
-      if not GameTooltip:IsShown() or not GameTooltip.__Squi_Tooltips_link then
-        return
-      end
+    if
+      key == "C"
+      and IsControlKeyDown()
+      and IsShiftKeyDown()
+      and GameTooltip:IsShown()
+      and GameTooltip.__Squi_Tooltips_link
+    then
       dialog:Show()
-      dialog.ScrollFrame.EditBox:SetText(GameTooltip.__Squi_Tooltips_link)
-      dialog.ScrollFrame.EditBox:HighlightText()
-      dialog.ScrollFrame.EditBox:SetFocus()
+      dialog.EditBox:SetText(GameTooltip.__Squi_Tooltips_link)
+      dialog.EditBox:HighlightText()
+      dialog.EditBox:SetFocus()
     end
   end)
 end

@@ -17,7 +17,9 @@ table.insert(S.Modules, function()
   local watcher = CreateFrame("Frame")
   watcher:RegisterEvent("ADDON_LOADED")
   watcher:SetScript("OnEvent", function(_, _, name)
-    if name ~= "Blizzard_MacroUI" then return end
+    if name ~= "Blizzard_MacroUI" then
+      return
+    end
     ConfigureTextarea()
     watcher:UnregisterEvent("ADDON_LOADED")
   end)

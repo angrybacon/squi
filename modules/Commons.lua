@@ -3,33 +3,41 @@ local _, S = ...
 
 ---@return table?
 local function GetLayout()
-  if InCombatLockdown()
+  if
+    InCombatLockdown()
     or not C_EditMode
     or not C_EditMode.GetLayouts
-    or not C_EditMode.SaveLayouts then
+    or not C_EditMode.SaveLayouts
+  then
     return nil
   end
 
   -- NOTE Never write while Edit Mode is open: it keeps its own copy of the
   --      layout for the session and overwrites this on its next save anyway
   local frame = EditModeManagerFrame
-  if frame
-    and (frame.editModeActive or (frame.IsShown and frame:IsShown())) then
+  if
+    frame and (frame.editModeActive or (frame.IsShown and frame:IsShown()))
+  then
     return nil
   end
 
   local ok, layout = pcall(C_EditMode.GetLayouts)
-  if not ok
-    or type(layout) ~= "table"
-    or type(layout.layouts) ~= "table" then
+  if not ok or type(layout) ~= "table" or type(layout.layouts) ~= "table" then
     return nil
   end
 
-  if not (EditModePresetLayoutManager and EditModePresetLayoutManager.GetCopyOfPresetLayouts) then
+  if
+    not (
+      EditModePresetLayoutManager
+      and EditModePresetLayoutManager.GetCopyOfPresetLayouts
+    )
+  then
     return nil
   end
   local presets = EditModePresetLayoutManager:GetCopyOfPresetLayouts()
-  if type(presets) ~= "table" or #presets == 0 then return nil end
+  if type(presets) ~= "table" or #presets == 0 then
+    return nil
+  end
   tAppendAll(presets, layout.layouts)
   layout.layouts = presets
 
@@ -52,10 +60,14 @@ local Commons = {
   ---@param specifications table<number, Options | table<number, Options>>
   ConfigureLayout = function(specifications)
     local base = GetLayout()
-    if not base then return end
+    if not base then
+      return
+    end
 
     local layout = base.layouts[base.activeLayout]
-    if not layout or type(layout.systems) ~= "table" then return end
+    if not layout or type(layout.systems) ~= "table" then
+      return
+    end
 
     local changed = false
     for _, system in ipairs(layout.systems) do
@@ -104,44 +116,62 @@ local Commons = {
     end
   end,
 
-  ---Create a hidden popup with a selectable multiline text box
+  ---Create a hidden popup with a selectable single-line text box. Without an
+  ---explicit size, the popup matches the text box.
+  ---Does not guard (yet) against repeated calls of the method.
   ---@param name string
-  ---@param width number
-  ---@param height number
+  ---@param width? number
+  ---@param height? number
   ---@return table dialog
   Dialog = function(name, width, height)
-    local dialog = CreateFrame("Frame", name, UIParent)
-    dialog:SetSize(width, height)
-    dialog:SetPoint("CENTER")
-    dialog:SetFrameStrata("DIALOG")
-    dialog:EnableMouse(true)
-    dialog:Hide()
+    local id = "SquiDialog" .. name
+    local dialog = CreateFrame("Frame", id, UIParent)
     local background = dialog:CreateTexture(nil, "BACKGROUND")
     background:SetAllPoints()
     background:SetColorTexture(S.Colors.Background:GetRGBA())
     S.Commons.Outline(dialog, "thick", S.Colors.Outline)
-    dialog.ScrollFrame = CreateFrame("ScrollFrame", nil, dialog, "InputScrollFrameTemplate")
-    dialog.ScrollFrame:SetPoint("TOPLEFT", 16, -16)
-    dialog.ScrollFrame:SetPoint("BOTTOMRIGHT", -32, 16)
-    dialog.ScrollFrame.CharCount:Hide()
-    dialog.ScrollFrame.EditBox:SetScript("OnEscapePressed", function(box)
-      box:ClearFocus()
+    dialog:SetPoint("CENTER")
+    dialog:SetFrameStrata("DIALOG")
+    dialog:EnableMouse(true)
+    dialog:Hide()
+    dialog.EditBox = CreateFrame("EditBox", nil, dialog, "InputBoxTemplate")
+    -- NOTE InputBoxTemplate anchors its left border cap 5px outside the box
+    dialog.EditBox.Left:SetPoint("LEFT", 0, 0)
+    dialog.EditBox:SetSize(420, dialog.EditBox.Left:GetHeight())
+    dialog.EditBox:SetPoint("CENTER")
+    dialog.EditBox:SetAutoFocus(false)
+    dialog.EditBox:SetTextInsets(4, 0, 0, 0)
+    S.Fonts.Set(
+      dialog.EditBox,
+      { font = S.Fonts.Monospace, outline = false, size = 14 }
+    )
+    local padding = 16
+    dialog:SetSize(
+      width or dialog.EditBox:GetWidth() + 2 * padding,
+      height or dialog.EditBox:GetHeight() + 2 * padding
+    )
+    dialog.EditBox:HookScript("OnEscapePressed", function()
       dialog:Hide()
     end)
-    dialog.ScrollFrame.EditBox:HookScript("OnKeyDown", function(box, key)
+    dialog.EditBox:HookScript("OnKeyDown", function(box, key)
       if key == "C" and IsControlKeyDown() then
-        box:ClearFocus()
-        dialog:Hide()
+        -- NOTE Losing focus clears the selection, so wait for the native copy
+        C_Timer.After(0, function()
+          box:ClearFocus()
+          dialog:Hide()
+        end)
       end
     end)
-    tinsert(UISpecialFrames, name)
+    table.insert(UISpecialFrames, id)
     return dialog
   end,
 
   -- NOTE Presets are read-only so we get-or-create a profile "Squi"
   EnsureLayout = function()
     local layout = GetLayout()
-    if not layout then return end
+    if not layout then
+      return
+    end
     local name = "Squi"
     local target
     for index, candidate in ipairs(layout.layouts) do
@@ -165,7 +195,7 @@ local Commons = {
   end,
 
   ---Hide the region, keeping it hidden even if something else tries to show
-  ---it again later
+  ---it again later.
   ---@param region table
   Hide = function(region)
     region:Hide()
@@ -220,8 +250,12 @@ local Commons = {
   Peek = function(region)
     region:EnableMouse(true)
     region:SetAlpha(0)
-    region:HookScript("OnEnter", function(self) self:SetAlpha(1) end)
-    region:HookScript("OnLeave", function(self) self:SetAlpha(0) end)
+    region:HookScript("OnEnter", function(self)
+      self:SetAlpha(1)
+    end)
+    region:HookScript("OnLeave", function(self)
+      self:SetAlpha(0)
+    end)
   end,
 }
 

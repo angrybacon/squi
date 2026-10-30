@@ -82,7 +82,9 @@ end
 local function ConfigureTabs()
   for index = 1, NUM_CHAT_WINDOWS do
     local frame = _G["ChatFrame" .. index]
-    if not frame then break end
+    if not frame then
+      break
+    end
     ConfigureInput(frame)
     ConfigureTab(frame)
   end
