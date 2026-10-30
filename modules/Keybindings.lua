@@ -1,6 +1,18 @@
 ---@type string, Squi
 local _, S = ...
 
+---Raid target markers
+local Markers = {
+  Circle = 2,
+  Cross = 7,
+  Diamond = 3,
+  Moon = 5,
+  Skull = 8,
+  Square = 6,
+  Star = 1,
+  Triangle = 4,
+}
+
 ---@param action string
 ---@param key string
 local function SetBindingExclusive(action, key)
@@ -36,6 +48,24 @@ local function ConfigureCamera()
   SetBindingExclusive("CAMERAZOOMOUT", "PAGEDOWN")
 end
 
+local function ConfigureMouseWheel()
+  for key, macro in pairs({
+    BUTTON3 = "/focus [@mouseover,exists][]",
+    MOUSEWHEELDOWN = "/tm [@mouseover,exists][] " .. Markers.Cross,
+    MOUSEWHEELUP = "/tm [@mouseover,exists][] " .. Markers.Skull,
+  }) do
+    local name = "SquiMouseWheel" .. key
+    -- NOTE Setting a raid target is restricted, a secure macro button isn't
+    local button =
+      CreateFrame("Button", name, UIParent, "SecureActionButtonTemplate")
+    -- NOTE With ActionButtonUseKeyDown, the action only fires on key down
+    button:RegisterForClicks("AnyDown", "AnyUp")
+    button:SetAttribute("type", "macro")
+    button:SetAttribute("macrotext", macro)
+    SetBindingClick(key, name)
+  end
+end
+
 local function ConfigureMovement()
   SetBindingExclusive("TOGGLEAUTORUN", "DELETE")
 end
@@ -47,6 +77,7 @@ end
 table.insert(S.Modules, function()
   ConfigureBars()
   ConfigureCamera()
+  ConfigureMouseWheel()
   ConfigureMovement()
   ConfigurePanels()
   SaveBindings(GetCurrentBindingSet())
