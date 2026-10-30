@@ -12,7 +12,7 @@ local Fonts = {
 
   ---Customize the provided region with options
   ---@param region table
-  ---@param options? { font?: string, outline?: boolean, size?: number }
+  ---@param options? { font?: string, outline?: boolean, shadow?: boolean, size?: number }
   Set = function(region, options)
     local font, size, flags = region:GetFont()
     if options and options.font ~= nil then
@@ -25,6 +25,10 @@ local Fonts = {
       size = options.size
     end
     region:SetFont(font, size, flags)
+    if options and options.shadow ~= nil then
+      region:SetShadowColor(0, 0, 0, options.shadow and 0.6 or 0)
+      region:SetShadowOffset(1, -1)
+    end
   end,
 }
 
