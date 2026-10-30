@@ -12,6 +12,11 @@ local Elements = {
   QuestDetailHeading = QuestTitleFont,
   QuestLogBody = ObjectiveFont,
   QuestLogHeading = GameFontNormalLeft,
+  SystemCategory = GameFontHighlightMedium,
+  SystemLabel1 = GameFontNormal,
+  SystemLabel2 = GameFontNormalSmall,
+  SystemPage = GameFontHighlightHuge,
+  SystemPrimary = GameFontHighlightLarge,
 }
 
 table.insert(S.Modules, function()
@@ -29,4 +34,9 @@ table.insert(S.Modules, function()
     Elements.QuestLogHeading,
     { font = S.Fonts.Blackletter, size = 14 }
   )
+  S.Fonts.Set(Elements.SystemCategory, { font = S.Fonts.Handwriting })
+  S.Fonts.Set(Elements.SystemLabel1, { font = S.Fonts.Blackletter, size = 14 })
+  S.Fonts.Set(Elements.SystemLabel2, { font = S.Fonts.Blackletter, size = 12 })
+  S.Fonts.Set(Elements.SystemPage, { font = S.Fonts.Handwriting })
+  S.Fonts.Set(Elements.SystemPrimary, { font = S.Fonts.Blackletter })
 end)
