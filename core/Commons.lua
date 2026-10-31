@@ -112,7 +112,7 @@ local Commons = {
     if changed then
       C_EditMode.SaveLayouts(base)
       -- NOTE SaveLayouts only persists the change but not change live UI
-      print("Squi layout updated, /reload again to see it")
+      print("(Squi) Layout updated, /reload again to see it")
     end
   end,
 

@@ -45,7 +45,7 @@ awk -F '|' "$COLUMN $NUMBER" "$ROOT/.build.info"
 ** Enchanting
 
 Disenchant table results are displayed in item tooltips. The data is manually
-maintained in =modules/Enchanting.lua=. Until Forever :tm: is actually released,
+maintained in =core/Enchanting.lua=. Until Forever :tm: is actually released,
 various sources disagree on the numbers. Check again later I guess
 
 - https://warcraft.wiki.gg/wiki/Disenchanting_tables
