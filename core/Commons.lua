@@ -1,6 +1,8 @@
 ---@type string, Squi
 local _, S = ...
 
+local EPSILON = 0.001
+
 ---@return table?
 local function GetLayout()
   if
@@ -90,8 +92,8 @@ local Commons = {
           and current.point == wanted.point
           and current.relativeTo == wanted.relativeTo
           and current.relativePoint == wanted.relativePoint
-          and current.offsetX == wanted.offsetX
-          and current.offsetY == wanted.offsetY
+          and math.abs(current.offsetX - wanted.offsetX) < EPSILON
+          and math.abs(current.offsetY - wanted.offsetY) < EPSILON
         if not same then
           system.anchorInfo = wanted
           system.isInDefaultPosition = false

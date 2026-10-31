@@ -6,9 +6,11 @@ local MARGIN = 24
 local SIZE = 150
 
 local function ConfigurePosition()
+  BuffFrame:SetClampedToScreen(false)
+  S.Commons.Hide(BuffFrame.CollapseAndExpandButton)
   -- NOTE Blizzard uses a 50-200 slider and expects an index
   local size = (SIZE - 50) / 10
-  local offset = BuffFrame.CollapseAndExpandButton:GetWidth()
+  local offset = BuffFrame.CollapseAndExpandButton:GetWidth() * SIZE / 100
   S.Commons.ConfigureLayout({
     [Enum.EditModeSystem.AuraFrame] = {
       [Enum.EditModeAuraFrameSystemIndices.BuffFrame] = {
@@ -36,6 +38,5 @@ local function ConfigurePosition()
 end
 
 table.insert(S.Modules, function()
-  S.Commons.Hide(BuffFrame.CollapseAndExpandButton)
   ConfigurePosition()
 end)
