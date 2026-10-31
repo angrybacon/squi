@@ -257,6 +257,8 @@ local Commons = {
       self:SetAlpha(0)
     end)
   end,
+
+  PixelSize = PixelSize,
 }
 
 S.Commons = Commons

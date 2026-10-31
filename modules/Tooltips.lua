@@ -6,6 +6,45 @@ local BACKGROUND_ALPHA = 0.8
 local FONT_FACE = S.Fonts.Sans
 local FONT_SIZE = 16
 local OFFSET = 16
+local ICON_UNKNOWN = 134400
+
+---Draw a full width line centered on a blank line
+---@param tooltip GameTooltip
+local function AddDivider(tooltip)
+  tooltip:AddLine(" ")
+  local line = _G[tooltip:GetName() .. "TextLeft" .. tooltip:NumLines()]
+  local dividers = tooltip.__Squi_Tooltips_dividers
+  if not dividers then
+    dividers = { count = 0, textures = {} }
+    -- NOTE Each call gets its own texture, they all reset with the tooltip
+    tooltip:HookScript("OnTooltipCleared", function()
+      for _, texture in ipairs(dividers.textures) do
+        texture:Hide()
+      end
+      dividers.count = 0
+    end)
+    tooltip.__Squi_Tooltips_dividers = dividers
+  end
+  dividers.count = dividers.count + 1
+  local divider = dividers.textures[dividers.count]
+  if not divider then
+    divider = tooltip:CreateTexture(nil, "OVERLAY")
+    divider:SetColorTexture(S.Colors.Outline:GetRGBA())
+    divider:SetHeight(S.Commons.PixelSize(1))
+    dividers.textures[dividers.count] = divider
+  end
+  divider:Show()
+  -- NOTE The text padding is native, measure it once the tooltip is laid out
+  C_Timer.After(0, function()
+    local left, edge = line:GetLeft(), tooltip:GetLeft()
+    if not left or not edge then
+      return
+    end
+    divider:ClearAllPoints()
+    divider:SetPoint("LEFT", line, "LEFT", edge - left, 0)
+    divider:SetWidth(tooltip:GetWidth())
+  end)
+end
 
 ---@param tooltips GameTooltip[]
 local function ConfigureBackground(tooltips)
@@ -40,6 +79,49 @@ local function ConfigureBackground(tooltips)
       end
     )
   end
+end
+
+local function ConfigureDisenchant()
+  TooltipDataProcessor.AddTooltipPostCall(
+    Enum.TooltipDataType.Item,
+    function(tooltip)
+      if not tooltip.GetItem then
+        return
+      end
+      local _, link = tooltip:GetItem()
+      if not link then
+        return
+      end
+      local _, _, quality, level, _, _, _, _, _, _, _, class =
+        C_Item.GetItemInfo(link)
+      if class ~= Enum.ItemClass.Armor and class ~= Enum.ItemClass.Weapon then
+        return
+      end
+      -- TODO We currently don't handle items that can't be disenchanted
+      local drops = S.Enchanting.Drops(quality, class, level)
+      if not drops then
+        return
+      end
+      AddDivider(tooltip)
+      for _, drop in ipairs(drops) do
+        local name = C_Item.GetItemNameByID(drop.id) or ("#" .. drop.id)
+        local rarity = C_Item.GetItemQualityByID(drop.id) or 1
+        local quantity = drop.minimum == drop.maximum and drop.minimum
+          or drop.minimum .. "-" .. drop.maximum
+        GameTooltip_AddColoredDoubleLine(
+          tooltip,
+          ("|T%s:0|t %s"):format(
+            C_Item.GetItemIconByID(drop.id) or ICON_UNKNOWN,
+            ITEM_QUALITY_COLORS[rarity].color:WrapTextInColorCode(name)
+          ),
+          ("%s%% (%s)"):format(drop.chance, quantity),
+          WHITE_FONT_COLOR,
+          COMMON_GRAY_COLOR,
+          false
+        )
+      end
+    end
+  )
 end
 
 local function ConfigureFont()
@@ -108,7 +190,7 @@ local function ConfigureIdentifiers()
       if not id then
         return
       end
-      tooltip:AddLine(" ")
+      AddDivider(tooltip)
       tooltip:AddLine(id, COMMON_GRAY_COLOR:GetRGB())
       local url = "https://www.wowhead.com/%s=%s"
       -- NOTE Save the forged link for further reference
@@ -168,6 +250,7 @@ table.insert(S.Modules, function()
   S.Commons.Hide(ShoppingTooltip1.CompareHeader)
   S.Commons.Hide(ShoppingTooltip2.CompareHeader)
   ConfigureBackground({ GameTooltip, ShoppingTooltip1, ShoppingTooltip2 })
+  ConfigureDisenchant()
   ConfigureFont()
   ConfigureIdentifiers()
   ConfigureLink()

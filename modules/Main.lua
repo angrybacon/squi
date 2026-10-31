@@ -1,6 +1,7 @@
 ---@class Squi
 ---@field Colors Colors
 ---@field Commons Commons
+---@field Enchanting Enchanting
 ---@field Fonts Fonts
 ---@field Modules fun()[]
 
@@ -21,5 +22,5 @@ events:SetScript("OnEvent", function()
     module()
   end
   local elapsed = debugprofilestop() - start
-  print(NAME .. format(" loaded in %.0f ms", elapsed))
+  print(format("(%s) Loaded in %.0f ms", NAME, elapsed))
 end)

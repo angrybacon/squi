@@ -7,6 +7,7 @@
 # Bootstrap
 modules/Colors.lua
 modules/Commons.lua
+modules/Enchanting.lua
 modules/Fonts.lua
 modules/Main.lua
 

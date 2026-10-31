@@ -15,14 +15,16 @@ repository there instead of copying it. The link name must match the addon's
 
 #+BEGIN_SRC sh :results silent
 ROOT="$HOME/Games/battlenet/drive_c/Program Files (x86)/World of Warcraft"
-FLAVOR="_retail_"
+FLAVOR="_forever_"
 ln -fns "$PWD" "$ROOT/$FLAVOR/Interface/AddOns/Squi"
 #+END_SRC
 
 Wine resolves symbolic links that point outside the prefix, so the repository
 can live anywhere on the host filesystem.
 
-* Retrieve the Current Interface Number
+* Dependencies
+
+** Retrieve the Current Interface Number
 
 #+BEGIN_SRC sh :results silent
 ROOT="$HOME/Games/battlenet/drive_c/Program Files (x86)/World of Warcraft"
@@ -39,6 +41,15 @@ NUMBER='{
 }'
 awk -F '|' "$COLUMN $NUMBER" "$ROOT/.build.info"
 #+END_SRC
+
+** Enchanting
+
+Disenchant table results are displayed in item tooltips. The data is manually
+maintained in =modules/Enchanting.lua=. Until Forever :tm: is actually released,
+various sources disagree on the numbers. Check again later I guess
+
+- https://warcraft.wiki.gg/wiki/Disenchanting_tables
+- https://forevermastery.com/en/tools/disenchant
 
 * Fonts
 
