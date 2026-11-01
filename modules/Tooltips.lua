@@ -31,19 +31,24 @@ local function AddDivider(tooltip)
     divider = tooltip:CreateTexture(nil, "OVERLAY")
     divider:SetColorTexture(S.Colors.Outline:GetRGBA())
     divider:SetHeight(S.Commons.PixelSize(1))
+    divider.Left = tooltip:CreateTexture()
+    divider.Right = tooltip:CreateTexture()
     dividers.textures[dividers.count] = divider
   end
   divider:Show()
-  -- NOTE The text padding is native, measure it once the tooltip is laid out
-  C_Timer.After(0, function()
-    local left, edge = line:GetLeft(), tooltip:GetLeft()
-    if not left or not edge then
-      return
-    end
-    divider:ClearAllPoints()
-    divider:SetPoint("LEFT", line, "LEFT", edge - left, 0)
-    divider:SetWidth(tooltip:GetWidth())
-  end)
+  -- NOTE Anchors can follow secret geometry, measuring cannot. Each helper
+  --      spans between the tooltip's edge and the line, so its bottom corner
+  --      combines the tooltip's x with the line's vertical center
+  local left, right = divider.Left, divider.Right
+  left:ClearAllPoints()
+  left:SetPoint("TOPLEFT", tooltip, "TOPLEFT")
+  left:SetPoint("BOTTOMRIGHT", line, "RIGHT")
+  right:ClearAllPoints()
+  right:SetPoint("TOPRIGHT", tooltip, "TOPRIGHT")
+  right:SetPoint("BOTTOMLEFT", line, "LEFT")
+  divider:ClearAllPoints()
+  divider:SetPoint("LEFT", left, "BOTTOMLEFT")
+  divider:SetPoint("RIGHT", right, "BOTTOMRIGHT")
 end
 
 ---@param tooltips GameTooltip[]
