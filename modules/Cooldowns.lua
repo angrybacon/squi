@@ -59,6 +59,7 @@ end
 ---Stop tracking a spell and recycle its icon
 ---@param key number
 local function Remove(key)
+  -- TODO Flash the icon of a spell that just finished, e.g. zoom and fade
   local entry = ENTRIES[key]
   if entry then
     entry.icon:Hide()
@@ -71,6 +72,7 @@ end
 ---@param offset number
 ---@return number
 local function Snap(offset)
+  -- TODO The pixel size is the same for every icon, compute it once per frame
   -- NOTE The outline edges snap to the pixel grid but the icon does not, so
   --      they would step apart. Landing on whole pixels keeps them in sync.
   local pixel = S.Commons.PixelSize(1)
@@ -107,6 +109,7 @@ end
 local function Update()
   local now = GetTime()
   local travel = LINE:GetWidth() - ICON_SIZE - 2 * INSET
+  -- TODO The log denominator is constant, compute it once outside the loop
   for key, entry in pairs(ENTRIES) do
     local remaining = entry.expires - now
     if remaining <= 0 then
@@ -114,6 +117,8 @@ local function Update()
     elseif remaining > THRESHOLD_HIGH then
       entry.icon:Hide()
     else
+      -- TODO Skip re-anchoring when the snapped offset didn't change, it
+      --      invalidates the layout of the icon and its five children.
       entry.icon:ClearAllPoints()
       local ratio = math.log(1 + remaining / LOG_OFFSET)
         / math.log(1 + THRESHOLD_HIGH / LOG_OFFSET)
@@ -154,6 +159,8 @@ local function ConfigureLine()
       Track(spell)
     else
       -- NOTE No spell in payload means every cooldown changed, e.g. on login
+      -- TODO Walking the whole spellbook is about 1000 API calls, cache the
+      --      spell IDs on `SPELLS_CHANGED` instead.
       for lineIndex = 1, C_SpellBook.GetNumSpellBookSkillLines() do
         local skill = C_SpellBook.GetSpellBookSkillLineInfo(lineIndex)
         if skill and not skill.shouldHide then
@@ -179,5 +186,9 @@ local function ConfigureLine()
 end
 
 table.insert(S.Modules, function()
+  -- NOTE Cooldowns are secret in combat, so the line hides itself until it
+  --      ends. Explore options that go around the restriction, e.g. a
+  --      secret-safe line driven by status bars and curves, or estimating from
+  --      remembered durations.
   ConfigureLine()
 end)
