@@ -1,7 +1,7 @@
 ---@type string, Squi
 local _, S = ...
 
-local GAP = 50
+local GAP = 80
 
 local function ConfigurePosition()
   S.Commons.ConfigureLayout({
