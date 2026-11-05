@@ -22,6 +22,10 @@ local function SetBindingExclusive(action, key)
   SetBinding(key, action)
 end
 
+local function ConfigureBags()
+  SetBindingExclusive("OPENALLBAGS", "B")
+end
+
 local function ConfigureBars()
   for index, key in ipairs({
     "1",
@@ -75,6 +79,7 @@ local function ConfigurePanels()
 end
 
 table.insert(S.Modules, function()
+  ConfigureBags()
   ConfigureBars()
   ConfigureCamera()
   ConfigureMouseWheel()
