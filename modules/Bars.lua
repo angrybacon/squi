@@ -66,6 +66,15 @@ local function ConfigurePosition()
         },
       },
     },
+    [Enum.EditModeSystem.TotemActionBar] = {
+      anchor = {
+        anchor = "TOPLEFT",
+        anchored = "BOTTOMLEFT",
+        on = "MultiBarBottomLeft",
+        x = 0,
+        y = GAP,
+      },
+    },
   })
 end
 
