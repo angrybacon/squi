@@ -1,7 +1,9 @@
 ---@type string, Squi
 local _, S = ...
 
-local MARGIN = 24
+---Minimap container has hardcoded padding
+local MARGIN = 0
+local SIZE = 120
 
 local function ConfigurePosition()
   S.Commons.ConfigureLayout({
@@ -13,19 +15,18 @@ local function ConfigurePosition()
         x = -MARGIN,
         y = MARGIN,
       },
+      settings = {
+        [Enum.EditModeMinimapSetting.Size] = S.Commons.SliderIndex(SIZE, 50),
+      },
     },
   })
   MinimapCluster.MinimapContainer:SetPoint("TOP", MinimapCluster, "TOP", 0, 0)
 end
 
 local function ConfigureSize()
-  local width, height = MinimapCluster.MinimapContainer.Minimap:GetSize()
-  MinimapCluster:SetHeight(height)
-  MinimapCluster:SetWidth(width)
-  MinimapCluster.MinimapContainer:SetHeight(height)
-  MinimapCluster.MinimapContainer:SetWidth(width)
-  MinimapBackdrop:SetHeight(height)
-  MinimapBackdrop:SetWidth(width)
+  local container = MinimapCluster.MinimapContainer
+  container:ClearAllPoints()
+  container:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -MARGIN, MARGIN)
 end
 
 ---Enable every tracking kind except the ones listed
@@ -43,14 +44,12 @@ local function ConfigureZoom()
 end
 
 table.insert(S.Modules, function()
-  SetCVar("rotateMinimap", "1")
+  SetCVar("rotateMinimap", "0")
   S.Commons.Hide(GameTimeFrame)
-  S.Commons.Hide(Minimap.ZoomIn)
-  S.Commons.Hide(Minimap.ZoomOut)
+  S.Commons.Hide(MinimapCluster.DielFrame)
   S.Commons.Hide(MinimapCluster.MinimapContainer.PlayerCoords)
-  S.Commons.Hide(MinimapCluster.BorderTop)
   S.Commons.Hide(MinimapCluster.Tracking)
-  S.Commons.Hide(MinimapZoneText)
+  S.Commons.Hide(MinimapCluster.ZoneTextButton)
   S.Commons.Hide(TimeManagerClockButton)
   ConfigurePosition()
   ConfigureSize()

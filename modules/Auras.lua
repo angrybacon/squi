@@ -7,8 +7,7 @@ local SIZE = 150
 
 local function ConfigurePosition()
   S.Commons.Hide(BuffFrame.CollapseAndExpandButton)
-  -- NOTE Blizzard uses a 50-200 slider and expects an index
-  local size = (SIZE - 50) / 10
+  local size = S.Commons.SliderIndex(SIZE, 50)
   local offset = BuffFrame.CollapseAndExpandButton:GetWidth() * SIZE / 100
   S.Commons.ConfigureLayout({
     [Enum.EditModeSystem.AuraFrame] = {

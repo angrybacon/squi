@@ -14,7 +14,7 @@ local function GetLayout()
     return nil
   end
 
-  -- NOTE Never write while Edit Mode is open: it keeps its own copy of the
+  -- NOTE Never write while _Edit Mode_ is open: it keeps its own copy of the
   --      layout for the session and overwrites this on its next save anyway
   local frame = EditModeManagerFrame
   if
@@ -261,6 +261,15 @@ local Commons = {
   end,
 
   PixelSize = PixelSize,
+
+  ---Convert a slider value into the index _Edit Mode_ stores for it
+  ---@param value number
+  ---@param minimum number
+  ---@param step? number
+  ---@return number
+  SliderIndex = function(value, minimum, step)
+    return (value - minimum) / (step or 10)
+  end,
 }
 
 S.Commons = Commons
