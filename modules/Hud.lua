@@ -6,6 +6,7 @@ local FRAME_OFFSET_Y = 250
 local PARTY_OFFSET_X = 500
 local STATUS_GAP = 4
 local STATUS_MARGIN = 24
+local SWING_OFFSET_Y = 200
 
 local function ConfigureFrames()
   S.Commons.ConfigureLayout({
@@ -38,6 +39,23 @@ local function ConfigureFrames()
           on = "UIParent",
           x = FRAME_OFFSET_X,
           y = FRAME_OFFSET_Y,
+        },
+      },
+    },
+    [Enum.EditModeSystem.SwingTimer] = {
+      [Enum.EditModeSwingTimerSystemIndices.MainHand] = {
+        anchor = {
+          anchor = "CENTER",
+          anchored = "BOTTOM",
+          on = "UIParent",
+          x = 0,
+          y = -SWING_OFFSET_Y,
+        },
+        settings = {
+          [Enum.EditModeSwingTimerSetting.Scale] = 2,
+          [Enum.EditModeSwingTimerSetting.ShowBarTitle] = 0,
+          [Enum.EditModeSwingTimerSetting.ShowTime] = 0,
+          [Enum.EditModeSwingTimerSetting.Visibility] = Enum.EditModeSwingTimerVisibility.InCombat,
         },
       },
     },
