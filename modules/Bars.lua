@@ -91,6 +91,8 @@ local function ConfigureVisibility()
       S.Commons.Hide(divider)
     end
   end
+  -- NOTE Weird name but that's the Shaman totem bar
+  S.Commons.Hide(MultiCastActionBarFrame)
 end
 
 table.insert(S.Modules, function()
