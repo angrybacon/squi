@@ -3,12 +3,25 @@ local _, S = ...
 
 local FRAME_OFFSET_X = 0
 local FRAME_OFFSET_Y = 250
+local PARTY_OFFSET_X = 500
 local STATUS_GAP = 4
 local STATUS_MARGIN = 24
 
 local function ConfigureFrames()
   S.Commons.ConfigureLayout({
     [Enum.EditModeSystem.UnitFrame] = {
+      [Enum.EditModeUnitFrameSystemIndices.Party] = {
+        anchor = {
+          anchor = "CENTER",
+          anchored = "RIGHT",
+          on = "UIParent",
+          x = -PARTY_OFFSET_X,
+          y = 0,
+        },
+        settings = {
+          [Enum.EditModeUnitFrameSetting.UseRaidStylePartyFrames] = 1,
+        },
+      },
       [Enum.EditModeUnitFrameSystemIndices.Player] = {
         anchor = {
           anchor = "BOTTOM",
