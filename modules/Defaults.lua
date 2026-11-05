@@ -7,6 +7,7 @@ local VOLUME_MASTER = 0.9
 local VOLUME_MEDIUM = 0.5
 
 table.insert(S.Modules, function()
+  SetCVar("ShowAllSpellRanks", "1")
   SetCVar("Sound_AmbienceVolume", VOLUME_MEDIUM)
   SetCVar("Sound_DialogVolume", VOLUME_HIGH)
   SetCVar("Sound_EnableSoundWhenGameIsInBG", "1")
