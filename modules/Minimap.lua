@@ -39,7 +39,7 @@ local function ConfigureTracking(...)
 end
 
 local function ConfigureZoom()
-  Minimap:SetZoom(Minimap:GetZoomLevels() - 1)
+  Minimap:SetZoom(0)
 end
 
 table.insert(S.Modules, function()
