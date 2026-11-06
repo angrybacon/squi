@@ -3,6 +3,7 @@ local _, S = ...
 
 local FONT_FACE = S.Fonts.Sans
 local FONT_SIZE = 16
+local HEIGHT, WIDTH = 200, 600
 ---Blizzard reserves a hardcoded 15px on the left for the border texture's lip,
 ---baked into both the header and the prompt anchors. Since the border is
 ---hidden, drop that reserve so typed text lines up with the chat frame.
@@ -58,9 +59,18 @@ local function ConfigurePosition()
         anchor = "BOTTOMLEFT",
         anchored = "BOTTOMLEFT",
         on = "UIParent",
+        -- NOTE The built-in hardcoded inset will do for now
         x = 0,
         y = 0,
-        -- NOTE The built-in hardcoded inset will do for now
+      },
+      -- NOTE The _Edit Mode_ stores the sizes as two settings, hundreds apart
+      settings = {
+        [Enum.EditModeChatFrameSetting.HeightHundreds] = math.floor(
+          HEIGHT / 100
+        ),
+        [Enum.EditModeChatFrameSetting.HeightTensAndOnes] = HEIGHT % 100,
+        [Enum.EditModeChatFrameSetting.WidthHundreds] = math.floor(WIDTH / 100),
+        [Enum.EditModeChatFrameSetting.WidthTensAndOnes] = WIDTH % 100,
       },
     },
   })
