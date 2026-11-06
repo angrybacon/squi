@@ -197,7 +197,7 @@ local function ConfigureIdentifiers()
       end
       AddDivider(tooltip)
       tooltip:AddLine(id, COMMON_GRAY_COLOR:GetRGB())
-      local url = "https://www.wowhead.com/%s=%s"
+      local url = "https://www.wowhead.com/forever/%s=%s"
       -- NOTE Save the forged link for further reference
       tooltip.__Squi_Tooltips_link = url:format(it.parameter, id)
     end)
