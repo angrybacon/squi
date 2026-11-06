@@ -18,7 +18,7 @@ local Colors = {
   ---@return colorRGB?
   GetClassColor = function(region)
     local _, unit = region:GetUnit()
-    if not unit or not UnitIsPlayer(unit) then
+    if not unit or not canaccessvalue(unit) or not UnitIsPlayer(unit) then
       return nil
     end
     local _, class = UnitClass(unit)

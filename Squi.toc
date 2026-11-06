@@ -1,8 +1,12 @@
 ## Author: Mathieu Marques
 ## Interface: 16001
+## SavedVariables: SquiErrors
 ## Notes: Personal interface addon, named after Squee because it rhymes
 ## Title: Squi
 ## Version: 0.1.0
+
+# Debug
+core/Debug.lua
 
 # Bootstrap
 core/Colors.lua

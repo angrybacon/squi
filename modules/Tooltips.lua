@@ -164,7 +164,7 @@ local function ConfigureIdentifiers()
       return nil
     end
     local _, unit = tooltip:GetUnit()
-    if not unit then
+    if not unit or not canaccessvalue(unit) then
       return nil
     end
     local guid = UnitGUID(unit)

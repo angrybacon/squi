@@ -1,5 +1,5 @@
 ---@type string, Squi
-local _, S = ...
+local NAME, S = ...
 
 local EPSILON = 0.001
 
@@ -114,7 +114,7 @@ local Commons = {
     if changed then
       C_EditMode.SaveLayouts(base)
       -- NOTE SaveLayouts only persists the change but not change live UI
-      print("(Squi) Layout updated, /reload again to see it")
+      print(("(%s) Layout updated, /reload again to see it"):format(NAME))
     end
   end,
 
@@ -174,7 +174,7 @@ local Commons = {
     if not layout then
       return
     end
-    local name = "Squi"
+    local name = NAME
     local target
     for index, candidate in ipairs(layout.layouts) do
       if candidate.layoutName == name then
