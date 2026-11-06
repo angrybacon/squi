@@ -102,6 +102,16 @@ local function ConfigureFrames()
   })
 end
 
+---Hide the names on the party frames, there is no setting for it
+local function ConfigureNames()
+  hooksecurefunc("CompactUnitFrame_UpdateName", function(frame)
+    -- NOTE The party frame is created lazily, look it up at call time
+    if CompactPartyFrame and frame:GetParent() == CompactPartyFrame then
+      frame.name:Hide()
+    end
+  end)
+end
+
 local function ConfigureStatus()
   S.Commons.ConfigureLayout({
     [Enum.EditModeSystem.StatusTrackingBar] = {
@@ -140,5 +150,6 @@ table.insert(S.Modules, function()
   S.Commons.Hide(QuickJoinToastButton)
   ConfigureDurability()
   ConfigureFrames()
+  ConfigureNames()
   ConfigureStatus()
 end)
