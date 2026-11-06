@@ -2,13 +2,15 @@
 local _, S = ...
 
 local DURABILITY_MARGIN = 4
-local FRAME_OFFSET_X, FRAME_OFFSET_Y = 0, 250
-local PARTY_GAP = 4
-local PARTY_HEIGHT, PARTY_WIDTH = 50, 100
+local FRAME_MARGIN = 24
+---Blizzard hardcodes a padding inside of player and target frames
+local FRAME_OFFSET = 18
+-- NOTE This is the distance from the action bars
+local PARTY_MARGIN = 110
+-- NOTE Rough estimate of the action bars width for symmetry
+local PARTY_HEIGHT, PARTY_WIDTH = 50, 112
 local STATUS_GAP = 4
 local STATUS_MARGIN = 4
-local SWING_MARGIN = 0
-local SWING_SCALE = 50
 
 local function ConfigureDurability()
   S.Commons.ConfigureLayout({
@@ -38,11 +40,11 @@ local function ConfigureFrames()
       },
       [Enum.EditModeUnitFrameSystemIndices.Party] = {
         anchor = {
-          anchor = "TOPRIGHT",
-          anchored = "BOTTOM",
-          on = "PlayerFrame",
-          x = FRAME_OFFSET_X,
-          y = PARTY_GAP,
+          anchor = "TOPLEFT",
+          anchored = "BOTTOMLEFT",
+          on = "MultiBarBottomLeft",
+          x = 0,
+          y = PARTY_MARGIN,
         },
         settings = {
           [Enum.EditModeUnitFrameSetting.AuraOrganizationType] = Enum.RaidAuraOrganizationType.BuffsTopDebuffsBottom,
@@ -62,40 +64,20 @@ local function ConfigureFrames()
       },
       [Enum.EditModeUnitFrameSystemIndices.Player] = {
         anchor = {
-          anchor = "BOTTOM",
-          anchored = "BOTTOMRIGHT",
-          on = "UIParent",
-          x = -FRAME_OFFSET_X,
-          y = FRAME_OFFSET_Y,
+          anchor = "TOPLEFT",
+          anchored = "BOTTOMLEFT",
+          on = "MultiBarBottomLeft",
+          x = -FRAME_OFFSET,
+          y = FRAME_MARGIN,
         },
       },
       [Enum.EditModeUnitFrameSystemIndices.Target] = {
         anchor = {
-          anchor = "BOTTOM",
-          anchored = "BOTTOMLEFT",
-          on = "UIParent",
-          x = FRAME_OFFSET_X,
-          y = FRAME_OFFSET_Y,
-        },
-      },
-    },
-    [Enum.EditModeSystem.SwingTimer] = {
-      [Enum.EditModeSwingTimerSystemIndices.MainHand] = {
-        anchor = {
-          anchor = "TOP",
-          anchored = "BOTTOM",
-          on = "PartyFrame",
-          x = 0,
-          y = SWING_MARGIN,
-        },
-        settings = {
-          [Enum.EditModeSwingTimerSetting.Scale] = S.Commons.SliderIndex(
-            SWING_SCALE,
-            50
-          ),
-          [Enum.EditModeSwingTimerSetting.ShowBarTitle] = 0,
-          [Enum.EditModeSwingTimerSetting.ShowTime] = 0,
-          [Enum.EditModeSwingTimerSetting.Visibility] = Enum.EditModeSwingTimerVisibility.InCombat,
+          anchor = "TOPRIGHT",
+          anchored = "BOTTOMRIGHT",
+          on = "MultiBarBottomLeft",
+          x = FRAME_OFFSET,
+          y = FRAME_MARGIN,
         },
       },
     },
@@ -144,7 +126,6 @@ end
 table.insert(S.Modules, function()
   SetCVar("raidFramesDisplayClassColor", "1")
   SetCVar("raidFramesDisplayPowerBars", "1")
-  SetCVar("showSwingTimer", "1")
   S.Commons.Hide(BagsBar)
   S.Commons.Hide(MicroMenuContainer)
   S.Commons.Hide(QuickJoinToastButton)
