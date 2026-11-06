@@ -19,7 +19,7 @@ modules/Camera.lua
 modules/Castbar.lua
 modules/Chat.lua
 modules/Commands.lua
-modules/Cooldowns.lua
+modules/CooldownLine.lua
 modules/Defaults.lua
 modules/Graphics.lua
 modules/Hud.lua
