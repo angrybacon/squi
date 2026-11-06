@@ -19,10 +19,19 @@ local Elements = {
   SystemPrimary = GameFontHighlightLarge,
 }
 
+---Rename the quest text contrast options
+local QuestBackgrounds = {
+  Dark = 4,
+  Default = 0,
+  Light1 = 1,
+  Light2 = 2,
+  Light3 = 3,
+}
+
 table.insert(S.Modules, function()
   SetCVar("WorldTextMinSize", 12)
   SetCVar("WorldTextScale_v2", 1.5)
-  SetCVar("questTextContrast", 1)
+  SetCVar("questTextContrast", QuestBackgrounds.Dark)
   S.Fonts.Set(Elements.QuestDetailBody1, { font = S.Fonts.Sans })
   S.Fonts.Set(Elements.QuestDetailBody2, { font = S.Fonts.Sans })
   S.Fonts.Set(
