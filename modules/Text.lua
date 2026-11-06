@@ -29,8 +29,8 @@ local QuestBackgrounds = {
 }
 
 table.insert(S.Modules, function()
-  SetCVar("WorldTextMinSize", 12)
-  SetCVar("WorldTextScale_v2", 1.5)
+  SetCVar("WorldTextMinSize", 10)
+  SetCVar("WorldTextScale_v2", 1.0)
   SetCVar("questTextContrast", QuestBackgrounds.Dark)
   S.Fonts.Set(Elements.QuestDetailBody1, { font = S.Fonts.Sans })
   S.Fonts.Set(Elements.QuestDetailBody2, { font = S.Fonts.Sans })
