@@ -21,7 +21,7 @@ local function ConfigureSort()
 end
 
 table.insert(S.Modules, function()
-  SetCVar("combinedBags", "0")
+  SetCVar("combinedBags", "1")
   ConfigureJunk()
   ConfigureSort()
 end)
