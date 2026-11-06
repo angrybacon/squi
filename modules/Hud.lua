@@ -1,17 +1,40 @@
 ---@type string, Squi
 local _, S = ...
 
-local FRAME_OFFSET_X = 0
-local FRAME_OFFSET_Y = 250
+local DURABILITY_MARGIN = 4
+local FRAME_OFFSET_X, FRAME_OFFSET_Y = 0, 250
 local PARTY_OFFSET_X = 500
 local STATUS_GAP = 4
 local STATUS_MARGIN = 4
 local SWING_OFFSET_Y = 200
 local SWING_SCALE = 50
 
+local function ConfigureDurability()
+  S.Commons.ConfigureLayout({
+    [Enum.EditModeSystem.DurabilityFrame] = {
+      anchor = {
+        anchor = "BOTTOMRIGHT",
+        anchored = "BOTTOMRIGHT",
+        on = "UIParent",
+        x = -DURABILITY_MARGIN,
+        y = DURABILITY_MARGIN,
+      },
+    },
+  })
+end
+
 local function ConfigureFrames()
   S.Commons.ConfigureLayout({
     [Enum.EditModeSystem.UnitFrame] = {
+      [Enum.EditModeUnitFrameSystemIndices.Boss] = {
+        anchor = {
+          anchor = "BOTTOMRIGHT",
+          anchored = "TOPRIGHT",
+          on = "DebuffFrame",
+          x = 0,
+          y = 0,
+        },
+      },
       [Enum.EditModeUnitFrameSystemIndices.Party] = {
         anchor = {
           anchor = "CENTER",
@@ -100,6 +123,7 @@ table.insert(S.Modules, function()
   S.Commons.Hide(BagsBar)
   S.Commons.Hide(MicroMenuContainer)
   S.Commons.Hide(QuickJoinToastButton)
+  ConfigureDurability()
   ConfigureFrames()
   ConfigureStatus()
 end)
