@@ -30,6 +30,7 @@ modules/Graphics.lua
 modules/Hud.lua
 modules/Keybindings.lua
 modules/Macros.lua
+modules/Meter.lua
 modules/Minimap.lua
 modules/Nameplates.lua
 modules/Objectives.lua
