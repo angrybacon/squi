@@ -30,5 +30,7 @@ local function ConfigureZoom()
 end
 
 table.insert(S.Modules, function()
+  SetCVar("cameraDistanceMaxZoomFactor", 2.0)
+  SetCVar("cameraSmoothStyle", 0)
   ConfigureZoom()
 end)

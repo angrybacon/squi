@@ -5,8 +5,9 @@ local FRAME_OFFSET_X = 0
 local FRAME_OFFSET_Y = 250
 local PARTY_OFFSET_X = 500
 local STATUS_GAP = 4
-local STATUS_MARGIN = 24
+local STATUS_MARGIN = 4
 local SWING_OFFSET_Y = 200
+local SWING_SCALE = 50
 
 local function ConfigureFrames()
   S.Commons.ConfigureLayout({
@@ -52,7 +53,10 @@ local function ConfigureFrames()
           y = -SWING_OFFSET_Y,
         },
         settings = {
-          [Enum.EditModeSwingTimerSetting.Scale] = 2,
+          [Enum.EditModeSwingTimerSetting.Scale] = S.Commons.SliderIndex(
+            SWING_SCALE,
+            50
+          ),
           [Enum.EditModeSwingTimerSetting.ShowBarTitle] = 0,
           [Enum.EditModeSwingTimerSetting.ShowTime] = 0,
           [Enum.EditModeSwingTimerSetting.Visibility] = Enum.EditModeSwingTimerVisibility.InCombat,
@@ -92,6 +96,7 @@ local function ConfigureStatus()
 end
 
 table.insert(S.Modules, function()
+  SetCVar("showSwingTimer", "1")
   S.Commons.Hide(BagsBar)
   S.Commons.Hide(MicroMenuContainer)
   S.Commons.Hide(QuickJoinToastButton)

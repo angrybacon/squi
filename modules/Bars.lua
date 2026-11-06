@@ -96,6 +96,7 @@ local function ConfigureVisibility()
 end
 
 table.insert(S.Modules, function()
+  SetCVar("countdownForCooldowns", "1")
   ConfigureLabels()
   ConfigureModifiers()
   ConfigurePosition()
