@@ -3,10 +3,11 @@ local _, S = ...
 
 local DURABILITY_MARGIN = 4
 local FRAME_OFFSET_X, FRAME_OFFSET_Y = 0, 250
-local PARTY_OFFSET_X = 500
+local PARTY_GAP = 4
+local PARTY_HEIGHT, PARTY_WIDTH = 50, 100
 local STATUS_GAP = 4
 local STATUS_MARGIN = 4
-local SWING_OFFSET_Y = 200
+local SWING_MARGIN = 0
 local SWING_SCALE = 50
 
 local function ConfigureDurability()
@@ -37,13 +38,25 @@ local function ConfigureFrames()
       },
       [Enum.EditModeUnitFrameSystemIndices.Party] = {
         anchor = {
-          anchor = "CENTER",
-          anchored = "RIGHT",
-          on = "UIParent",
-          x = -PARTY_OFFSET_X,
-          y = 0,
+          anchor = "TOPRIGHT",
+          anchored = "BOTTOM",
+          on = "PlayerFrame",
+          x = FRAME_OFFSET_X,
+          y = PARTY_GAP,
         },
         settings = {
+          [Enum.EditModeUnitFrameSetting.AuraOrganizationType] = Enum.RaidAuraOrganizationType.BuffsTopDebuffsBottom,
+          [Enum.EditModeUnitFrameSetting.FrameHeight] = S.Commons.SliderIndex(
+            PARTY_HEIGHT,
+            36,
+            1
+          ),
+          [Enum.EditModeUnitFrameSetting.FrameWidth] = S.Commons.SliderIndex(
+            PARTY_WIDTH,
+            72,
+            1
+          ),
+          [Enum.EditModeUnitFrameSetting.UseHorizontalGroups] = 1,
           [Enum.EditModeUnitFrameSetting.UseRaidStylePartyFrames] = 1,
         },
       },
@@ -69,11 +82,11 @@ local function ConfigureFrames()
     [Enum.EditModeSystem.SwingTimer] = {
       [Enum.EditModeSwingTimerSystemIndices.MainHand] = {
         anchor = {
-          anchor = "CENTER",
+          anchor = "TOP",
           anchored = "BOTTOM",
-          on = "UIParent",
+          on = "PartyFrame",
           x = 0,
-          y = -SWING_OFFSET_Y,
+          y = SWING_MARGIN,
         },
         settings = {
           [Enum.EditModeSwingTimerSetting.Scale] = S.Commons.SliderIndex(
@@ -119,6 +132,8 @@ local function ConfigureStatus()
 end
 
 table.insert(S.Modules, function()
+  SetCVar("raidFramesDisplayClassColor", "1")
+  SetCVar("raidFramesDisplayPowerBars", "1")
   SetCVar("showSwingTimer", "1")
   S.Commons.Hide(BagsBar)
   S.Commons.Hide(MicroMenuContainer)
