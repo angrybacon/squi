@@ -66,6 +66,15 @@ local function ConfigurePosition()
         },
       },
     },
+    [Enum.EditModeSystem.VehicleLeaveButton] = {
+      anchor = {
+        anchor = "TOPRIGHT",
+        anchored = "BOTTOMRIGHT",
+        on = "MultiBarBottomLeft",
+        x = 0,
+        y = GAP,
+      },
+    },
   })
 end
 
