@@ -58,7 +58,7 @@ end
 ---@class Commons
 local Commons = {
   ---@alias Anchor { anchor: string, anchored: string, on: string, x: number, y: number }
-  ---@alias Options { anchor?: Anchor, settings?: table<number, number> }
+  ---@alias Options { anchor?: Anchor, reset?: boolean, settings?: table<number, number> }
   ---@param specifications table<number, Options | table<number, Options>>
   ConfigureLayout = function(specifications)
     local base = GetLayout()
@@ -78,6 +78,11 @@ local Commons = {
       --      others are singletons with no `systemIndex` at all.
       local index = system.systemIndex
       local options = bucket and (index and bucket[index] or bucket)
+      -- NOTE Back to Blizzard's own position, whatever was saved before
+      if options and options.reset and system.isInDefaultPosition == false then
+        system.isInDefaultPosition = true
+        changed = true
+      end
       if options and options.anchor then
         local wanted = {
           offsetX = options.anchor.x,
