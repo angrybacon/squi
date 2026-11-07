@@ -34,6 +34,7 @@ modules/Meter.lua
 modules/Minimap.lua
 modules/Nameplates.lua
 modules/Objectives.lua
+modules/Repair.lua
 modules/Swing.lua
 modules/Text.lua
 modules/Tooltips.lua

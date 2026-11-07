@@ -1,7 +1,6 @@
 ---@type string, Squi
 local _, S = ...
 
-local DURABILITY_MARGIN = 4
 local FRAME_MARGIN = 24
 ---Blizzard hardcodes a padding inside of player and target frames
 local FRAME_OFFSET = 18
@@ -11,20 +10,6 @@ local PARTY_MARGIN = 110
 local PARTY_HEIGHT, PARTY_WIDTH = 50, 112
 local STATUS_GAP = 4
 local STATUS_MARGIN = 4
-
-local function ConfigureDurability()
-  S.Commons.ConfigureLayout({
-    [Enum.EditModeSystem.DurabilityFrame] = {
-      anchor = {
-        anchor = "BOTTOMRIGHT",
-        anchored = "BOTTOMRIGHT",
-        on = "UIParent",
-        x = -DURABILITY_MARGIN,
-        y = DURABILITY_MARGIN,
-      },
-    },
-  })
-end
 
 local function ConfigureFrames()
   S.Commons.ConfigureLayout({
@@ -129,7 +114,6 @@ table.insert(S.Modules, function()
   S.Commons.Hide(BagsBar)
   S.Commons.Hide(MicroMenuContainer)
   S.Commons.Hide(QuickJoinToastButton)
-  ConfigureDurability()
   ConfigureFrames()
   ConfigureNames()
   ConfigureStatus()
