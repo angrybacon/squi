@@ -1,6 +1,8 @@
 ---@type string, Squi
 local _, S = ...
 
+local MARGIN = 24
+
 local function ConfigureBank()
   BankFrame:HookScript("OnShow", function(frame)
     -- NOTE Opening the bank also opens the bags, which are configured to also
@@ -28,6 +30,20 @@ local function ConfigureJunk()
   end)
 end
 
+local function ConfigurePosition()
+  S.Commons.ConfigureLayout({
+    [Enum.EditModeSystem.Bags] = {
+      anchor = {
+        anchor = "BOTTOMRIGHT",
+        anchored = "BOTTOMLEFT",
+        on = "MainActionBar",
+        x = MARGIN,
+        y = 0,
+      },
+    },
+  })
+end
+
 local function ConfigureSort()
   EventRegistry:RegisterCallback("ContainerFrame.OpenAllBags", function()
     C_Container.SortBags()
@@ -36,7 +52,9 @@ end
 
 table.insert(S.Modules, function()
   SetCVar("combinedBags", "1")
+  S.Commons.Peek(BagsBar)
   ConfigureBank()
   ConfigureJunk()
+  ConfigurePosition()
   ConfigureSort()
 end)

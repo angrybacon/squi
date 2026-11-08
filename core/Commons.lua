@@ -247,16 +247,16 @@ local Commons = {
     return { top, right, bottom, left }
   end,
 
-  ---Hide the region until hovered
+  ---Hide the region until hovered, hovering any of its children counts
   ---@param region table
   Peek = function(region)
     region:EnableMouse(true)
     region:SetAlpha(0)
-    region:HookScript("OnEnter", function(self)
-      self:SetAlpha(1)
-    end)
-    region:HookScript("OnLeave", function(self)
-      self:SetAlpha(0)
+    -- NOTE Enter and leave events only target the frame under the mouse, so a
+    --      child that takes the mouse would hide its parent again. Poll the
+    --      region's rectangle instead, which ignores what sits on top of it.
+    region:HookScript("OnUpdate", function(self)
+      self:SetAlpha(self:IsMouseOver() and 1.0 or 0.0)
     end)
   end,
 

@@ -116,7 +116,6 @@ end
 table.insert(S.Modules, function()
   SetCVar("raidFramesDisplayClassColor", "1")
   SetCVar("raidFramesDisplayPowerBars", "1")
-  S.Commons.Hide(BagsBar)
   S.Commons.Hide(MicroMenuContainer)
   S.Commons.Hide(QuickJoinToastButton)
   ConfigureFrames()
