@@ -1,13 +1,11 @@
 ---@type string, Squi
 local _, S = ...
 
-local FRAME_MARGIN = 24
----Blizzard hardcodes a padding inside of player and target frames
-local FRAME_OFFSET = 18
--- NOTE This is the distance from the action bars
-local PARTY_MARGIN = 110
+local FRAME_MARGIN = 30
+local FRAME_OFFSET = 69
+local PARTY_MARGIN = 32
 -- NOTE Rough estimate of the action bars width for symmetry
-local PARTY_HEIGHT, PARTY_WIDTH = 50, 112
+local PARTY_HEIGHT, PARTY_WIDTH = 50, 128
 local STATUS_GAP = 4
 local STATUS_MARGIN = 4
 
@@ -23,12 +21,37 @@ local function ConfigureFrames()
           y = 0,
         },
       },
+      [Enum.EditModeUnitFrameSystemIndices.Player] = {
+        anchor = {
+          anchor = "TOP",
+          anchored = "BOTTOMRIGHT",
+          on = "MultiBarBottomLeft",
+          x = -FRAME_OFFSET,
+          y = FRAME_MARGIN,
+        },
+      },
+      [Enum.EditModeUnitFrameSystemIndices.Target] = {
+        anchor = {
+          anchor = "RIGHT",
+          anchored = "LEFT",
+          on = "PlayerFrame",
+          x = FRAME_OFFSET * 2,
+          y = 0,
+        },
+      },
+    },
+  })
+end
+
+local function ConfigureParty()
+  S.Commons.ConfigureLayout({
+    [Enum.EditModeSystem.UnitFrame] = {
       [Enum.EditModeUnitFrameSystemIndices.Party] = {
         anchor = {
-          anchor = "TOPLEFT",
-          anchored = "BOTTOMLEFT",
-          on = "MultiBarBottomLeft",
-          x = 0,
+          anchor = "TOPRIGHT",
+          anchored = "BOTTOM",
+          on = "PlayerFrame",
+          x = FRAME_OFFSET,
           y = PARTY_MARGIN,
         },
         settings = {
@@ -47,31 +70,13 @@ local function ConfigureFrames()
           [Enum.EditModeUnitFrameSetting.UseRaidStylePartyFrames] = 1,
         },
       },
-      [Enum.EditModeUnitFrameSystemIndices.Player] = {
-        anchor = {
-          anchor = "TOPLEFT",
-          anchored = "BOTTOMLEFT",
-          on = "MultiBarBottomLeft",
-          x = -FRAME_OFFSET,
-          y = FRAME_MARGIN,
-        },
-      },
-      [Enum.EditModeUnitFrameSystemIndices.Target] = {
-        anchor = {
-          anchor = "TOPRIGHT",
-          anchored = "BOTTOMRIGHT",
-          on = "MultiBarBottomLeft",
-          x = FRAME_OFFSET,
-          y = FRAME_MARGIN,
-        },
-      },
     },
   })
-end
-
----Hide the names on the party frames, there is no setting for it
-local function ConfigureNames()
   hooksecurefunc("CompactUnitFrame_UpdateName", function(frame)
+    -- NOTE Nameplates are forbidden to addon code in instances
+    if frame:IsForbidden() then
+      return
+    end
     -- NOTE The party frame is created lazily, look it up at call time
     if CompactPartyFrame and frame:GetParent() == CompactPartyFrame then
       frame.name:Hide()
@@ -115,6 +120,6 @@ table.insert(S.Modules, function()
   S.Commons.Hide(MicroMenuContainer)
   S.Commons.Hide(QuickJoinToastButton)
   ConfigureFrames()
-  ConfigureNames()
+  ConfigureParty()
   ConfigureStatus()
 end)
