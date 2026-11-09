@@ -87,11 +87,17 @@ local function ConfigurePosition()
 end
 
 local function ConfigureTotems()
-  -- NOTE Weird name but that's the Shaman totem bar
-  S.Commons.Hide(MultiCastActionBarFrame)
-  -- NOTE Blizzard shows it again whenever the totems change, possibly in combat
-  --      where hiding a protected frame is blocked. Nuke the callback.
-  MultiCastActionBarFrame.UpdateShownState = function() end
+  S.Commons.ConfigureLayout({
+    [Enum.EditModeSystem.TotemActionBar] = {
+      anchor = {
+        anchor = "TOP",
+        anchored = "BOTTOM",
+        on = "MultiBarBottomLeft",
+        x = 0,
+        y = GAP,
+      },
+    },
+  })
 end
 
 local function ConfigureVisibility()
