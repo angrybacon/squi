@@ -5,6 +5,13 @@ local MARGIN = 24
 local GAP = 2
 
 local function ConfigureLabels()
+  local cooldownFontId = "SquiCooldownFont"
+  local cooldownFont = CreateFont(cooldownFontId)
+  S.Fonts.Set(cooldownFont, {
+    font = S.Fonts.Blackletter,
+    outline = true,
+    size = 20,
+  })
   for _, prefix in ipairs({
     "ActionButton",
     "MultiBarBottomLeftButton",
@@ -14,6 +21,7 @@ local function ConfigureLabels()
       local button = _G[prefix .. index]
       S.Commons.Hide(button.HotKey)
       S.Commons.Hide(button.Name)
+      button.cooldown:SetCountdownFont(cooldownFontId)
     end
   end
   for index = 1, NUM_PET_ACTION_SLOTS do
