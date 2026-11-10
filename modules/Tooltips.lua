@@ -37,7 +37,7 @@ local function AddDivider(tooltip)
   divider:Show()
   -- NOTE Anchors can follow secret geometry, measuring cannot. Each helper
   --      spans between the tooltip's edge and the line, so its bottom corner
-  --      combines the tooltip's x with the line's vertical center
+  --      combines the tooltip's x with the line's vertical center.
   local left, right = divider.Left, divider.Right
   left:ClearAllPoints()
   left:SetPoint("TOPLEFT", tooltip, "TOPLEFT")

@@ -30,12 +30,13 @@ local function ConfigureSize()
 end
 
 ---Enable every tracking kind except the ones listed
----@param ... string
+---@param ... Enum.MinimapTrackingFilter
 local function ConfigureTracking(...)
   local exceptions = tInvert({ ... })
   for index = 1, C_Minimap.GetNumTrackingTypes() do
-    local name = C_Minimap.GetTrackingInfo(index).name
-    C_Minimap.SetTracking(index, not exceptions[name])
+    -- NOTE The filter is nil for tracking that comes from a spell
+    local filter = C_Minimap.GetTrackingFilter(index)
+    C_Minimap.SetTracking(index, not (filter and exceptions[filter.filterID]))
   end
 end
 
@@ -53,6 +54,12 @@ table.insert(S.Modules, function()
   S.Commons.Hide(TimeManagerClockButton)
   ConfigurePosition()
   ConfigureSize()
-  ConfigureTracking("Low-Level Quests", "Stable Master")
+  ConfigureTracking(
+    Enum.MinimapTrackingFilter.Barber,
+    Enum.MinimapTrackingFilter.Stablemaster,
+    Enum.MinimapTrackingFilter.Target,
+    Enum.MinimapTrackingFilter.Transmogrifier,
+    Enum.MinimapTrackingFilter.TrivialQuests
+  )
   ConfigureZoom()
 end)

@@ -15,7 +15,7 @@ local function GetLayout()
   end
 
   -- NOTE Never write while _Edit Mode_ is open: it keeps its own copy of the
-  --      layout for the session and overwrites this on its next save anyway
+  --      layout for the session and overwrites this on its next save anyway.
   local frame = EditModeManagerFrame
   if
     frame and (frame.editModeActive or (frame.IsShown and frame:IsShown()))

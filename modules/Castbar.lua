@@ -21,7 +21,7 @@ end
 
 local function ConfigureSize()
   -- NOTE Blizzard clamps the setting to 100% and re-applies it on every layout
-  --      update, so set the scale after each of those
+  --      update, so set the scale after each of those.
   S.Commons.Hook(
     PlayerCastingBarFrame,
     "UpdateSystemSettingBarSize",

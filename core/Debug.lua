@@ -34,7 +34,7 @@ local function ConfigureHandler()
   local previous = geterrorhandler()
   seterrorhandler(function(message)
     -- NOTE Secret values can't be turned into strings, and an error in an error
-    --      handler is worse than a placeholder
+    --      handler is worse than a placeholder.
     local entry = {
       count = 1,
       message = canaccessvalue(message) and tostring(message) or "<secret>",

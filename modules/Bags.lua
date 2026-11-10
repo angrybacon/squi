@@ -1,6 +1,8 @@
 ---@type string, Squi
 local _, S = ...
 
+-- NOTE Blizzard uses this value between stacked bags
+local GAP = 16
 local MARGIN = 24
 
 local function ConfigureBank()
@@ -35,19 +37,61 @@ local function ConfigurePosition()
     [Enum.EditModeSystem.Bags] = {
       anchor = {
         anchor = "BOTTOMRIGHT",
-        anchored = "BOTTOMLEFT",
-        on = "MainActionBar",
-        x = MARGIN,
-        y = 0,
+        anchored = "TOPRIGHT",
+        on = "ContainerFrameCombinedBags",
+        x = 0,
+        y = -GAP,
       },
     },
   })
+  -- NOTE Blizzard anchors the first bag to the corner of the screen every time
+  --      it lays the bags out, so we move it after each of those.
+  hooksecurefunc("UpdateContainerFrameAnchors", function()
+    ContainerFrameCombinedBags:ClearAllPoints()
+    ContainerFrameCombinedBags:SetPoint(
+      "BOTTOMRIGHT",
+      MinimapCluster.MinimapContainer,
+      "TOPRIGHT",
+      -MARGIN,
+      0
+    )
+  end)
+  -- NOTE Blizzard stacks every other bag in a new column next to the combined
+  --      bags, put the reagent bag right above them instead.
+  hooksecurefunc("UpdateContainerFrameAnchors", function()
+    for _, frame in ipairs(ContainerFrameSettingsManager:GetBagsShown()) do
+      if
+        not frame:IsCombinedBagContainer()
+        and ContainerFrame_IsReagentBag(frame:GetBagID())
+      then
+        frame:ClearAllPoints()
+        frame:SetPoint(
+          "BOTTOMRIGHT",
+          ContainerFrameCombinedBags,
+          "TOPRIGHT",
+          0,
+          GAP
+        )
+      end
+    end
+  end)
 end
 
 local function ConfigureSort()
   EventRegistry:RegisterCallback("ContainerFrame.OpenAllBags", function()
     C_Container.SortBags()
   end, S)
+end
+
+local function ConfigureVisibility()
+  -- NOTE The bar hangs below the bags, so it only shows along with them
+  local function Update()
+    BagsBar:SetShown(ContainerFrameCombinedBags:IsShown())
+  end
+  ContainerFrameCombinedBags:HookScript("OnShow", Update)
+  ContainerFrameCombinedBags:HookScript("OnHide", Update)
+  BagsBar:HookScript("OnShow", Update)
+  Update()
 end
 
 table.insert(S.Modules, function()
@@ -57,4 +101,5 @@ table.insert(S.Modules, function()
   ConfigureJunk()
   ConfigurePosition()
   ConfigureSort()
+  ConfigureVisibility()
 end)
