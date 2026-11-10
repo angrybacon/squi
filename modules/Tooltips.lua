@@ -6,7 +6,6 @@ local BACKGROUND_ALPHA = 0.8
 local FONT_FACE = S.Fonts.Sans
 local FONT_SIZE = 16
 local OFFSET = 16
-local ICON_UNKNOWN = 134400
 
 ---Draw a full width line centered on a blank line
 ---@param tooltip GameTooltip
@@ -116,7 +115,7 @@ local function ConfigureDisenchant()
         GameTooltip_AddColoredDoubleLine(
           tooltip,
           ("|T%s:0|t %s"):format(
-            C_Item.GetItemIconByID(drop.id) or ICON_UNKNOWN,
+            C_Item.GetItemIconByID(drop.id) or QUESTION_MARK_ICON,
             ITEM_QUALITY_COLORS[rarity].color:WrapTextInColorCode(name)
           ),
           ("%s%% (%s)"):format(drop.chance, quantity),

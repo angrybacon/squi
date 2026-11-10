@@ -1,8 +1,8 @@
-# Design Intent
+# Design Intent and Philosophy
 
 - **Reproducibility**: two users running Squi, regardless of any hand-made
-  customization they've already done in-game, should end up with identical
-  results
+  customization they've already done in-game previously, should end up with
+  almost identical results
 - **Predictability**: never read back or preserve existing account, CVar, or API
   state to decide what value to set. Always pass an explicit, hardcoded value,
   even when that value is `nil` or a no-op. The outcome should never depend on
@@ -25,21 +25,22 @@ World of Warcraft is installed at `~/Games/battlenet/drive_c/Program Files
 
 ## Style
 
-- Constants are UPPER_CASE at the top of the file, alpha-sorted
-- Functions are PascalCase, alpha-sorted
+- Constants use UPPER_CASE at the top of the file, alpha-sorted
+- Functions use PascalCase, alpha-sorted
+- Local variable use camelCase, alpha-sorted
 - Each module registers configure functions, alpha-sorted
 - Use `stylua` to format code
 
-# Coding Guidelines and References
+# Coding References
 
 The maintainer of the project may provide well established community addons in
 their user directory to serve as reference for specific features. In case of
-confusing or unexpected behaviors, ask the user to check for outdated
-repositories.
+confusing or unexpected logic in those repository, ask the user to check for
+outdated repositories.
 
-Look in `~/Workspace/curse/` when the user is trying to refer to such
-references. The official UI source `wow-ui-source` is also maintained in this
-directory by the user.
+Look in `~/Workspace/curse/` when the user attempts at referring to such
+projects. The official UI source `wow-ui-source` is also maintained in this
+directory by the user and each flavor of the client uses its own Git branch.
 
 # Typings
 
@@ -51,7 +52,7 @@ manages this dependency in `~/Workspace/wowlua-ls` and plugs it through Emacs's
 ((lua-ts-mode
   . ((eglot-server-programs
       . ((lua-ts-mode
-          . ("/home/<user>/Workspace/wowlua-ls/target/release/wowlua_ls")))))))
+          . ("~/Workspace/wowlua-ls/target/release/wowlua_ls")))))))
 ```
 
 Use `wowlua_ls check .` to validate typings.

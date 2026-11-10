@@ -27,24 +27,37 @@ local function ConfigureBags()
 end
 
 local function ConfigureBars()
-  for index, key in ipairs({
-    "1",
-    "2",
-    "3",
-    "4",
+  local function AssignKeys(specifications, keys)
+    for _, specification in ipairs(specifications) do
+      for index, key in ipairs(keys) do
+        SetBindingExclusive(
+          specification.prefix .. index,
+          specification.modifier .. key
+        )
+      end
+    end
+  end
+  AssignKeys({
+    { modifier = "", prefix = "ACTIONBUTTON" },
+    { modifier = "CTRL-", prefix = "MULTIACTIONBAR2BUTTON" },
+  }, { "1", "2", "3", "4", "Q", "E", "R", "F", "Z", "X", "C", "V" })
+  AssignKeys({
+    { modifier = "", prefix = "MULTIACTIONBAR1BUTTON" },
+    { modifier = "CTRL-", prefix = "MULTIACTIONBAR3BUTTON" },
+  }, {
     "5",
     "6",
-    "Q",
-    "E",
-    "R",
-    "F",
+    "7",
+    "8",
+    "9",
+    "0",
+    "MOUSEWHEELDOWN",
+    "MOUSEWHEELUP",
+    "BUTTON3",
     "BUTTON4",
     "BUTTON5",
-  }) do
-    SetBindingExclusive("ACTIONBUTTON" .. index, key)
-    SetBindingExclusive("MULTIACTIONBAR1BUTTON" .. index, "CTRL-" .. key)
-    SetBindingExclusive("MULTIACTIONBAR2BUTTON" .. index, "ALT-" .. key)
-  end
+    "`",
+  })
 end
 
 local function ConfigureCamera()
@@ -82,7 +95,7 @@ table.insert(S.Modules, function()
   ConfigureBags()
   ConfigureBars()
   ConfigureCamera()
-  ConfigureMouseWheel()
+  -- ConfigureMouseWheel()
   ConfigureMovement()
   ConfigurePanels()
   SaveBindings(GetCurrentBindingSet())
