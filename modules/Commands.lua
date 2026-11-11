@@ -37,3 +37,27 @@ SlashCmdList["COLORS"] = function(input)
     print(CreateColor(c.r, c.g, c.b, c.a or 1):WrapTextInColorCode(name))
   end
 end
+
+SLASH_WAY1 = "/way"
+
+---Set a map waypoint from percentages of the current zone's map
+---@param input string
+SlashCmdList["WAY"] = function(input)
+  local x, y = input:match("^%s*([%d%.]+)[%s,]+([%d%.]+)")
+  x, y = tonumber(x), tonumber(y)
+  if not x or not y then
+    print("(Squi) Usage: /way <x> <y>")
+    return
+  end
+  local map = C_Map.GetBestMapForUnit("player")
+  if not map or not C_Map.CanSetUserWaypointOnMap(map) then
+    print("(Squi) No waypoint can be set on this map")
+    return
+  end
+  -- NOTE Blizzard's coordinates are fractions of the map, from 0 to 1
+  C_Map.SetUserWaypoint({
+    uiMapID = map,
+    position = CreateVector2D(x / 100, y / 100),
+  })
+  C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+end
