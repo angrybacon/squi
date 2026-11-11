@@ -9,6 +9,10 @@ local PARTY_HEIGHT, PARTY_WIDTH = 50, 128
 local STATUS_GAP = 4
 local STATUS_MARGIN = 4
 
+local function ConfigureFont()
+  S.Fonts.Set(TextStatusBarText, { font = S.Fonts.Blackletter, size = 14 })
+end
+
 local function ConfigureFrames()
   S.Commons.ConfigureLayout({
     [Enum.EditModeSystem.UnitFrame] = {
@@ -116,8 +120,11 @@ end
 table.insert(S.Modules, function()
   SetCVar("raidFramesDisplayClassColor", "1")
   SetCVar("raidFramesDisplayPowerBars", "1")
+  SetCVar("statusText", "0")
+  SetCVar("statusTextDisplay", "NUMERIC")
   S.Commons.Hide(MicroMenuContainer)
   S.Commons.Hide(QuickJoinToastButton)
+  ConfigureFont()
   ConfigureFrames()
   ConfigureParty()
   ConfigureStatus()
