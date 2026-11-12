@@ -37,7 +37,10 @@ local function ConfigureRing()
   ring:RegisterEvent("PLAYER_SWING")
 
   ring:SetScript("OnEvent", function(_, _, duration, swingType)
-    if swingType == Enum.PlayerSwingType.MainHand then
+    if
+      swingType == Enum.PlayerSwingType.MainHand
+      or swingType == Enum.PlayerSwingType.Ranged
+    then
       Swing(duration)
     end
   end)
