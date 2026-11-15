@@ -249,14 +249,20 @@ local Commons = {
 
   ---Hide the region until hovered, hovering any of its children counts
   ---@param region table
-  Peek = function(region)
+  ---@param ... table Extra regions that also count as hovering, when shown
+  Peek = function(region, ...)
+    local extras = { ... }
     region:EnableMouse(true)
     region:SetAlpha(0)
     -- NOTE Enter and leave events only target the frame under the mouse, so a
     --      child that takes the mouse would hide its parent again. Poll the
     --      region's rectangle instead, which ignores what sits on top of it.
     region:HookScript("OnUpdate", function(self)
-      self:SetAlpha(self:IsMouseOver() and 1.0 or 0.0)
+      local hovered = self:IsMouseOver()
+      for _, extra in ipairs(extras) do
+        hovered = hovered or (extra:IsShown() and extra:IsMouseOver())
+      end
+      self:SetAlpha(hovered and 1.0 or 0.0)
     end)
   end,
 

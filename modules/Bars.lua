@@ -125,6 +125,12 @@ local function ConfigureTotems()
       },
     },
   })
+  -- NOTE The flyouts hang above the bar, outside of its rectangle
+  S.Commons.Peek(
+    MultiCastActionBarFrame,
+    MultiCastFlyoutFrame,
+    MultiCastFlyoutFrameOpenButton
+  )
 end
 
 local function ConfigureVisibility()
