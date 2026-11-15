@@ -23,5 +23,7 @@ local function ConfigurePosition()
 end
 
 table.insert(S.Modules, function()
+  SetCVar("damageMeterEnabled", "1")
+  SetCVar("damageMeterResetOnNewInstance", "1")
   ConfigurePosition()
 end)

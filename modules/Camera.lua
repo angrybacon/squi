@@ -1,8 +1,8 @@
 ---@type string, Squi
 local _, S = ...
 
-local DISTANCE_INDOOR = 10
-local DISTANCE_OUTDOOR = 20
+local DISTANCE_INDOOR = 12
+local DISTANCE_OUTDOOR = 24
 
 local function ConfigureZoom()
   local previous = IsIndoors()

@@ -92,6 +92,7 @@ local function ConfigurePanels()
 end
 
 table.insert(S.Modules, function()
+  SetCVar("enableMouseoverCast", "1")
   ConfigureBags()
   ConfigureBars()
   ConfigureCamera()
