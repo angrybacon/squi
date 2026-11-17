@@ -1,16 +1,16 @@
 ---@type string, Squi
 local _, S = ...
 
-local FRAME_MARGIN = 30
+local BOSS_MARGIN = 24
+local FRAME_MARGIN = 40
 local FRAME_OFFSET = 69
-local PARTY_MARGIN = 32
+local PARTY_MARGIN = 24
 -- NOTE Rough estimate of the action bars width for symmetry
 local PARTY_HEIGHT, PARTY_WIDTH = 50, 128
-local STATUS_GAP = 4
 local STATUS_MARGIN = 4
 
 local function ConfigureFont()
-  S.Fonts.Set(TextStatusBarText, { font = S.Fonts.Blackletter, size = 14 })
+  S.Fonts.Set(TextStatusBarText, { font = S.Fonts.Blackletter, size = 12 })
 end
 
 local function ConfigureFrames()
@@ -21,6 +21,15 @@ local function ConfigureFrames()
           anchor = "BOTTOMRIGHT",
           anchored = "TOPRIGHT",
           on = "DebuffFrame",
+          x = 0,
+          y = -BOSS_MARGIN,
+        },
+      },
+      [Enum.EditModeUnitFrameSystemIndices.Focus] = {
+        anchor = {
+          anchor = "RIGHT",
+          anchored = "LEFT",
+          on = "TargetFrame",
           x = 0,
           y = 0,
         },
@@ -93,6 +102,15 @@ local function ConfigureStatus()
     [Enum.EditModeSystem.StatusTrackingBar] = {
       [Enum.EditModeStatusTrackingBarSystemIndices.StatusTrackingBar1] = {
         anchor = {
+          anchor = "BOTTOM",
+          anchored = "BOTTOM",
+          on = "UIParent",
+          x = 0,
+          y = STATUS_MARGIN, -- NOTE The bar is about 17 high
+        },
+      },
+      [Enum.EditModeStatusTrackingBarSystemIndices.StatusTrackingBar2] = {
+        anchor = {
           anchor = "TOP",
           anchored = "TOP",
           on = "UIParent",
@@ -100,28 +118,24 @@ local function ConfigureStatus()
           y = -STATUS_MARGIN,
         },
       },
-      [Enum.EditModeStatusTrackingBarSystemIndices.StatusTrackingBar2] = {
-        anchor = {
-          anchor = "BOTTOM",
-          anchored = "TOP",
-          on = "MainStatusTrackingBarContainer",
-          x = 0,
-          y = -STATUS_GAP,
-        },
-      },
     },
   })
-  S.Commons.Peek(MainStatusTrackingBarContainer)
-  -- NOTE Blizzard fades it back in on its own
-  MainStatusTrackingBarContainer.FadeIn = function() end
-  MainStatusTrackingBarContainer.FadeInAnimation:Stop()
+  for _, container in ipairs({
+    MainStatusTrackingBarContainer,
+    SecondaryStatusTrackingBarContainer,
+  }) do
+    S.Commons.Peek(container)
+    -- NOTE Blizzard fades it back in on its own
+    container.FadeIn = function() end
+    container.FadeInAnimation:Stop()
+  end
 end
 
 table.insert(S.Modules, function()
   SetCVar("raidFramesDisplayClassColor", "1")
   SetCVar("raidFramesDisplayPowerBars", "1")
-  SetCVar("statusText", "0")
-  SetCVar("statusTextDisplay", "NUMERIC")
+  SetCVar("statusText", "1")
+  SetCVar("statusTextDisplay", "BOTH")
   S.Commons.Hide(MicroMenuContainer)
   S.Commons.Hide(QuickJoinToastButton)
   ConfigureFont()
