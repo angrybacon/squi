@@ -1,28 +1,18 @@
 ---@type string, Squi
 local _, S = ...
 
-local MARGIN = 4
----Same as the action bars, except Blizzard substracts a fixed 4
-local PADDING = 6
-local SIZE = 90
+local OFFSET = 120
 
 local function ConfigurePosition()
   S.Commons.ConfigureLayout({
     [Enum.EditModeSystem.CooldownViewer] = {
       [Enum.EditModeCooldownViewerSystemIndices.Essential] = {
         anchor = {
-          anchor = "TOP",
-          anchored = "BOTTOM",
-          on = "MultiBarBottomLeft",
+          anchor = "CENTER",
+          anchored = "TOP",
+          on = "UIParent",
           x = 0,
-          y = MARGIN,
-        },
-        settings = {
-          [Enum.EditModeCooldownViewerSetting.IconPadding] = PADDING,
-          [Enum.EditModeCooldownViewerSetting.IconSize] = S.Commons.SliderIndex(
-            SIZE,
-            50
-          ),
+          y = -OFFSET,
         },
       },
     },

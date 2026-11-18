@@ -5,9 +5,9 @@ local _, S = ...
 local GAP = 16
 local MARGIN = 24
 ---Icon tint of items assigned to an equipment set
-local TINT_ASSIGNED = { 0.6, 0.2, 0.9 }
+local TINT_ASSIGNED = { 0.0, 0.0, 1.0 }
 ---Icon tint of equipment the character can't equip
-local TINT_UNUSABLE = { 1.0, 0.1, 0.1 }
+local TINT_UNUSABLE = { 1.0, 0.0, 0.0 }
 
 local function ConfigureBank()
   BankFrame:HookScript("OnShow", function(frame)
