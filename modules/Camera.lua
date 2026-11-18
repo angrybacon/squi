@@ -1,17 +1,13 @@
 ---@type string, Squi
 local _, S = ...
 
+---Indoor camera distance in yards
 local DISTANCE_INDOOR = 12
+---Outdoor camera distance in yards
 local DISTANCE_OUTDOOR = 24
 
 local function ConfigureZoom()
-  local previous = IsIndoors()
-  C_Timer.NewTicker(1, function()
-    local indoors = IsIndoors()
-    if indoors == previous then
-      return
-    end
-    previous = indoors
+  S.Commons.OnIndoorsChange(function(indoors)
     if InCombatLockdown() then
       return
     end
@@ -32,5 +28,6 @@ end
 table.insert(S.Modules, function()
   SetCVar("cameraDistanceMaxZoomFactor", 2.0)
   SetCVar("cameraSmoothStyle", 0)
+  SetCVar("cameraWaterCollision", "1")
   ConfigureZoom()
 end)

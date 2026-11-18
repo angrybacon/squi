@@ -41,7 +41,9 @@ local function ConfigureTracking(...)
 end
 
 local function ConfigureZoom()
-  Minimap:SetZoom(0)
+  S.Commons.OnIndoorsChange(function(indoors)
+    Minimap:SetZoom(indoors and Minimap:GetZoomLevels() - 2 or 1)
+  end)
 end
 
 table.insert(S.Modules, function()

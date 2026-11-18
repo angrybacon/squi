@@ -49,6 +49,7 @@ table.insert(S.Modules, function()
     end
   end
 
+  SetCVar("ShowQuestUnitCircles", "1") -- NOTE Currently not working in Forever
   SetCVar("UnitNameEnemyMinionName", "1")
   SetCVar("UnitNameEnemyPlayerName", "1")
   SetCVar("UnitNameFriendlyMinionName", "0")

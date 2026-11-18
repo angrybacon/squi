@@ -4,7 +4,7 @@ local _, S = ...
 ---Ring diameter in screen pixels, it matches the texture so nothing is resampled
 local SIZE = 48
 ---Opacity of the empty part of the ring, the filled part is fully opaque
-local TRACK_OPACITY = 0.33
+local TRACK_OPACITY = 0.1
 local TEXTURE = ([[Interface\AddOns\Squi\textures\Ring-%d.tga]]):format(SIZE)
 
 local function ConfigureRing()

@@ -2,6 +2,11 @@
 local NAME, S = ...
 
 local EPSILON = 0.001
+---@type fun(indoors: boolean)[]
+local INDOORS_CALLBACKS = {}
+
+---@type FunctionContainer?
+local indoorsTicker
 
 ---@return table?
 local function GetLayout()
@@ -213,6 +218,26 @@ local Commons = {
   Hook = function(object, method, hook)
     hook(object)
     hooksecurefunc(object, method, hook)
+  end,
+
+  ---Call back whenever the character enters or leaves a building, polled
+  ---@param callback fun(indoors: boolean)
+  OnIndoorsChange = function(callback)
+    table.insert(INDOORS_CALLBACKS, callback)
+    if indoorsTicker then
+      return
+    end
+    local previous = IsIndoors()
+    indoorsTicker = C_Timer.NewTicker(1, function()
+      local indoors = IsIndoors()
+      if indoors == previous then
+        return
+      end
+      previous = indoors
+      for _, listener in ipairs(INDOORS_CALLBACKS) do
+        listener(indoors)
+      end
+    end)
   end,
 
   ---Draw a solid outline inward, overlaid on top of the region's own edges
