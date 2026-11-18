@@ -293,6 +293,59 @@ local Commons = {
 
   PixelSize = PixelSize,
 
+  ---Create a ring that follows the cursor and fills in over a given duration
+  ---@param size number Diameter in screen pixels, it matches a texture so
+  ---nothing is resampled
+  ---@return fun(duration: number) Start
+  Ring = function(size)
+    local texture = ([[Interface\AddOns\Squi\textures\Ring-%d.tga]]):format(
+      size
+    )
+
+    -- NOTE The holder follows the cursor and carries the faint track, which has
+    --      to sit below the cooldown frame that _fills_ it in.
+    local holder = CreateFrame("Frame", nil, UIParent)
+    holder:EnableMouse(false)
+    holder:Hide()
+    holder:SetFrameStrata("TOOLTIP")
+    holder:SetSize(PixelSize(size), PixelSize(size))
+
+    -- NOTE The texture is white and everything takes the player's class color
+    local _, class = UnitClass("player")
+    local color = C_ClassColor.GetClassColor(class)
+
+    local track = holder:CreateTexture(nil, "BACKGROUND")
+    track:SetAllPoints()
+    track:SetTexture(texture)
+    track:SetVertexColor(color.r, color.g, color.b, 0.1)
+
+    local ring = CreateFrame("Cooldown", nil, holder, "CooldownFrameTemplate")
+    ring:SetAllPoints()
+    ring:SetDrawBling(false)
+    ring:SetDrawEdge(false)
+    ring:SetHideCountdownNumbers(true)
+    -- NOTE Fill as time advances, full means the wait is over
+    ring:SetReverse(true)
+    ring:SetSwipeColor(color:GetRGBA())
+    ring:SetSwipeTexture(texture)
+
+    holder:SetScript("OnUpdate", function(self)
+      local x, y = GetCursorPosition()
+      local scale = UIParent:GetEffectiveScale()
+      self:ClearAllPoints()
+      self:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x / scale, y / scale)
+    end)
+
+    ring:SetScript("OnCooldownDone", function()
+      holder:Hide()
+    end)
+
+    return function(duration)
+      holder:Show()
+      ring:SetCooldown(GetTime(), duration)
+    end
+  end,
+
   ---Convert a slider value into the index _Edit Mode_ stores for it
   ---@param value number
   ---@param minimum number
