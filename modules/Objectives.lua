@@ -18,6 +18,14 @@ local function ConfigureFont()
   })
 end
 
+---Start stacking the panels on the left after the tracker
+local function ConfigurePanels()
+  local width = ObjectiveTrackerFrame:GetWidth()
+  local scale = ObjectiveTrackerFrame:GetScale()
+  -- NOTE Blizzard reads the offset every time it lays the panels out
+  SetUIPanelLayoutAttribute("LEFT_OFFSET", MARGIN + width * scale + MARGIN)
+end
+
 local function ConfigurePosition()
   S.Commons.ConfigureLayout({
     [Enum.EditModeSystem.ObjectiveTracker] = {
@@ -34,5 +42,6 @@ end
 
 table.insert(S.Modules, function()
   ConfigureFont()
+  ConfigurePanels()
   ConfigurePosition()
 end)
