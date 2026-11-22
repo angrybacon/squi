@@ -4,9 +4,9 @@ local _, S = ...
 -- NOTE Blizzard uses this value between stacked bags
 local GAP = 16
 local MARGIN = 24
----Icon tint of items assigned to an equipment set
+local TINT_OPACITY = 0.5
 local TINT_ASSIGNED = { 0.0, 0.0, 1.0 }
----Icon tint of equipment the character can't equip
+local TINT_QUEST = { 0.0, 1.0, 0.0 }
 local TINT_UNUSABLE = { 1.0, 0.0, 0.0 }
 
 local function ConfigureBank()
@@ -42,6 +42,42 @@ local function ConfigureEquipment()
     return false
   end
 
+  -- NOTE Hooking methods of Blizzard's frames taints the game code that calls
+  --      them, which breaks panels in combat. We draw our own overlay on the
+  --      buttons, Blizzard never resets it, and we only refresh on events.
+  ---@type table<Frame, Texture>
+  local overlays = setmetatable({}, { __mode = "k" })
+
+  ---Tint a button, or clear it when there is no color
+  ---@param button Frame
+  ---@param tint number[]?
+  local function Paint(button, tint)
+    local overlay = overlays[button]
+    if not tint then
+      if overlay then
+        overlay:Hide()
+      end
+      return
+    end
+    if not overlay then
+      -- NOTE Blizzard draws the icon in BORDER, the quality border in OVERLAY
+      overlay = button:CreateTexture(nil, "ARTWORK")
+      overlay:SetAllPoints(button.icon)
+      if button.Mask then
+        overlay:AddMaskTexture(button.Mask)
+      end
+      overlays[button] = overlay
+    end
+    overlay:SetColorTexture(tint[1], tint[2], tint[3], TINT_OPACITY)
+    overlay:Show()
+  end
+
+  ---Whether an item belongs to a quest, active or not
+  local function IsQuestItem(bag, slot)
+    local info = C_Container.GetContainerItemQuestInfo(bag, slot)
+    return info ~= nil and canaccessvalue(info) and info.isQuestItem == true
+  end
+
   local function Update()
     -- NOTE Items are keyed by `bag:slot`, any set counts
     local assigned = {}
@@ -64,31 +100,38 @@ local function ConfigureEquipment()
         end
         local bag, slot = button:GetBagID(), button:GetID()
         local itemID = C_Container.GetContainerItemID(bag, slot)
-        if assigned[bag .. ":" .. slot] then
-          button.icon:SetVertexColor(unpack(TINT_ASSIGNED))
+        if IsQuestItem(bag, slot) then
+          Paint(button, TINT_QUEST)
+        elseif assigned[bag .. ":" .. slot] then
+          Paint(button, TINT_ASSIGNED)
         elseif
           itemID
           and C_Item.IsEquippableItem(itemID)
           and HasRedLine(bag, slot)
         then
-          button.icon:SetVertexColor(unpack(TINT_UNUSABLE))
+          Paint(button, TINT_UNUSABLE)
         else
-          button.icon:SetVertexColor(1, 1, 1)
+          Paint(button)
         end
       end
     end
   end
 
-  for _, frame in ContainerFrameUtil_EnumerateContainerFrames() do
-    hooksecurefunc(frame, "UpdateItems", Update)
-    -- NOTE Blizzard resets the icon color along with the cooldown, which
-    --      happens on its own on every cooldown event. If combat gets laggy
-    --      with bags open, this is the place.
-    hooksecurefunc(frame, "UpdateCooldowns", Update)
-  end
-  local watcher = CreateFrame("Frame")
-  watcher:RegisterEvent("EQUIPMENT_SETS_CHANGED")
-  watcher:SetScript("OnEvent", Update)
+  local pending = false
+  EventRegistry:RegisterCallback(
+    "ItemButton.UpdateItemContextMatching",
+    function()
+      if pending then
+        return
+      end
+      pending = true
+      C_Timer.After(0, function()
+        pending = false
+        Update()
+      end)
+    end,
+    S
+  )
 end
 
 local function ConfigureJunk()
