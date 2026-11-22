@@ -16,7 +16,7 @@ local pending = {}
 ---Keep one entry per message with a counter, drop the oldest past the limit
 ---@param errors DebugError[]
 ---@param entry DebugError
-local function Store(errors, entry)
+local function Insert(errors, entry)
   for _, known in ipairs(errors) do
     if known.message == entry.message then
       known.count = known.count + 1
@@ -59,7 +59,7 @@ local function ConfigureLoad()
     end
     SquiErrors = SquiErrors or {}
     for _, entry in ipairs(pending) do
-      Store(SquiErrors, entry)
+      Insert(SquiErrors, entry)
     end
     table.wipe(pending)
     watcher:UnregisterEvent("ADDON_LOADED")
@@ -94,6 +94,10 @@ local function ConfigureSlash()
   end
 end
 
+ConfigureHandler()
+ConfigureLoad()
+ConfigureSlash()
+
 ---@class Debug
 local Debug = {
   ---Number of distinct errors saved so far
@@ -102,9 +106,5 @@ local Debug = {
     return #(SquiErrors or {})
   end,
 }
-
-ConfigureHandler()
-ConfigureLoad()
-ConfigureSlash()
 
 S.Debug = Debug
