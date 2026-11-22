@@ -30,22 +30,49 @@ local function Insert(errors, entry)
   end
 end
 
+---Record an entry, or hold it until the saved variable exists
+---@param entry DebugError
+local function Record(entry)
+  if SquiErrors then
+    Insert(SquiErrors, entry)
+  else
+    table.insert(pending, entry)
+  end
+end
+
+---Record the actions the client blocked, they are events and not errors
+local function ConfigureBlocked()
+  local watcher = CreateFrame("Frame")
+  watcher:RegisterEvent("ADDON_ACTION_BLOCKED")
+  watcher:RegisterEvent("ADDON_ACTION_FORBIDDEN")
+  watcher:SetScript("OnEvent", function(_, event, name, action)
+    if name ~= NAME then
+      return
+    end
+    Record({
+      count = 1,
+      message = ("%s %s%s"):format(
+        event == "ADDON_ACTION_FORBIDDEN" and "Forbidden:" or "Blocked:",
+        canaccessvalue(action) and tostring(action) or "SECRET",
+        InCombatLockdown() and " (combat)" or ""
+      ),
+      stack = debugstack(2),
+      time = date("%Y-%m-%d %H:%M:%S"),
+    })
+  end)
+end
+
 local function ConfigureHandler()
   local previous = geterrorhandler()
   seterrorhandler(function(message)
     -- NOTE Secret values can't be turned into strings, and an error in an error
     --      handler is worse than a placeholder.
-    local entry = {
+    Record({
       count = 1,
       message = canaccessvalue(message) and tostring(message) or "<secret>",
       stack = debugstack(2),
       time = date("%Y-%m-%d %H:%M:%S"),
-    }
-    if SquiErrors then
-      Store(SquiErrors, entry)
-    else
-      table.insert(pending, entry)
-    end
+    })
     return previous(message)
   end)
 end
@@ -94,6 +121,7 @@ local function ConfigureSlash()
   end
 end
 
+ConfigureBlocked()
 ConfigureHandler()
 ConfigureLoad()
 ConfigureSlash()
