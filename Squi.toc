@@ -1,6 +1,6 @@
 ## Author: Mathieu Marques
 ## Interface: 16001
-## SavedVariables: SquiErrors
+## SavedVariables: SquiErrors, SquiFlights
 ## Notes: Personal interface addon, named after Squee because it rhymes
 ## Title: Squi
 ## Version: 0.1.0
@@ -26,6 +26,7 @@ modules/Commands.lua
 # modules/CooldownLine.lua
 modules/CooldownManager.lua
 modules/Defaults.lua
+modules/Flight.lua
 modules/Graphics.lua
 modules/Hud.lua
 modules/Keybindings.lua
