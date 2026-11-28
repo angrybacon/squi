@@ -1,44 +1,6 @@
 ---@type string, Squi
 local _, S = ...
 
--- NOTE The `nameplateSize` is the only built-in way to scale nameplate text,
---      but it applies to every unit. `ApplyFrameOptions` isn't reliably re-run
---      when a plate slot gets reused for a different unit, so drive this off
---      NAME_PLATE_UNIT_ADDED instead, which fires exactly once per unit.
-local function ConfigureFriendlyNames()
-  local watcher = CreateFrame("Frame")
-  watcher:RegisterEvent("NAME_PLATE_UNIT_ADDED")
-  watcher:SetScript("OnEvent", function(_, _, unit)
-    if not (UnitIsPlayer(unit) and UnitIsFriend("player", unit)) then
-      return
-    end
-    local plate = C_NamePlate.GetNamePlateForUnit(unit)
-    if not plate then
-      return
-    end
-    local name = plate.UnitFrame["name"]
-    S.Fonts.Set(name, { font = S.Fonts.Blackletter, size = 16 })
-  end)
-end
-
----Hide friendly players' names while in groups
-local function ConfigureGroupNames()
-  local watcher = CreateFrame("Frame")
-  watcher:RegisterEvent("GROUP_ROSTER_UPDATE")
-  watcher:RegisterEvent("PLAYER_ENTERING_WORLD")
-  -- NOTE Nameplate CVars can't change in combat, catch up when it ends
-  watcher:RegisterEvent("PLAYER_REGEN_ENABLED")
-  watcher:SetScript("OnEvent", function()
-    if InCombatLockdown() then
-      return
-    end
-    -- NOTE Names only in groups or plates in World PVP
-    local value = IsInGroup() and "1" or "0"
-    SetCVar("nameplateShowOnlyNameForFriendlyPlayerUnits", value)
-    SetCVar("nameplateUseClassColorForFriendlyPlayerUnitNames", value)
-  end)
-end
-
 table.insert(S.Modules, function()
   ---Shorthand flag toggler
   ---@param key string
@@ -65,16 +27,17 @@ table.insert(S.Modules, function()
   SetCVar("nameplateAuraScale", 1.0)
   SetCVar("nameplateDebuffPadding", 0.0)
   SetCVar("nameplateShowAll", "1")
-  SetCVar("nameplateShowClassColor", "1")
+  SetCVar("nameplateShowClassColor", "0")
   SetCVar("nameplateShowEnemies", "1")
   SetCVar("nameplateShowEnemyMinions", "1")
   SetCVar("nameplateShowEnemyMinus", "1")
-  SetCVar("nameplateShowFriendlyClassColor", "1")
+  SetCVar("nameplateShowFriendlyClassColor", "0")
   SetCVar("nameplateShowFriendlyNpcs", "0")
   SetCVar("nameplateShowFriendlyPlayerMinions", "0")
   SetCVar("nameplateShowFriendlyPlayers", "1")
   SetCVar("nameplateShowFriendlyRealmName", "0")
   SetCVar("nameplateShowOffscreen", "0")
+  SetCVar("nameplateShowOnlyNameForFriendlyPlayerUnits", "0")
   SetCVar("nameplateShowSelf", "0")
   SetCVar("nameplateSize", Enum.NamePlateSize.Medium)
   SetCVar("nameplateStyle", Enum.NamePlateStyle.Modern)
@@ -120,6 +83,4 @@ table.insert(S.Modules, function()
     [Enum.NamePlateThreatDisplay.HealthBarColor] = true,
     [Enum.NamePlateThreatDisplay.Progressive] = true,
   })
-  -- ConfigureFriendlyNames()
-  ConfigureGroupNames()
 end)

@@ -13,7 +13,8 @@ local LIMIT = 50
 ---@type DebugError[]
 local pending = {}
 
----Keep one entry per message with a counter, drop the oldest past the limit
+---Keep one entry per message with a counter, drop the oldest past the limit.
+---Print each new message once, repeats only bump the counter.
 ---@param errors DebugError[]
 ---@param entry DebugError
 local function Insert(errors, entry)
@@ -24,6 +25,7 @@ local function Insert(errors, entry)
       return
     end
   end
+  print(("(%s) New error: %s"):format(NAME, entry.message))
   table.insert(errors, entry)
   if #errors > LIMIT then
     table.remove(errors, 1)
@@ -121,10 +123,16 @@ local function ConfigureSlash()
   end
 end
 
+---Log every taint with its stack by default directory
+local function ConfigureTaint()
+  SetCVar("taintLog", "2")
+end
+
 ConfigureBlocked()
 ConfigureHandler()
 ConfigureLoad()
 ConfigureSlash()
+ConfigureTaint()
 
 ---@class Debug
 local Debug = {

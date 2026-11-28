@@ -24,6 +24,6 @@ events:SetScript("OnEvent", function()
   end
   local elapsed = debugprofilestop() - start
   local errors = S.Debug.Count()
-  local suffix = errors > 0 and (", %d errors"):format(errors) or ""
+  local suffix = errors > 0 and (", %d error(s)"):format(errors) or ""
   print(("(%s) Loaded in %.0f ms%s"):format(NAME, elapsed, suffix))
 end)

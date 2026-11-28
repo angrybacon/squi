@@ -1,9 +1,9 @@
 ---@type string, Squi
 local _, S = ...
 
-local VOLUME_HIGH = 1.0
+local VOLUME_HIGH = 0.9
 local VOLUME_LOW = 0.1
-local VOLUME_MASTER = 0.5
+local VOLUME_MASTER = 0.7
 local VOLUME_MEDIUM = 0.5
 
 table.insert(S.Modules, function()

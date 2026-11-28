@@ -91,6 +91,19 @@ local function ConfigurePanels()
   SetBindingExclusive("TOGGLECHARACTER0", "U")
 end
 
+---Delay the save until after the bindings are loaded
+local function ConfigureSave()
+  local frame = CreateFrame("Frame")
+  frame:RegisterEvent("UPDATE_BINDINGS")
+  frame:SetScript("OnEvent", function(self)
+    local set = GetCurrentBindingSet()
+    if set then
+      self:UnregisterAllEvents()
+      SaveBindings(set)
+    end
+  end)
+end
+
 table.insert(S.Modules, function()
   SetCVar("enableMouseoverCast", "1")
   ConfigureBags()
@@ -99,5 +112,5 @@ table.insert(S.Modules, function()
   -- ConfigureMouseWheel()
   ConfigureMovement()
   ConfigurePanels()
-  SaveBindings(GetCurrentBindingSet())
+  ConfigureSave()
 end)

@@ -5,15 +5,29 @@
   almost identical results
 - **Predictability**: never read back or preserve existing account, CVar, or API
   state to decide what value to set. Always pass an explicit, hardcoded value,
-  even when that value is `nil` or a no-op. The outcome should never depend on
-  what a user already had
+  even when that value is `nil` or a no-op. Essentially, the outcome should
+  never depend on what a user already had
 - **Simplicity**: prefer small changes line-wise and hook on existing APIs.
   Bespoke code comes with bigger maintenance
+- **Security**: with great limitation within the client, Blizzard largely
+  protects frames and data in combat. Always prefer and volonteer overly safe
+  and taint-free choices when configuring the built-in frames
 
 # Game Directory
 
 World of Warcraft is installed at `~/Games/battlenet/drive_c/Program Files
 (x86)/World of Warcraft`.
+
+# Debugging
+
+When the user needs help debugging, read these sources first:
+
+- Saved variable `SquiErrors`: errors and blocked actions with stacks stored in
+  the game directory. The client only writes it on `/reload` or logout, so ask
+  the user to reload first
+- Taint log: `_forever_/Logs/taint.log` in the game directory. Squi sets the
+  `taintLog` CVar to `2` at login. The client appends to it live while playing,
+  no reload needed
 
 # Coding Conventions
 

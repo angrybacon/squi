@@ -4,7 +4,7 @@ local _, S = ...
 local function ConfigureTextarea()
   S.Fonts.Set(MacroFrameText:GetFontObject(), {
     font = S.Fonts.Monospace,
-    size = 10,
+    size = 12,
   })
 end
 

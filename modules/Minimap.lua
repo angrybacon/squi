@@ -42,7 +42,7 @@ end
 
 local function ConfigureZoom()
   S.Commons.OnIndoorsChange(function(indoors)
-    Minimap:SetZoom(indoors and Minimap:GetZoomLevels() - 2 or 1)
+    Minimap:SetZoom(indoors and Minimap:GetZoomLevels() - 4 or 1)
   end)
 end
 

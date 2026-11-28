@@ -1,7 +1,7 @@
 ---@type string, Squi
 local _, S = ...
 
-DAMAGE_TEXT_FONT = S.Fonts.Handwriting
+DAMAGE_TEXT_FONT = S.Fonts.Blackletter
 STANDARD_TEXT_FONT = S.Fonts.Sans
 UNIT_NAME_FONT = S.Fonts.Blackletter
 
@@ -17,6 +17,8 @@ local Elements = {
   SystemLabel2 = GameFontNormalSmall,
   SystemPage = GameFontHighlightHuge,
   SystemPrimary = GameFontHighlightLarge,
+  ZoneNamePrimary = ZoneTextString,
+  ZoneNameSecondary = SubZoneTextString,
 }
 
 ---Rename the quest text contrast options
@@ -29,7 +31,7 @@ local QuestBackgrounds = {
 }
 
 table.insert(S.Modules, function()
-  SetCVar("WorldTextMinSize", 10)
+  SetCVar("WorldTextMinSize", 10.0)
   SetCVar("WorldTextScale_v2", 1.0)
   SetCVar("questTextContrast", QuestBackgrounds.Dark)
   S.Fonts.Set(Elements.QuestDetailBody1, { font = S.Fonts.Sans })
@@ -43,9 +45,11 @@ table.insert(S.Modules, function()
     Elements.QuestLogHeading,
     { font = S.Fonts.Blackletter, size = 14 }
   )
-  S.Fonts.Set(Elements.SystemCategory, { font = S.Fonts.Handwriting })
-  S.Fonts.Set(Elements.SystemLabel1, { font = S.Fonts.Blackletter, size = 14 })
-  S.Fonts.Set(Elements.SystemLabel2, { font = S.Fonts.Blackletter, size = 12 })
-  S.Fonts.Set(Elements.SystemPage, { font = S.Fonts.Handwriting })
+  S.Fonts.Set(Elements.SystemCategory, { font = S.Fonts.Blackletter })
+  S.Fonts.Set(Elements.SystemLabel1, { font = S.Fonts.Blackletter, size = 16 })
+  S.Fonts.Set(Elements.SystemLabel2, { font = S.Fonts.Blackletter, size = 14 })
+  S.Fonts.Set(Elements.SystemPage, { font = S.Fonts.Blackletter })
   S.Fonts.Set(Elements.SystemPrimary, { font = S.Fonts.Blackletter })
+  S.Fonts.Set(Elements.ZoneNamePrimary, { font = S.Fonts.Blackletter })
+  S.Fonts.Set(Elements.ZoneNameSecondary, { font = S.Fonts.Blackletter })
 end)
