@@ -1,9 +1,9 @@
 ---@type string, Squi
 local _, S = ...
 
-DAMAGE_TEXT_FONT = S.Fonts.Blackletter
-STANDARD_TEXT_FONT = S.Fonts.Sans
-UNIT_NAME_FONT = S.Fonts.Blackletter
+DAMAGE_TEXT_FONT = S.Fonts.Faces.Gothic
+STANDARD_TEXT_FONT = S.Fonts.Faces.Sans
+UNIT_NAME_FONT = S.Fonts.Faces.Gothic
 
 ---Rename confusing global region names
 local Elements = {
@@ -34,22 +34,19 @@ table.insert(S.Modules, function()
   SetCVar("WorldTextMinSize", 10.0)
   SetCVar("WorldTextScale_v2", 1.0)
   SetCVar("questTextContrast", QuestBackgrounds.Dark)
-  S.Fonts.Set(Elements.QuestDetailBody1, { font = S.Fonts.Sans })
-  S.Fonts.Set(Elements.QuestDetailBody2, { font = S.Fonts.Sans })
+  S.Fonts.Set(Elements.QuestDetailBody1, { face = "Sans" })
+  S.Fonts.Set(Elements.QuestDetailBody2, { face = "Sans" })
   S.Fonts.Set(
     Elements.QuestDetailHeading,
-    { font = S.Fonts.Blackletter, shadow = false, size = 20 }
+    { face = "Gothic", scale = "Heading1" }
   )
-  S.Fonts.Set(Elements.QuestLogBody, { font = S.Fonts.Sans, size = 14 })
-  S.Fonts.Set(
-    Elements.QuestLogHeading,
-    { font = S.Fonts.Blackletter, size = 14 }
-  )
-  S.Fonts.Set(Elements.SystemCategory, { font = S.Fonts.Blackletter })
-  S.Fonts.Set(Elements.SystemLabel1, { font = S.Fonts.Blackletter, size = 16 })
-  S.Fonts.Set(Elements.SystemLabel2, { font = S.Fonts.Blackletter, size = 14 })
-  S.Fonts.Set(Elements.SystemPage, { font = S.Fonts.Blackletter })
-  S.Fonts.Set(Elements.SystemPrimary, { font = S.Fonts.Blackletter })
-  S.Fonts.Set(Elements.ZoneNamePrimary, { font = S.Fonts.Blackletter })
-  S.Fonts.Set(Elements.ZoneNameSecondary, { font = S.Fonts.Blackletter })
+  S.Fonts.Set(Elements.QuestLogBody, { face = "Sans", scale = "Body2" })
+  S.Fonts.Set(Elements.QuestLogHeading, { face = "Gothic", scale = "Body2" })
+  S.Fonts.Set(Elements.SystemCategory, { face = "Gothic" })
+  S.Fonts.Set(Elements.SystemLabel1, { face = "Gothic", scale = "Body1" })
+  S.Fonts.Set(Elements.SystemLabel2, { face = "Gothic", scale = "Body2" })
+  S.Fonts.Set(Elements.SystemPage, { face = "Gothic" })
+  S.Fonts.Set(Elements.SystemPrimary, { face = "Gothic" })
+  S.Fonts.Set(Elements.ZoneNamePrimary, { face = "Gothic" })
+  S.Fonts.Set(Elements.ZoneNameSecondary, { face = "Gothic" })
 end)

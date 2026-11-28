@@ -1,7 +1,6 @@
 ---@type string, Squi
 local _, S = ...
 
-local FONT_SIZE = 64
 ---Seconds between refreshes of the time left
 local INTERVAL = 1
 ---Seconds to wait after regaining control before the flight counts as landed
@@ -25,11 +24,7 @@ local function ConfigureTimer()
   local text = frame:CreateFontString(nil, "OVERLAY")
   text:SetFontObject(GameFontNormal)
   text:SetPoint("CENTER")
-  S.Fonts.Set(text, {
-    font = S.Fonts.Blackletter,
-    outline = true,
-    size = FONT_SIZE,
-  })
+  S.Fonts.Set(text, { face = "Gothic", outline = true, scale = "Huge" })
 
   ---Name of the stop the flight master offers as current
   ---@return string?

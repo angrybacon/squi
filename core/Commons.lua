@@ -150,7 +150,7 @@ local Commons = {
     dialog.EditBox:SetTextInsets(4, 0, 0, 0)
     S.Fonts.Set(
       dialog.EditBox,
-      { font = S.Fonts.Monospace, outline = false, size = 14 }
+      { face = "Monospace", outline = false, scale = "Body2" }
     )
     local padding = 16
     dialog:SetSize(

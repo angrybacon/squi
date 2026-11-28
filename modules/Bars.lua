@@ -62,11 +62,10 @@ end
 local function ConfigureLabels()
   local cooldownFontId = "SquiCooldownFont"
   local cooldownFont = CreateFont(cooldownFontId)
-  S.Fonts.Set(cooldownFont, {
-    font = S.Fonts.Blackletter,
-    outline = true,
-    size = 20,
-  })
+  S.Fonts.Set(
+    cooldownFont,
+    { face = "Gothic", outline = true, scale = "Heading1" }
+  )
   for _, prefix in ipairs(
     -- stylua: ignore
     {

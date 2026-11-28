@@ -10,7 +10,7 @@ local PARTY_HEIGHT, PARTY_WIDTH = 50, 128
 local STATUS_MARGIN = 4
 
 local function ConfigureFont()
-  S.Fonts.Set(TextStatusBarText, { font = S.Fonts.Blackletter, size = 12 })
+  S.Fonts.Set(TextStatusBarText, { face = "Gothic", scale = "Tiny" })
 end
 
 local function ConfigureFrames()

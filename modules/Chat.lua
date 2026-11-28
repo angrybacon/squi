@@ -1,9 +1,8 @@
 ---@type string, Squi
 local _, S = ...
 
-local FONT_FACE = S.Fonts.Sans
-local FONT_SIZE = 16
 local HEIGHT, WIDTH = 200, 600
+
 ---Blizzard reserves a hardcoded 15px on the left for the border texture's lip,
 ---baked into both the header and the prompt anchors. Since the border is
 ---hidden, drop that reserve so typed text lines up with the chat frame.
@@ -26,11 +25,7 @@ local function ConfigureInput(frame)
     _G["ChatFrame1EditBox"]:GetFontObject(),
     _G["ChatFrame1EditBoxHeader"]:GetFontObject(),
   }) do
-    S.Fonts.Set(region, {
-      font = FONT_FACE,
-      outline = true,
-      size = FONT_SIZE,
-    })
+    S.Fonts.Set(region, { face = "Sans", outline = true, scale = "Body1" })
   end
   ChatFrame1EditBox:ClearAllPoints()
   ChatFrame1EditBox:SetPoint("TOPLEFT", ChatFrame1, "BOTTOMLEFT", 0, 0)
@@ -79,13 +74,12 @@ end
 ---@param frame FloatingChatFrameTemplate
 local function ConfigureTab(frame)
   S.Commons.Hide(_G[frame:GetName() .. "ButtonFrame"])
-  S.Fonts.Set(frame:GetFontObject(), {
-    font = FONT_FACE,
-    outline = true,
-    size = FONT_SIZE,
-  })
+  S.Fonts.Set(
+    frame:GetFontObject(),
+    { face = "Sans", outline = true, scale = "Body1" }
+  )
   -- NOTE Synchronize the in-game setting
-  FCF_SetChatWindowFontSize(nil, frame, FONT_SIZE)
+  FCF_SetChatWindowFontSize(nil, frame, S.Fonts.Scales.Body1)
   FCF_SetWindowAlpha(frame, 0)
 end
 

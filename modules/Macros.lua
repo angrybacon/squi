@@ -2,10 +2,10 @@
 local _, S = ...
 
 local function ConfigureTextarea()
-  S.Fonts.Set(MacroFrameText:GetFontObject(), {
-    font = S.Fonts.Monospace,
-    size = 12,
-  })
+  S.Fonts.Set(
+    MacroFrameText:GetFontObject(),
+    { face = "Monospace", scale = "Tiny" }
+  )
 end
 
 table.insert(S.Modules, function()

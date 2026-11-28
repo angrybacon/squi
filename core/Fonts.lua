@@ -3,32 +3,53 @@ local _, S = ...
 
 local DIRECTORY = [[Interface\AddOns\Squi\fonts\]]
 
----@class Fonts
-local Fonts = {
-  Blackletter = DIRECTORY .. "GermaniaOne-Regular.ttf",
+---@class FontFaces
+local Faces = {
+  Gothic = DIRECTORY .. "GermaniaOne-Regular.ttf",
   Handwriting = DIRECTORY .. "PermanentMarker-Regular.ttf",
   Monospace = DIRECTORY .. "CascadiaCode-Regular.ttf",
   Sans = DIRECTORY .. "GoogleSans-Regular.ttf",
+}
+
+---@class FontScales
+local Scales = {
+  Body1 = 16,
+  Body2 = 14,
+  Heading1 = 20,
+  Heading2 = 18,
+  Huge = 64,
+  Tiny = 12,
+}
+
+---@class Fonts
+local Fonts = {
+  ---@type FontFaces
+  Faces = Faces,
+
+  ---@type FontScales
+  Scales = Scales,
 
   ---Customize the provided region with options
   ---@param region table
-  ---@param options? { font?: string, outline?: boolean, shadow?: boolean, size?: number }
+  ---@param options? { face?: keyof FontFaces, outline?: boolean, scale?: keyof FontScales }
   Set = function(region, options)
-    local font, size, flags = region:GetFont()
-    if options and options.font ~= nil then
-      font = options.font
+    local face, size, flags = region:GetFont()
+    if options and options.face ~= nil then
+      face = assert(
+        Faces[options.face],
+        ("Unsupported font face '%s'"):format(tostring(options.face))
+      )
     end
     if options and options.outline ~= nil then
       flags = options.outline and "OUTLINE" or ""
     end
-    if options and options.size ~= nil then
-      size = options.size
+    if options and options.scale ~= nil then
+      size = assert(
+        Scales[options.scale],
+        ("Unsupported font scale '%s'"):format(tostring(options.scale))
+      )
     end
-    region:SetFont(font, size, flags)
-    if options and options.shadow ~= nil then
-      region:SetShadowColor(0, 0, 0, options.shadow and 0.6 or 0)
-      region:SetShadowOffset(1, -1)
-    end
+    region:SetFont(face, size, flags)
   end,
 }
 

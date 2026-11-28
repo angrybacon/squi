@@ -1,21 +1,17 @@
 ---@type string, Squi
 local _, S = ...
 
-local FONT_SIZE_HEADER = 16
-local FONT_SIZE_BODY = 16
 local MARGIN = 24
 
 local function ConfigureFont()
-  S.Fonts.Set(ObjectiveTrackerHeaderFont, {
-    font = S.Fonts.Blackletter,
-    outline = true,
-    size = FONT_SIZE_HEADER,
-  })
-  S.Fonts.Set(ObjectiveTrackerLineFont, {
-    font = S.Fonts.Sans,
-    outline = true,
-    size = FONT_SIZE_BODY,
-  })
+  S.Fonts.Set(
+    ObjectiveTrackerHeaderFont,
+    { face = "Gothic", outline = false, scale = "Body1" }
+  )
+  S.Fonts.Set(
+    ObjectiveTrackerLineFont,
+    { face = "Sans", outline = true, scale = "Body2" }
+  )
 end
 
 ---Start stacking the panels on the left after the tracker

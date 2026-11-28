@@ -3,8 +3,6 @@ local _, S = ...
 
 local BACKGROUND = S.Colors.Background
 local BACKGROUND_ALPHA = 0.8
-local FONT_FACE = S.Fonts.Sans
-local FONT_SIZE = 16
 local OFFSET = 16
 
 ---Draw a full width line centered on a blank line
@@ -129,19 +127,15 @@ local function ConfigureDisenchant()
 end
 
 local function ConfigureFont()
-  S.Fonts.Set(GameTooltipHeaderText, {
-    font = S.Fonts.Blackletter,
-    outline = true,
-    size = FONT_SIZE + 2,
-  })
+  S.Fonts.Set(
+    GameTooltipHeaderText,
+    { face = "Gothic", outline = true, scale = "Heading2" }
+  )
   for _, name in ipairs({
     "GameTooltipText",
     "GameTooltipTextSmall",
   }) do
-    S.Fonts.Set(
-      _G[name],
-      { font = FONT_FACE, outline = true, size = FONT_SIZE }
-    )
+    S.Fonts.Set(_G[name], { face = "Sans", outline = true, scale = "Body1" })
   end
 end
 
