@@ -39,8 +39,8 @@ table.insert(S.Modules, function()
   SetCVar("nameplateShowOffscreen", "0")
   SetCVar("nameplateShowOnlyNameForFriendlyPlayerUnits", "0")
   SetCVar("nameplateShowSelf", "0")
-  SetCVar("nameplateSize", Enum.NamePlateSize.Medium)
-  SetCVar("nameplateStyle", Enum.NamePlateStyle.Modern)
+  SetCVar("nameplateSize", Enum.NamePlateSize.Large)
+  SetCVar("nameplateStyle", Enum.NamePlateStyle.Thin)
   SetFlags("nameplateCastBarDisplay", {
     [Enum.NamePlateCastBarDisplay.HighlightImportantCasts] = false,
     [Enum.NamePlateCastBarDisplay.HighlightWhenCastTarget] = false,
@@ -75,7 +75,7 @@ table.insert(S.Modules, function()
     [Enum.NamePlateSimplifiedType.MinusMob] = false,
   })
   SetFlags("nameplateStackingTypes", {
-    [Enum.NamePlateStackType.Enemy] = false,
+    [Enum.NamePlateStackType.Enemy] = true,
     [Enum.NamePlateStackType.Friendly] = false,
   })
   SetFlags("nameplateThreatDisplay", {
